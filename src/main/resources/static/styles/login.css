@@ -1,0 +1,53 @@
+.invalid-feedback {
+    color: coral;
+}
+body {
+    background-color: #DCFFFD;
+
+}
+
+#main-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+#logo {
+    width: 10rem;
+    height: 10rem;
+    background-color: black;
+    align-self: center;
+}
+
+#form-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    align-content: center;
+    color: whitesmoke;
+    background-color: #037171;
+    width: 35rem;
+}
+
+#submit-btn {
+    background-color: #009F93;
+    margin-left: 27.5%;
+    border: 0;
+    width: 45%;
+}
+
+#submit-btn:hover {
+    background-color: #38c3b7;
+}
+
+
+input#user:valid, input#password:valid{
+    background-image: none;
+    border: #86b7fe 2px solid;
+}

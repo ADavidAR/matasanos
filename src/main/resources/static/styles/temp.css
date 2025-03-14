@@ -1,0 +1,44 @@
+body {
+    background-color: #DCFFFD;
+}
+
+#role-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #037171;
+    height: 6rem;
+}
+
+#role {
+    color: whitesmoke;
+}
+
+#options {
+    background-color: #003F91;
+    height: 3rem; 
+    width: 100%; 
+}
+
+a[class="nav"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: auto;
+    font-size: 2rem;
+    cursor: pointer;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#nav-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+a[class^="nav"]:hover {
+    background-color: #2061b5;
+}
