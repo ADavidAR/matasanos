@@ -32,7 +32,7 @@ public class UsuarioController {
 
         Usuario u = usuarioService.autenticarUsuario(usuario, pass);
 
-        return u != null ? ResponseEntity.ok(u) : ResponseEntity.ok(Collections.emptyMap());
+        return ( u != null ) ? ResponseEntity.ok(u) : ResponseEntity.ok(Collections.emptyMap());
 
     }
 }

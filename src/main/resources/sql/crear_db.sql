@@ -40,7 +40,7 @@ CREATE TABLE FacturacionSAR(
 	rango_inicio INT NOT NULL,
 	rango_fin INT NOT NULL,
 	vigente BIT NOT NULL,
-	cai VARCHAR (44) NOT NULL
+	cai VARCHAR (44) UNIQUE NOT NULL
 );
 
 CREATE TABLE Descuento(
@@ -119,7 +119,7 @@ CREATE TABLE Cliente(
 	telefono VARCHAR (15),
 	correo VARCHAR (250),
 	rtn VARCHAR (20),
-	cedula VARCHAR (15),
+	cedula VARCHAR (15) UNIQUE,
 	fecha_creacion DATE,
 	fecha_modificacion DATE,
 	id_direccion INT NOT NULL,
@@ -271,14 +271,14 @@ CREATE TABLE SucursalProducto(
 	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal)
 );
 
-CREATE VIEW v_UsuarioConPersmiso AS
+--VISTAS
+
+CREATE VIEW v_UsuarioConPermiso AS
     SELECT u.*, r.nombre_rol, p.* FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
 CREATE VIEW v_UsuarioConRol AS
-    SELECT u.*, r.nombre_rol, p.* FROM Usuario u
-    LEFT JOIN Rol r ON r.id_rol = u.id_rol
-    LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
-    LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
+    SELECT u.*, r.nombre_rol FROM Usuario u
+    LEFT JOIN Rol r ON r.id_rol = u.id_rol:

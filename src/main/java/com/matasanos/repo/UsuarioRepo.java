@@ -26,7 +26,9 @@ public class UsuarioRepo {
 
     public Usuario obtenerUsuario(String usuario) {
         String sql = "SELECT * FROM v_UsuarioConRol WHERE usuario = ?";
-        return jdbcTemplate.queryForObject(sql, usuarioRowMapper, usuario);
+        List<Usuario> usuarios = jdbcTemplate.query(sql, usuarioRowMapper, usuario);
+
+        return (usuarios.isEmpty()) ? null : usuarios.getFirst();
     }
 
     public Usuario obtenerUsuarioConPermisos (String usuario) {
