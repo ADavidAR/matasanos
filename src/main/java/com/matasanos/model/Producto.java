@@ -15,12 +15,12 @@ public class Producto {
     private BigDecimal precioDescuento;
     private LocalDate fechaCreacion;
     private LocalDate fechaModificacion;
-    private int idCategoria;
+    private Categoria categoria;
     private int idProveedor;
     private int idUsuarioCreacion;
     private int idUsuarioModificacion;
 
-    public Producto (int idProducto, String nombre, String descripcion, BigDecimal precioVenta, int inventario, LocalDate fechaVencimiento, boolean ventaLibre, BigDecimal precioDescuento, LocalDate fechaCreacion, LocalDate fechaModificacion, int idCategoria, int idProveedor, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Producto (int idProducto, String nombre, String descripcion, BigDecimal precioVenta, int inventario, LocalDate fechaVencimiento, boolean ventaLibre, BigDecimal precioDescuento, LocalDate fechaCreacion, LocalDate fechaModificacion, Categoria categoria, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -31,8 +31,7 @@ public class Producto {
         this.precioDescuento = precioDescuento;
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
-        this.idCategoria = idCategoria;
-        this.idProveedor = idProveedor;
+        this.categoria = categoria;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
@@ -97,18 +96,6 @@ public class Producto {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public int getIdcategoria() { return idCategoria; }
-
-    public void setIdcategoria(int idCategoria ){
-        this.idCategoria = idCategoria;
-    }
-
-    public int getIdproveedor() { return idProveedor; }
-
-    public void setIdproveedor(int idProveedor ){
-        this.idProveedor = idProveedor;
-    }
-
     public int getIdusuariocreacion() { return idUsuarioCreacion; }
 
     public void setIdusuariocreacion(int idUsuarioCreacion ){
@@ -119,5 +106,21 @@ public class Producto {
 
     public void setIdusuariomodificacion(int idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
     }
 }

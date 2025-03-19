@@ -3,6 +3,7 @@ package com.matasanos.repo;
 
 import com.matasanos.model.Permiso;
 import com.matasanos.model.Usuario;
+import com.matasanos.repo.rowmapper.CustomRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,12 +22,12 @@ public class UsuarioRepo {
     public List<Usuario> listarUsuarios() {
         String sql = "SELECT * FROM v_UsuarioConRol";
 
-        return jdbcTemplate.query(sql, usuarioRowMapper);
+        return jdbcTemplate.query(sql, CustomRowMapper.usuarioRowMapper);
     }
 
     public Usuario obtenerUsuario(String usuario) {
         String sql = "SELECT * FROM v_UsuarioConRol WHERE usuario = ?";
-        List<Usuario> usuarios = jdbcTemplate.query(sql, usuarioRowMapper, usuario);
+        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();
     }
@@ -37,27 +38,11 @@ public class UsuarioRepo {
             return null;
 
         String sql = "SELECT id_permiso, descripcion FROM v_UsuarioConPermiso WHERE id_usuario = ?";
-        List<Permiso> permisos = jdbcTemplate.query(sql, permisoRowMapper, u.getIdusuario());
+        List<Permiso> permisos = jdbcTemplate.query(sql, CustomRowMapper.permisoRowMapper, u.getIdusuario());
 
         u.setPermisos(permisos);
 
         return u;
     }
-
-    private final RowMapper<Usuario> usuarioRowMapper = (rs, numCol) ->
-        new Usuario(
-                rs.getInt("id_usuario"),
-                rs.getString("usuario"),
-                rs.getString("contrasena"),
-                rs.getDate("fecha_creacion").toLocalDate(),
-                (rs.getDate("fecha_modificacion") != null) ? rs.getDate("fecha_modificacion").toLocalDate() : null,
-                rs.getInt("id_rol"),
-                rs.getString("nombre_rol"),
-                rs.getInt("id_usuario_creacion"), // retorna 0 si es NULL
-                rs.getInt("id_usuario_modificacion") // retorna 0 si es NULL
-        );
-
-    private final RowMapper<Permiso> permisoRowMapper = (rs, numCol) ->
-        new Permiso( rs.getInt("id_permiso"), rs.getString("descripcion"));
 
 }

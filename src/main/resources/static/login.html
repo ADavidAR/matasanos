@@ -20,9 +20,13 @@
                       Ingrese el usuario
                   </div>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
+                <label for="password" class="form-label">Contraseña</label>
+                <div class="mb-3 input-group">
                     <input type="password" class="form-control" id="password" required>
+                    
+                    <button class="btn btn-outline-secondary" id="password-button" type="button" onclick="mostrarContraseña()">
+                      <i id="toggleIcon" class="bi bi-eye"></i>
+                    </button>
                     <div id="msg-pass" class="invalid-feedback">
                       Ingrese la contraseña
                   </div>
@@ -33,6 +37,7 @@
     </section>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="/scripts/login.js"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@ USE matasanos;
 
 CREATE TABLE Sucursal(
 	id_sucursal INT IDENTITY (1,1) PRIMARY KEY,
-	nombre VARCHAR (200) NOT NULL,
+	nombre_sucursal VARCHAR (200) NOT NULL,
 	num_establecimiento VARCHAR (3) NOT NULL
 );
 
@@ -166,7 +166,7 @@ CREATE TABLE FacturaDescuento(
 
 CREATE TABLE Producto(
 	id_producto INT IDENTITY(1,1) PRIMARY KEY,
-	nombre VARCHAR(300) NOT NULL,
+	nombre_producto VARCHAR(300) NOT NULL,
 	descripcion TEXT NOT NULL,
 	precio_venta DECIMAL NOT NULL,
 	inventario INT NOT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE Producto(
 	venta_libre BIT NOT NULL,
 	precio_descuento DECIMAL,
 	fecha_creacion DATE,
-	fecha_modificacion DATE, 
+	fecha_modificacion DATE,
 	id_categoria INT NOT NULL,
 	id_proveedor INT NOT NULL,
 	id_usuario_creacion INT,
@@ -260,7 +260,7 @@ CREATE TABLE Empleado(
 	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal),
 	FOREIGN KEY (id_usuario_creacion) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
-); 
+);
 
 CREATE TABLE SucursalProducto(
 	id_sucursal_producto INT IDENTITY(1,1) PRIMARY KEY,
@@ -282,3 +282,11 @@ CREATE VIEW v_UsuarioConPermiso AS
 CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol:
+
+
+CREATE VIEW v_ProductoSucursal AS
+	SELECT p.*, nombre_categoria, nombre_departamento, s.id_sucursal, nombre_sucursal FROM Producto p
+	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
+	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
+	INNER JOIN SucursalProducto sp ON sp.id_producto = p.id_producto
+	INNER JOIN Sucursal s ON s.id_sucursal = sp.id_sucursal;
