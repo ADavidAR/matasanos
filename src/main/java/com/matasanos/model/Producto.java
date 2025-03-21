@@ -20,7 +20,21 @@ public class Producto {
     private int idUsuarioCreacion;
     private int idUsuarioModificacion;
 
-    public Producto (int idProducto, String nombre, String descripcion, BigDecimal precioVenta, int inventario, LocalDate fechaVencimiento, boolean ventaLibre, BigDecimal precioDescuento, LocalDate fechaCreacion, LocalDate fechaModificacion, Categoria categoria, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Producto (
+            int idProducto,
+            String nombre,
+            String descripcion,
+            BigDecimal precioVenta,
+            int inventario,
+            LocalDate fechaVencimiento,
+            boolean ventaLibre,
+            BigDecimal precioDescuento,
+            LocalDate fechaCreacion,
+            LocalDate fechaModificacion,
+            Categoria categoria,
+            int idUsuarioCreacion,
+            int idUsuarioModificacion
+    ) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;

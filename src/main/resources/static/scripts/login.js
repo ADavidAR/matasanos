@@ -2,9 +2,18 @@
 
 (function () {
 
+
+    document.addEventListener("DOMContentLoaded", (e) => {
+        const form = document.querySelector("#main-container ");
+        setTimeout(() => {
+            form.style.opacity = 1;
+            form.style.top = "0px"
+        }, 500)
+        
+    })
     let form = document.querySelector('#login-form');
-    const msgPass = document.querySelector("#msg-pass")
-    const msgUser = document.querySelector("#msg-user")
+    const msgPass = document.querySelector("#msg-pass");
+    const msgUser = document.querySelector("#msg-user");
 
     const inputs = document.querySelectorAll(".form-control");
 
@@ -34,6 +43,7 @@
 
     inputs.forEach(input => {
         input.addEventListener("input", (event) => {
+            document.querySelector("#password").classList.remove("is-invalid");
             if(input.validity.valid) {
                 msgUser.textContent = "Ingrese el usuario";
                 msgPass.textContent = "Ingrese el contraseña";
@@ -47,8 +57,8 @@
 }) ()
 
 async function validarUsuario() {
-    const msgPass = document.querySelector("#msg-pass")
-    const msgUser = document.querySelector("#msg-user")
+    const msgPass = document.querySelector("#msg-pass");
+    const msgUser = document.querySelector("#msg-user");
     let usuario = document.querySelector("#user");
     let pass = document.querySelector("#password");
 
@@ -56,8 +66,6 @@ async function validarUsuario() {
         usuario: usuario.value,
         pass: pass.value
     } 
-
-    console.log(data)
 
     let datosUsuario = await fetch("/api/usuarios/verificar", {
         method: "POST",
@@ -68,20 +76,19 @@ async function validarUsuario() {
     })
     .then( response => response.json())
 
-    if(Object.keys(datosUsuario).length === 0) {
+    if(Object.keys(datosUsuario).length === 0 || datosUsuario.status !== undefined) {
         
         msgUser.textContent = "";
         msgPass.textContent = "Usuario o contraseña incorrecto";
 
         pass.classList.add("is-invalid");
-        console.log(`bAD reUQEST ${datosUsuario}`)
         return;
 
     }
 
     localStorage.setItem("datos", JSON.stringify(datosUsuario));
 
-    window.location.href = "/temp"
+    window.location.href = "/home"
 }
 
 function mostrarContraseña() {

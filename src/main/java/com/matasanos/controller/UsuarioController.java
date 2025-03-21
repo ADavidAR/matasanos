@@ -5,7 +5,6 @@ import com.matasanos.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +32,5 @@ public class UsuarioController {
         Usuario u = usuarioService.autenticarUsuario(usuario, pass);
 
         return ( u != null ) ? ResponseEntity.ok(u) : ResponseEntity.ok(Collections.emptyMap());
-
     }
 }

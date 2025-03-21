@@ -101,7 +101,7 @@ VALUES
 
 
 INSERT INTO Producto (
-  nombre, descripcion, precio_venta, inventario, fecha_vencimiento,
+  nombre_producto, descripcion, precio_venta, inventario, fecha_vencimiento,
   venta_libre, precio_descuento, fecha_creacion, fecha_modificacion,
   id_categoria, id_proveedor, id_usuario_creacion, id_usuario_modificacion
 )

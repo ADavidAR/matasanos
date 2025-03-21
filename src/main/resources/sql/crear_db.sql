@@ -279,14 +279,21 @@ CREATE VIEW v_UsuarioConPermiso AS
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
+
 CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
-    LEFT JOIN Rol r ON r.id_rol = u.id_rol:
+    LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
 
 CREATE VIEW v_ProductoSucursal AS
-	SELECT p.*, nombre_categoria, nombre_departamento, s.id_sucursal, nombre_sucursal FROM Producto p
+	SELECT p.*, nombre_categoria, nombre_departamento, s.id_sucursal, nombre_sucursal, inventario_sucursal FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
 	INNER JOIN SucursalProducto sp ON sp.id_producto = p.id_producto
 	INNER JOIN Sucursal s ON s.id_sucursal = sp.id_sucursal;
+
+
+CREATE VIEW v_Producto AS
+	SELECT p.*, nombre_categoria, nombre_departamento FROM Producto p
+	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
+	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento;

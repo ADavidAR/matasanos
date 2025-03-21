@@ -23,7 +23,24 @@ public class CustomRowMapper {
     public static final RowMapper<Producto> productoDeSucursalRowMapper = (rs, numCol) ->
             new Producto(
                     rs.getInt("id_producto"),
-                    rs.getString("nombre_prducto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("descripcion"),
+                    rs.getBigDecimal("precio_venta"),
+                    rs.getInt("inventario_sucursal"),
+                    rs.getDate("fecha_vencimiento").toLocalDate(),
+                    rs.getBoolean("venta_libre"),
+                    rs.getBigDecimal("precio_descuento"),
+                    rs.getDate("fecha_creacion").toLocalDate(),
+                    (rs.getDate("fecha_modificacion") != null) ? rs.getDate("fecha_modificacion").toLocalDate() : null,
+                    new Categoria( rs.getInt("id_categoria"), rs.getString("nombre_categoria"),rs.getInt("id_categoria") ),
+                    rs.getInt("id_usuario_creacion"),
+                    rs.getInt("id_usuario_creacion")
+            );
+
+    public static final RowMapper<Producto> productoRowMapper = (rs, numCol) ->
+            new Producto (
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
                     rs.getString("descripcion"),
                     rs.getBigDecimal("precio_venta"),
                     rs.getInt("inventario"),
@@ -31,9 +48,9 @@ public class CustomRowMapper {
                     rs.getBoolean("venta_libre"),
                     rs.getBigDecimal("precio_descuento"),
                     rs.getDate("fecha_creacion").toLocalDate(),
-                    rs.getDate("fecha_modificacion").toLocalDate(),
+                    (rs.getDate("fecha_modificacion") != null) ? rs.getDate("fecha_modificacion").toLocalDate() : null,
                     new Categoria( rs.getInt("id_categoria"), rs.getString("nombre_categoria"),rs.getInt("id_categoria") ),
-                    rs.getInt("usuario_creacion"),
-                    rs.getInt("usuario_creacion")
+                    rs.getInt("id_usuario_creacion"),
+                    rs.getInt("id_usuario_creacion")
             );
 }

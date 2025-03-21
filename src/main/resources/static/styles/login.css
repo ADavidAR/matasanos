@@ -14,13 +14,19 @@ body {
     align-content: center;
     width: 100vw;
     height: 100vh;
+    
+    position: relative;
+    top: -10rem;
+    opacity: 0;
+    transition: all .5s;
 
 }
 
 #logo {
     width: 10rem;
     height: 10rem;
-    background-color: black;
+    background: url(/img/logo.png);
+    background-size: 100% 100% ;
     align-self: center;
 }
 
@@ -33,6 +39,7 @@ body {
     color: whitesmoke;
     background-color: #037171;
     width: 35rem;
+
 }
 
 #submit-btn {

@@ -1,5 +1,6 @@
 package com.matasanos.service;
 
+import com.matasanos.model.Producto;
 import com.matasanos.model.Usuario;
 import com.matasanos.repo.UsuarioRepo;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ public class UsuarioService {
         if(u == null || !u.getContrasena().equals(pass)) return null;
         return u;
     }
-
     public List<Usuario> listarUsuarios() {
         return usuarioRepo.listarUsuarios();
     }
