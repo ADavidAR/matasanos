@@ -2,16 +2,16 @@ window.addEventListener("DOMContentLoaded", async () => {
     const roleH1 = document.querySelector("#role");
     const optionsNav = document.querySelector("#nav-options");
     
-    let datosUsuario = JSON.parse(localStorage.getItem("datos"));
+    let userData = JSON.parse(localStorage.getItem("userData"));
 
 
-    roleH1.textContent = datosUsuario.nombreRol;
+  roleH1.textContent = userData.rol.nombrerol;
     
-    datosUsuario.permisos.forEach((p) => {
+    userData.rol.permisos.forEach((p) => {
         const option = document.createElement("a");
-        option.classList.add("nav");
-        option.textContent = p.descripcion;
-        option.dataset.id = p.idpermiso;
+        option.classList.add("btn");
+        option.textContent = p.permiso.descripcion;
+        option.dataset.id = p.permiso.idpermiso;
         optionsNav.appendChild(option);
     })
 })

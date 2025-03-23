@@ -2,20 +2,18 @@
 INSERT INTO Rol (nombre_rol)
 VALUES
     ('Administrador'),  -- Rol 1
-    ('Empleado');  -- Rol 2
+	('Empleado');  -- Rol 2
 
-INSERT INTO Permiso (descripcion)
+INSERT INTO Permiso (descripcion, pantalla_html)
 VALUES 
-    ('Acceder al sistema'),  -- Permiso 1
-    ('Modificar registros'),  -- Permiso 2
-    ('Ver reportes');  -- Permiso 3
+    ('Permisos','permissions.html'),  -- Permiso 1
+    ('Usuarios', 'users.html');  -- Permiso 2
 
-INSERT INTO RolPermisos (id_rol, id_permiso)
+INSERT INTO RolPermisos (id_rol, id_permiso, modificacion, eliminacion, creacion)
 VALUES
-    (1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Acceder al sistema)
-    (1, 2),  -- Rol 1 (Administrador) con Permiso 2 (Modificar registros)
-    (2, 3);  -- Rol 2 (Empleado) con Permiso 3 (Ver reportes)
-
+    (1, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Acceder al sistema)
+    (1, 2, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Modificar registros)
+    (2, 2, 0, 0, 0);  -- Rol 2 (Empleado) con Permiso 3 (Ver reportes)
 
 INSERT INTO Ciudad (ciudad)
 VALUES 
@@ -23,31 +21,31 @@ VALUES
     ('San Pedro Sula'),  -- Ciudad 2
     ('La Ceiba');  -- Ciudad 3
 
-	INSERT INTO Direcciones (colonia, direccion, id_ciudad)
+INSERT INTO Direcciones (colonia, direccion, id_ciudad)
 VALUES 
     ('Centro', 'Av. Principal #123', 1),  -- Dirección en Tegucigalpa
     ('Zona Industrial', 'Calle Secundaria #456', 2); -- Dirección en San Pedro Sula
 
-
-	INSERT INTO Cargo (descripcion)
+INSERT INTO Cargo (descripcion)
 VALUES 
     ('Gerente de Ventas'),  -- Cargo 1
     ('Cajero');  -- Cargo 2
 
-	INSERT INTO Sucursal (nombre_sucursal, num_establecimiento)
+INSERT INTO Sucursal (nombre_sucursal, num_establecimiento)
 VALUES 
     ('Sucursal Centro', '001'),  -- Sucursal en Tegucigalpa
     ('Sucursal Norte', '002');  -- Sucursal en San Pedro Sula
 
-
-	INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, id_usuario_creacion, id_usuario_modificacion)
+INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, id_usuario_creacion, id_usuario_modificacion)
 VALUES 
     ('admin', 'admin123', '2025-03-14', 1, NULL, NULL);  
 
+DECLARE @id_admin INT;
+SET @id_admin = (SELECT id_usuario FROM Usuario WHERE usuario = 'admin');
 
 	INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, id_usuario_creacion, id_usuario_modificacion)
 VALUES 
-    ('analopez', 'empleado456', '2025-03-14', 2, 1, NULL);  
+    ('analopez', 'empleado456', '2025-03-14', 2, @id_admin, NULL);
 
 
 INSERT INTO Empleado (

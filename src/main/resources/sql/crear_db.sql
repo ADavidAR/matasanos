@@ -15,9 +15,9 @@ CREATE TABLE Funcion(
 
 CREATE TABLE Permiso(
 	id_permiso INT IDENTITY (1,1) PRIMARY KEY,
-	descripcion VARCHAR (400)
+	descripcion VARCHAR (400),
+	pantalla_html VARCHAR (200) NOT NULL
 );
-
 
 CREATE TABLE Departamento(
 	id_departamento INT IDENTITY(1,1) PRIMARY KEY,
@@ -52,7 +52,7 @@ CREATE TABLE Descuento(
 
 CREATE TABLE Rol(
 	id_rol INT IDENTITY(1,1) PRIMARY KEY,
-	nombre_rol VARCHAR (300) NOT NULL
+	nombre_rol VARCHAR (300) NOT NULL,
 );
 
 CREATE TABLE Ciudad(
@@ -77,6 +77,9 @@ CREATE TABLE RolPermisos(
 	id_rol_permiso INT IDENTITY(1,1) PRIMARY KEY,
 	id_rol INT,
 	id_permiso INT NOT NULL,
+	modificacion BIT NOT NULL,
+	eliminacion BIT NOT NULL,
+	creacion BIT NOT NULL,
 	FOREIGN KEY (id_rol) REFERENCES Rol(id_rol),
 	FOREIGN KEY (id_permiso) REFERENCES Permiso(id_permiso)
 );
@@ -182,7 +185,7 @@ CREATE TABLE Producto(
 	FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria),
 	FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id_proveedor),
 	FOREIGN KEY (id_usuario_creacion) REFERENCES Usuario(id_usuario),
-	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario),
+	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
 
 CREATE TABLE FacturaProducto(
@@ -232,7 +235,7 @@ CREATE TABLE ProductoCompra(
 	id_compra INT NOT NULL,
 	id_producto INT NOT NULL,
 	FOREIGN KEY (id_compra) REFERENCES Compra(id_compra),
-	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
+	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
 
 CREATE TABLE Empleado(
@@ -273,16 +276,17 @@ CREATE TABLE SucursalProducto(
 
 --VISTAS
 
-CREATE VIEW v_UsuarioConPermiso AS
-    SELECT u.*, r.nombre_rol, p.* FROM Usuario u
-    LEFT JOIN Rol r ON r.id_rol = u.id_rol
-    LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
-    LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
-
+CREATE VIEW v_Usuario AS
+    SELECT * FROM Usuario
 
 CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
+
+CREATE VIEW v_RolPermisos AS
+    SELECT rp.*, r.nombre_rol, p.descripcion, p.pantalla_html FROM Rol r
+    LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
+    LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
 
 CREATE VIEW v_ProductoSucursal AS
