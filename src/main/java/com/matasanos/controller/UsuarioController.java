@@ -26,7 +26,7 @@ public class UsuarioController {
 
     @PostMapping("/verificar")
     public ResponseEntity<?> obtenerUsuarioPorNombre(@RequestBody Map<String, String> requestBody) {
-        String usuario = requestBody.get("usuario");
+        String usuario = requestBody.get("user");
         String pass = requestBody.get("pass");
 
         Usuario u = usuarioService.autenticarUsuario(usuario, pass);
