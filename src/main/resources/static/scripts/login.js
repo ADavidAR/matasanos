@@ -59,15 +59,15 @@
 async function validarUsuario() {
     const msgPass = document.querySelector("#msg-pass");
     const msgUser = document.querySelector("#msg-user");
-    let usuario = document.querySelector("#user");
+    let user = document.querySelector("#user");
     let pass = document.querySelector("#password");
 
     let data = {
-        usuario: usuario.value,
+        user: user.value,
         pass: pass.value
     } 
 
-    let datosUsuario = await fetch("/api/usuarios/verificar", {
+    let userData = await fetch("/api/usuarios/verificar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -76,7 +76,7 @@ async function validarUsuario() {
     })
     .then( response => response.json())
 
-    if(Object.keys(datosUsuario).length === 0 || datosUsuario.status !== undefined) {
+    if(Object.keys(userData).length === 0 || userData.status !== undefined) {
         
         msgUser.textContent = "";
         msgPass.textContent = "Usuario o contraseña incorrecto";
@@ -86,7 +86,7 @@ async function validarUsuario() {
 
     }
 
-    localStorage.setItem("datos", JSON.stringify(datosUsuario));
+    localStorage.setItem("userData", JSON.stringify(userData));
 
     window.location.href = "/home"
 }
