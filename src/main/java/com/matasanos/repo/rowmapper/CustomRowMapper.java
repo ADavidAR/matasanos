@@ -25,6 +25,16 @@ public class CustomRowMapper {
                     rs.getBoolean("eliminacion"),
                     rs.getBoolean("creacion")
             );
+
+    public static final RowMapper<RolPermisos> rolPermisoSimpleRowMapper = (rs, numCol) ->
+            new RolPermisos(
+                    rs.getInt("id_rol_permiso"),
+                    null,
+                    CustomRowMapper.permisoRowMapper.mapRow(rs, numCol),
+                    rs.getBoolean("modificacion"),
+                    rs.getBoolean("eliminacion"),
+                    rs.getBoolean("creacion")
+            );
     public static final RowMapper<Usuario> usuarioRowMapper = (rs, numCol) ->
             new Usuario(
                     rs.getInt("id_usuario"),
