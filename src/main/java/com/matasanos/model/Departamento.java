@@ -4,8 +4,8 @@ package com.matasanos.model;
 
 public class Departamento {
 
-    private int idDepartamento;
-    private String nombreDepartamento;
+    private int idDepartamento;// id_departamento
+    private String nombreDepartamento;// nombre_departamento
 
     public Departamento (int idDepartamento, String nombreDepartamento) {
         this.idDepartamento = idDepartamento;

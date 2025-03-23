@@ -1,32 +1,48 @@
 package com.matasanos.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Usuario {
 
-    private int idUsuario;
-    private String usuario;
-    private String contrasena;
-    private LocalDate fechaCreacion;
-    private LocalDate fechaModificacion;
-    private int idRol;
-    private String nombreRol;
-    private int idUsuarioCreacion;
-    private int idUsuarioModificacion;
+    private int idUsuario;// id_usuario
+    private String usuario;// usuario
+    private String contrasena;// contrasena
+    private LocalDate fechaCreacion;// fecha_creacion
+    private LocalDate fechaModificacion;// fecha_modificacion
+    private Rol rol;
+    private int idUsuarioCreacion;// id_usuario_creacion
+    private int idUsuarioModificacion;// id_usuario_modificacion
 
-    private List<Permiso> permisos;
-
-    public Usuario (int idUsuario, String usuario, String contrasena, LocalDate fechaCreacion, LocalDate fechaModificacion, int idRol, String nombreRol, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Usuario (int idUsuario, String usuario, String contrasena, LocalDate fechaCreacion, LocalDate fechaModificacion, Rol rol, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
-        this.idRol = idRol;
-        this.nombreRol = nombreRol;
+        this.rol = rol;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
+    }
+
+    public Usuario (int idUsuario, String usuario, String contrasena, Rol rol) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.fechaCreacion = null;
+        this.fechaModificacion = null;
+        this.rol = rol;
+        this.idUsuarioCreacion = 0;
+        this.idUsuarioModificacion = 0;
+    }
+
+    public Usuario (int idUsuario, String usuario, String contrasena) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.fechaCreacion = null;
+        this.fechaModificacion = null;
+        this.idUsuarioCreacion = 0;
+        this.idUsuarioModificacion = 0;
     }
 
     public int getIdusuario() { return idUsuario; }
@@ -59,10 +75,10 @@ public class Usuario {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public int getIdrol() { return idRol; }
+    public Rol getRol() { return rol; }
 
-    public void setIdrol(int idRol ){
-        this.idRol = idRol;
+    public void setRol(Rol rol ){
+        this.rol = rol;
     }
 
     public int getIdusuariocreacion() { return idUsuarioCreacion; }
@@ -75,21 +91,5 @@ public class Usuario {
 
     public void setIdusuariomodificacion(int idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
-    }
-
-    public List<Permiso> getPermisos() {
-        return permisos;
-    }
-
-    public void setPermisos(List<Permiso> permisos) {
-        this.permisos = permisos;
-    }
-
-    public String getNombreRol() {
-        return nombreRol;
-    }
-
-    public void setNombreRol(String nombreRol) {
-        this.nombreRol = nombreRol;
     }
 }
