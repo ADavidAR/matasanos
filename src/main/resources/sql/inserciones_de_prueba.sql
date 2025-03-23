@@ -1,10 +1,9 @@
 
-INSERT INTO Rol (nombre_rol)
+INSERT INTO Rol (nombre_rol, fecha_creacion, fecha_modificacion, id_usuario_creacion, id_usuario_modificacion)
 VALUES
-    ('Administrador'),  -- Rol 1
-    ('Empleado');  -- Rol 2
+    ('Administrador', '2025-03-14', NULL, NULL, NULL);  -- Rol 1
 
-INSERT INTO Permiso (descripcion)
+INSERT INTO Permiso (descripcion, id_usuario_creacion, id_usuario_modificacion)
 VALUES 
     ('Acceder al sistema'),  -- Permiso 1
     ('Modificar registros'),  -- Permiso 2
@@ -44,10 +43,17 @@ VALUES
 VALUES 
     ('admin', 'admin123', '2025-03-14', 1, NULL, NULL);  
 
+DECLARE @id_admin INT;
+SET @id_admin = (SELECT id_usuario FROM Usuario WHERE usuario = 'admin');
+
+INSERT INTO Rol (nombre_rol, fecha_creacion, fecha_modificacion, id_usuario_creacion, id_usuario_modificacion)
+VALUES
+    ('Administrador', '2025-03-14', NULL, NULL, NULL),  -- Rol 1
+    ('Empleado', '2025-03-14', NULL, @id_admin, NULL);  -- Rol 2
 
 	INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, id_usuario_creacion, id_usuario_modificacion)
 VALUES 
-    ('analopez', 'empleado456', '2025-03-14', 2, 1, NULL);  
+    ('analopez', 'empleado456', '2025-03-14', 2, 1, NULL);
 
 
 INSERT INTO Empleado (
