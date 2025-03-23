@@ -16,9 +16,9 @@ public class UsuarioService {
     }
 
     public Usuario autenticarUsuario(String usuario, String pass) {
-        Usuario u = usuarioRepo.obtenerUsuarioConPermisos(usuario);
+        Usuario u = usuarioRepo.obtenerUsuario(usuario);
         if(u == null || !u.getContrasena().equals(pass)) return null;
-        return u;
+        return usuarioRepo.obtenerUsuarioConPermisos(usuario);
     }
     public List<Usuario> listarUsuarios() {
         return usuarioRepo.listarUsuarios();
