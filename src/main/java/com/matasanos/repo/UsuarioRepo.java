@@ -16,9 +16,11 @@ import java.util.List;
 public class UsuarioRepo {
 
     JdbcTemplate jdbcTemplate;
+    RolPermisosRepo rolPermisosRepo;
 
-    public UsuarioRepo(JdbcTemplate jdbcTemplate) {
+    public UsuarioRepo(JdbcTemplate jdbcTemplate, RolPermisosRepo rolPermisosRepo) {
         this.jdbcTemplate = jdbcTemplate;
+        this.rolPermisosRepo = rolPermisosRepo;
     }
 
     public List<Usuario> listarUsuarios() {
@@ -47,8 +49,7 @@ public class UsuarioRepo {
         if(u == null)
             return null;
 
-        String sql = "SELECT * FROM v_UsuarioConRolPermisos WHERE id_usuario = ?";
-        List<RolPermisos> permisos = jdbcTemplate.query(sql, CustomRowMapper.rolPermisoRowMapper, u.getIdusuario());
+        List<RolPermisos> permisos = rolPermisosRepo.listarPermisosDeRol(u.getRol().getIdrol());
 
         u.getRol().setPermisos(permisos);
 
