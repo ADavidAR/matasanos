@@ -290,7 +290,7 @@ CREATE VIEW v_RolPermisos AS
 
 
 CREATE VIEW v_ProductoSucursal AS
-	SELECT p.*, nombre_categoria, nombre_departamento, s.id_sucursal, nombre_sucursal, inventario_sucursal FROM Producto p
+	SELECT p.*, nombre_categoria, d.id_departamento, nombre_departamento, s.id_sucursal, nombre_sucursal, inventario_sucursal FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
 	INNER JOIN SucursalProducto sp ON sp.id_producto = p.id_producto
