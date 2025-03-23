@@ -4,14 +4,14 @@ package com.matasanos.model;
 
 public class Categoria {
 
-    private int idCategoria;
-    private String nombreCategoria;
-    private int idDepartamento;
+    private int idCategoria;// id_categoria
+    private String nombreCategoria;// nombre_categoria
+    private Departamento departamento;
 
-    public Categoria (int idCategoria, String nombreCategoria, int idDepartamento) {
+    public Categoria (int idCategoria, String nombreCategoria, Departamento departamento) {
         this.idCategoria = idCategoria;
         this.nombreCategoria = nombreCategoria;
-        this.idDepartamento = idDepartamento;
+        this.departamento = departamento;
     }
 
     public int getIdcategoria() { return idCategoria; }
@@ -26,9 +26,9 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public int getIddepartamento() { return idDepartamento; }
+    public Departamento getDepartamento() { return departamento; }
 
-    public void setIddepartamento(int idDepartamento ){
-        this.idDepartamento = idDepartamento;
+    public void setDepartamento(Departamento departamento ){
+        this.departamento = departamento;
     }
 }
