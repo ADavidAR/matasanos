@@ -53,13 +53,6 @@ CREATE TABLE Descuento(
 CREATE TABLE Rol(
 	id_rol INT IDENTITY(1,1) PRIMARY KEY,
 	nombre_rol VARCHAR (300) NOT NULL,
-    fecha_creacion DATE NOT NULL,
-    fecha_modificacion DATE,
-	id_usuario_creacion INT,
-    id_usuario_modificacion INT,
-    FOREIGN KEY (id_usuario_creacion) REFERENCES Usuario(id_usuario),
-    FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
-
 );
 
 CREATE TABLE Ciudad(
@@ -88,7 +81,7 @@ CREATE TABLE RolPermisos(
 	eliminacion BIT NOT NULL,
 	creacion BIT NOT NULL,
 	FOREIGN KEY (id_rol) REFERENCES Rol(id_rol),
-	FOREIGN KEY (id_permiso) REFERENCES Permiso(id_permiso),
+	FOREIGN KEY (id_permiso) REFERENCES Permiso(id_permiso)
 );
 
 CREATE TABLE Categoria(
@@ -192,7 +185,7 @@ CREATE TABLE Producto(
 	FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria),
 	FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id_proveedor),
 	FOREIGN KEY (id_usuario_creacion) REFERENCES Usuario(id_usuario),
-	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario),
+	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
 
 CREATE TABLE FacturaProducto(
@@ -242,7 +235,7 @@ CREATE TABLE ProductoCompra(
 	id_compra INT NOT NULL,
 	id_producto INT NOT NULL,
 	FOREIGN KEY (id_compra) REFERENCES Compra(id_compra),
-	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
+	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
 );
 
 CREATE TABLE Empleado(
@@ -290,7 +283,7 @@ CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
-CREATE VIEW v_ConRolPermisos AS
+CREATE VIEW v_UsuarioConRolPermisos AS
     SELECT rp.*, r.nombre_rol, p.descripcion, p.pantalla_html FROM Rol r
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
