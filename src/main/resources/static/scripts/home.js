@@ -4,13 +4,13 @@ window.addEventListener("DOMContentLoaded", async () => {
     
     let userData = JSON.parse(localStorage.getItem("userData"));
     
-    roleH1.textContent = userData.nombreRol;
+    roleH1.textContent = userData.rol.nombrerol;
     
-    userData.permisos.forEach((p) => {
+    userData.rol.permisos.forEach((p) => {
         const option = document.createElement("a");
         option.classList.add("btn");
-        option.textContent = p.descripcion;
-        option.dataset.id = p.idpermiso;
+        option.textContent = p.permiso.descripcion;
+        option.dataset.id = p.permiso.idpermiso;
         optionsNav.appendChild(option);
     })
 })
