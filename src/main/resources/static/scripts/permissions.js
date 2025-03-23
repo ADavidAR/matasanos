@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const permissionTable = document.querySelector("#permission-table");
 
     permissionTable.classList.add("enable");
-    let datosUsuario = JSON.parse(localStorage.getItem("datos"));
+    let userData = JSON.parse(localStorage.getItem("userData"));
 
     const modifyElems = document.querySelectorAll(".modify");
 
@@ -13,9 +13,9 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 
     
-    roleH1.textContent = datosUsuario.nombreRol;
+    roleH1.textContent = userData.nombreRol;
     
-    datosUsuario.permisos.forEach((p) => {
+    userData.permisos.forEach((p) => {
         const option = document.createElement("a");
         option.classList.add("nav");
         option.textContent = p.descripcion;
