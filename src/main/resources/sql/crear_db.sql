@@ -283,7 +283,7 @@ CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
-CREATE VIEW v_UsuarioConRolPermisos AS
+CREATE VIEW v_RolPermisos AS
     SELECT rp.*, r.nombre_rol, p.descripcion, p.pantalla_html FROM Rol r
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
