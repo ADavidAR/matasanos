@@ -4,25 +4,27 @@ import java.math.BigDecimal;
 
 public class FacturaProducto {
 
-    private int idFacturaProducto;
-    private int cantidad;
-    private BigDecimal precioUnitario;
-    private BigDecimal subtotal;
-    private int idFactura;
-    private int idProducto;
+    private int idFacturaProducto;// id_factura_producto
+    private int cantidad;// cantidad
+    private BigDecimal precioUnitario;// precio_unitario
+    private BigDecimal subtotal;// subtotal
+    private Factura factura;
+    private Producto producto;
 
-    public FacturaProducto (int idFacturaProducto, int cantidad, BigDecimal precioUnitario, BigDecimal subtotal, int idFactura, int idProducto) {
+    public FacturaProducto() {}
+     
+    public FacturaProducto (int idFacturaProducto, int cantidad, BigDecimal precioUnitario, BigDecimal subtotal, Factura factura, Producto producto) {
         this.idFacturaProducto = idFacturaProducto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
         this.subtotal = subtotal;
-        this.idFactura = idFactura;
-        this.idProducto = idProducto;
+        this.factura = factura;
+        this.producto = producto;
     }
 
-    public int getIdfacturaproducto() { return idFacturaProducto; }
+    public int getIdFacturaProducto() { return idFacturaProducto; }
 
-    public void setIdfacturaproducto(int idFacturaProducto ){
+    public void setIdFacturaProducto(int idFacturaProducto ){
         this.idFacturaProducto = idFacturaProducto;
     }
 
@@ -32,9 +34,9 @@ public class FacturaProducto {
         this.cantidad = cantidad;
     }
 
-    public BigDecimal getPreciounitario() { return precioUnitario; }
+    public BigDecimal getPrecioUnitario() { return precioUnitario; }
 
-    public void setPreciounitario(BigDecimal precioUnitario ){
+    public void setPrecioUnitario(BigDecimal precioUnitario ){
         this.precioUnitario = precioUnitario;
     }
 
@@ -44,15 +46,15 @@ public class FacturaProducto {
         this.subtotal = subtotal;
     }
 
-    public int getIdfactura() { return idFactura; }
+    public Factura getFactura() { return factura; }
 
-    public void setIdfactura(int idFactura ){
-        this.idFactura = idFactura;
+    public void setFactura(Factura factura ){
+        this.factura = factura;
     }
 
-    public int getIdproducto() { return idProducto; }
+    public Producto getProducto() { return producto; }
 
-    public void setIdproducto(int idProducto ){
-        this.idProducto = idProducto;
+    public void setProducto(Producto producto ){
+        this.producto = producto;
     }
 }

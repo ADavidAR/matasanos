@@ -1,23 +1,25 @@
 package com.matasanos.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class Factura {
 
-    private int idFactura;
-    private String numeroFactura;
-    private LocalDate fechaEmision;
-    private String rtnCliente;
-    private BigDecimal subtotal;
-    private BigDecimal impuesto;
-    private BigDecimal total;
-    private int idFacturaSar;
-    private int idUsuario;
-    private int idCliente;
-    private int idCaja;
+    private int idFactura;// id_factura
+    private String numeroFactura;// numero_factura
+    private LocalDate fechaEmision;// fecha_emision
+    private String rtnCliente;// rtn_cliente
+    private BigDecimal subtotal;// subtotal
+    private BigDecimal impuesto;// impuesto
+    private BigDecimal total;// total
+    private FacturacionSAR facturaSar;
+    private Usuario usuario;
+    private Cliente cliente;
+    private Caja caja;
 
-    public Factura (int idFactura, String numeroFactura, LocalDate fechaEmision, String rtnCliente, BigDecimal subtotal, BigDecimal impuesto, BigDecimal total, int idFacturaSar, int idUsuario, int idCliente, int idCaja) {
+    public Factura() {}
+     
+    public Factura (int idFactura, String numeroFactura, LocalDate fechaEmision, String rtnCliente, BigDecimal subtotal, BigDecimal impuesto, BigDecimal total, FacturacionSAR facturaSar, Usuario usuario, Cliente cliente, Caja caja) {
         this.idFactura = idFactura;
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
@@ -25,33 +27,33 @@ public class Factura {
         this.subtotal = subtotal;
         this.impuesto = impuesto;
         this.total = total;
-        this.idFacturaSar = idFacturaSar;
-        this.idUsuario = idUsuario;
-        this.idCliente = idCliente;
-        this.idCaja = idCaja;
+        this.facturaSar = facturaSar;
+        this.usuario = usuario;
+        this.cliente = cliente;
+        this.caja = caja;
     }
 
-    public int getIdfactura() { return idFactura; }
+    public int getIdFactura() { return idFactura; }
 
-    public void setIdfactura(int idFactura ){
+    public void setIdFactura(int idFactura ){
         this.idFactura = idFactura;
     }
 
-    public String getNumerofactura() { return numeroFactura; }
+    public String getNumeroFactura() { return numeroFactura; }
 
-    public void setNumerofactura(String numeroFactura ){
+    public void setNumeroFactura(String numeroFactura ){
         this.numeroFactura = numeroFactura;
     }
 
-    public LocalDate getFechaemision() { return fechaEmision; }
+    public LocalDate getFechaEmision() { return fechaEmision; }
 
-    public void setFechaemision(LocalDate fechaEmision ){
+    public void setFechaEmision(LocalDate fechaEmision ){
         this.fechaEmision = fechaEmision;
     }
 
-    public String getRtncliente() { return rtnCliente; }
+    public String getRtnCliente() { return rtnCliente; }
 
-    public void setRtncliente(String rtnCliente ){
+    public void setRtnCliente(String rtnCliente ){
         this.rtnCliente = rtnCliente;
     }
 
@@ -73,27 +75,27 @@ public class Factura {
         this.total = total;
     }
 
-    public int getIdfacturasar() { return idFacturaSar; }
+    public FacturacionSAR getFacturaSar() { return facturaSar; }
 
-    public void setIdfacturasar(int idFacturaSar ){
-        this.idFacturaSar = idFacturaSar;
+    public void setFacturaSar(FacturacionSAR facturaSar ){
+        this.facturaSar = facturaSar;
     }
 
-    public int getIdusuario() { return idUsuario; }
+    public Usuario getUsuario() { return usuario; }
 
-    public void setIdusuario(int idUsuario ){
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario ){
+        this.usuario = usuario;
     }
 
-    public int getIdcliente() { return idCliente; }
+    public Cliente getCliente() { return cliente; }
 
-    public void setIdcliente(int idCliente ){
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente ){
+        this.cliente = cliente;
     }
 
-    public int getIdcaja() { return idCaja; }
+    public Caja getCaja() { return caja; }
 
-    public void setIdcaja(int idCaja ){
-        this.idCaja = idCaja;
+    public void setCaja(Caja caja ){
+        this.caja = caja;
     }
 }

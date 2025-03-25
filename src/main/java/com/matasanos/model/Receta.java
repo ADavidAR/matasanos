@@ -4,32 +4,34 @@ import java.time.LocalDate;
 
 public class Receta {
 
-    private int idReceta;
-    private String nombreMedico;
-    private LocalDate fecha;
-    private String descripcion;
-    private String indicaciones;
-    private int idCliente;
+    private int idReceta;// id_receta
+    private Medico medico;
+    private LocalDate fecha;// fecha
+    private String descripcion;// descripcion
+    private String indicaciones;// indicaciones
+    private Cliente cliente;
 
-    public Receta (int idReceta, String nombreMedico, LocalDate fecha, String descripcion, String indicaciones, int idCliente) {
+    public Receta() {}
+     
+    public Receta (int idReceta, Medico medico, LocalDate fecha, String descripcion, String indicaciones, Cliente cliente) {
         this.idReceta = idReceta;
-        this.nombreMedico = nombreMedico;
+        this.medico = medico;
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.indicaciones = indicaciones;
-        this.idCliente = idCliente;
+        this.cliente = cliente;
     }
 
-    public int getIdreceta() { return idReceta; }
+    public int getIdReceta() { return idReceta; }
 
-    public void setIdreceta(int idReceta ){
+    public void setIdReceta(int idReceta ){
         this.idReceta = idReceta;
     }
 
-    public String getNombremedico() { return nombreMedico; }
+    public Medico getMedico() { return medico; }
 
-    public void setNombremedico(String nombreMedico ){
-        this.nombreMedico = nombreMedico;
+    public void setMedico(Medico medico ){
+        this.medico = medico;
     }
 
     public LocalDate getFecha() { return fecha; }
@@ -50,9 +52,9 @@ public class Receta {
         this.indicaciones = indicaciones;
     }
 
-    public int getIdcliente() { return idCliente; }
+    public Cliente getCliente() { return cliente; }
 
-    public void setIdcliente(int idCliente ){
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente ){
+        this.cliente = cliente;
     }
 }
