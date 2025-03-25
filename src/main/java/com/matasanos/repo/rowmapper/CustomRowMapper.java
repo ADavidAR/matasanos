@@ -22,6 +22,7 @@ public class CustomRowMapper {
                     rs.getInt("id_rol_permiso"),
                     CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.permisoRowMapper.mapRow(rs, numCol),
+                    rs.getBoolean("acceso"),
                     rs.getBoolean("modificacion"),
                     rs.getBoolean("eliminacion"),
                     rs.getBoolean("creacion")
@@ -32,6 +33,7 @@ public class CustomRowMapper {
                     rs.getInt("id_rol_permiso"),
                     null,
                     CustomRowMapper.permisoRowMapper.mapRow(rs, numCol),
+                    rs.getBoolean("acceso"),
                     rs.getBoolean("modificacion"),
                     rs.getBoolean("eliminacion"),
                     rs.getBoolean("creacion")
