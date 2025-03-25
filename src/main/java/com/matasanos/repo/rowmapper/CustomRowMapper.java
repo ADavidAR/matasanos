@@ -8,6 +8,7 @@ public class CustomRowMapper {
             new Permiso(
                     rs.getInt("id_permiso"),
                     rs.getString("descripcion"),
+                    rs.getBoolean("acceso_directo"),
                     rs.getString("pantalla_html")
             );
 

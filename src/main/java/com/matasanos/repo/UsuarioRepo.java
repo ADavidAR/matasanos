@@ -1,13 +1,10 @@
 package com.matasanos.repo;
 
 
-import com.matasanos.model.Permiso;
-import com.matasanos.model.Rol;
 import com.matasanos.model.RolPermisos;
 import com.matasanos.model.Usuario;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -49,7 +46,7 @@ public class UsuarioRepo {
         if(u == null)
             return null;
 
-        List<RolPermisos> permisos = rolPermisosRepo.listarPermisosDeRol(u.getRol().getIdrol());
+        List<RolPermisos> permisos = rolPermisosRepo.listarPermisosDeRol(u.getRol().getIdRol());
 
         u.getRol().setPermisos(permisos);
 

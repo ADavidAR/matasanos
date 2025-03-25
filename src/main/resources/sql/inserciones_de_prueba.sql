@@ -4,10 +4,10 @@ VALUES
     ('Administrador'),  -- Rol 1
 	('Empleado');  -- Rol 2
 
-INSERT INTO Permiso (descripcion, pantalla_html)
+INSERT INTO Permiso (descripcion, pantalla_html, acceso_directo)
 VALUES 
-    ('Permisos','permissions.html'),  -- Permiso 1
-    ('Usuarios', 'users.html');  -- Permiso 2
+    ('Permisos','permissions.html', 0),  -- Permiso 1
+    ('Usuarios', 'users.html', 1);  -- Permiso 2
 
 INSERT INTO RolPermisos (id_rol, id_permiso, modificacion, eliminacion, creacion)
 VALUES

@@ -15,15 +15,15 @@ public class Rol {
         this.nombreRol = nombreRol;
     }
 
-    public int getIdrol() { return idRol; }
+    public int getIdRol() { return idRol; }
 
-    public void setIdrol(int idRol ){
+    public void setIdRol(int idRol ){
         this.idRol = idRol;
     }
 
-    public String getNombrerol() { return nombreRol; }
+    public String getNombreRol() { return nombreRol; }
 
-    public void setNombrerol(String nombreRol ){
+    public void setNombreRol(String nombreRol ){
         this.nombreRol = nombreRol;
     }
 

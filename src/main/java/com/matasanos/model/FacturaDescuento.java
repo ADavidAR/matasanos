@@ -4,31 +4,33 @@ package com.matasanos.model;
 
 public class FacturaDescuento {
 
-    private int idFacturaDescuento;
-    private int idFactura;
-    private int idDescuento;
+    private int idFacturaDescuento;// id_factura_descuento
+    private Factura factura;
+    private Descuento descuento;
 
-    public FacturaDescuento (int idFacturaDescuento, int idFactura, int idDescuento) {
+    public FacturaDescuento() {}
+     
+    public FacturaDescuento (int idFacturaDescuento, Factura factura, Descuento descuento) {
         this.idFacturaDescuento = idFacturaDescuento;
-        this.idFactura = idFactura;
-        this.idDescuento = idDescuento;
+        this.factura = factura;
+        this.descuento = descuento;
     }
 
-    public int getIdfacturadescuento() { return idFacturaDescuento; }
+    public int getIdFacturaDescuento() { return idFacturaDescuento; }
 
-    public void setIdfacturadescuento(int idFacturaDescuento ){
+    public void setIdFacturaDescuento(int idFacturaDescuento ){
         this.idFacturaDescuento = idFacturaDescuento;
     }
 
-    public int getIdfactura() { return idFactura; }
+    public Factura getFactura() { return factura; }
 
-    public void setIdfactura(int idFactura ){
-        this.idFactura = idFactura;
+    public void setFactura(Factura factura ){
+        this.factura = factura;
     }
 
-    public int getIddescuento() { return idDescuento; }
+    public Descuento getDescuento() { return descuento; }
 
-    public void setIddescuento(int idDescuento ){
-        this.idDescuento = idDescuento;
+    public void setDescuento(Descuento descuento ){
+        this.descuento = descuento;
     }
 }
