@@ -4,7 +4,7 @@ VALUES
     ('Administrador'),  -- Rol 1
 	('Empleado');  -- Rol 2
 
-INSERT INTO Permiso (descripcion, pantalla_html, acceso_directo)
+INSERT INTO Permiso (descripcion, endpoint, acceso_directo)
 VALUES 
     ('Permisos','/permisos', 0),  -- Permiso 1
     ('Usuarios', '/usuarios', 1);  -- Permiso 2
