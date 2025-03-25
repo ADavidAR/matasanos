@@ -7,15 +7,15 @@ public class Permiso {
     private int idPermiso;// id_permiso
     private String descripcion;// descripcion
     private boolean accesoDirecto;// acceso_directo
-    private String endpoint;// endpoint
+    private String endpointUrl;// endpoint_url
 
     public Permiso() {}
      
-    public Permiso (int idPermiso, String descripcion, boolean accesoDirecto, String endpoint) {
+    public Permiso (int idPermiso, String descripcion, boolean accesoDirecto, String endpointUrl) {
         this.idPermiso = idPermiso;
         this.descripcion = descripcion;
         this.accesoDirecto = accesoDirecto;
-        this.endpoint = endpoint;
+        this.endpointUrl = endpointUrl;
     }
 
     public int getIdPermiso() { return idPermiso; }
@@ -36,9 +36,9 @@ public class Permiso {
         this.accesoDirecto = accesoDirecto;
     }
 
-    public String getEndpoint() { return endpoint; }
+    public String getEndpointUrl() { return endpointUrl; }
 
-    public void setEndpoint(String endpoint ){
-        this.endpoint = endpoint;
+    public void setEndpointUrl(String endpointUrl ){
+        this.endpointUrl = endpointUrl;
     }
 }
