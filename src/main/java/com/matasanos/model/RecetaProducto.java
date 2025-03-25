@@ -4,16 +4,18 @@ package com.matasanos.model;
 
 public class RecetaProducto {
 
-    private int idRecetaProducto;
-    private int cantidad;
-    private int idReceta;
-    private int idProducto;
+    private int idRecetaProducto;// id_receta_producto
+    private int cantidad;// cantidad
+    private Receta receta;
+    private Producto producto;
 
-    public RecetaProducto (int idRecetaProducto, int cantidad, int idReceta, int idProducto) {
+    public RecetaProducto() {}
+     
+    public RecetaProducto (int idRecetaProducto, int cantidad, Receta receta, Producto producto) {
         this.idRecetaProducto = idRecetaProducto;
         this.cantidad = cantidad;
-        this.idReceta = idReceta;
-        this.idProducto = idProducto;
+        this.receta = receta;
+        this.producto = producto;
     }
 
     public int getIdrecetaproducto() { return idRecetaProducto; }
@@ -28,15 +30,15 @@ public class RecetaProducto {
         this.cantidad = cantidad;
     }
 
-    public int getIdreceta() { return idReceta; }
+    public Receta getReceta() { return receta; }
 
-    public void setIdreceta(int idReceta ){
-        this.idReceta = idReceta;
+    public void setReceta(Receta receta ){
+        this.receta = receta;
     }
 
-    public int getIdproducto() { return idProducto; }
+    public Producto getProducto() { return producto; }
 
-    public void setIdproducto(int idProducto ){
-        this.idProducto = idProducto;
+    public void setProducto(Producto producto ){
+        this.producto = producto;
     }
 }

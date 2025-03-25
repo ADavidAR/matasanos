@@ -4,17 +4,19 @@ package com.matasanos.model;
 
 public class Funcion {
 
-    private int idFuncion;
-    private String descripcion;
+    private int idFuncion;// id_funcion
+    private String descripcion;// descripcion
 
+    public Funcion() {}
+     
     public Funcion (int idFuncion, String descripcion) {
         this.idFuncion = idFuncion;
         this.descripcion = descripcion;
     }
 
-    public int getIdfuncion() { return idFuncion; }
+    public int getIdFuncion() { return idFuncion; }
 
-    public void setIdfuncion(int idFuncion ){
+    public void setIdFuncion(int idFuncion ){
         this.idFuncion = idFuncion;
     }
 
