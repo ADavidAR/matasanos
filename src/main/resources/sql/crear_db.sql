@@ -46,7 +46,7 @@ CREATE TABLE Proveedor(
 
 CREATE TABLE FacturacionSAR(
 	id_factura_sar INT IDENTITY (1,1) PRIMARY KEY,
-	id_sucursal
+	id_sucursal INT,
 	fecha_vigencia DATE NOT NULL,
 	rango_inicio INT NOT NULL,
 	rango_fin INT NOT NULL,
@@ -298,7 +298,7 @@ CREATE VIEW v_UsuarioConRol AS
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
 CREATE VIEW v_RolPermisos AS
-    SELECT rp.*, r.nombre_rol, p.descripcion, p.pantalla_html FROM Rol r
+    SELECT rp.*, r.nombre_rol, p.descripcion, p.pantalla_html, p.acceso_directo FROM Rol r
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
