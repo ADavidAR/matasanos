@@ -318,3 +318,6 @@ CREATE VIEW v_Producto AS
 
 CREATE VIEW v_Permiso AS
 	SELECT * FROM Permiso;
+
+CREATE VIEW v_Rol AS
+    SELECT * FROM Rol;

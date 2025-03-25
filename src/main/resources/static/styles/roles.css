@@ -15,7 +15,7 @@ body {
 
 #options {
     background-color: #003F91;
-    height: 3rem; 
+    height: 100%; 
     width: 100%; 
 }
 
@@ -42,7 +42,7 @@ a.nav {
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: auto;
+    padding: 10px;
     font-size: 2rem;
     cursor: pointer;
     color: whitesmoke;

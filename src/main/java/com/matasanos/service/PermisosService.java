@@ -26,4 +26,7 @@ public class PermisosService {
         return rolPermisosRepo.listarPermisosPorRol(rol);
     }
 
+    public boolean actualizarPermisosDeRol(List<RolPermisos> rps) {
+        return rolPermisosRepo.actualizarPermisosDeRol(rps);
+    }
 }

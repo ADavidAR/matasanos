@@ -7,13 +7,15 @@ VALUES
 INSERT INTO Permiso (descripcion, pantalla_html, acceso_directo)
 VALUES 
     ('Permisos','permissions.html', 0),  -- Permiso 1
-    ('Usuarios', 'users.html', 1);  -- Permiso 2
+    ('Usuarios', 'users.html', 1)  -- Permiso 2
+    ('Roles', 'roles.html', 1);  -- Permiso 3
 
-INSERT INTO RolPermisos (id_rol, id_permiso, modificacion, eliminacion, creacion)
+INSERT INTO RolPermisos (id_rol, id_permiso, acceso, modificacion, eliminacion, creacion)
 VALUES
-    (1, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Acceder al sistema)
-    (1, 2, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Modificar registros)
-    (2, 2, 0, 0, 0);  -- Rol 2 (Empleado) con Permiso 3 (Ver reportes)
+    (1, 1, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Permisos)
+    (1, 3, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 3 (Roles)
+    (1, 2, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Usuarios)
+    (2, 2, 1, 0, 0, 0);  -- Rol 2 (Empleado) con Permiso 3 (Roles)
 
 INSERT INTO Ciudad (ciudad)
 VALUES 

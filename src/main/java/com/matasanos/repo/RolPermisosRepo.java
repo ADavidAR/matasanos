@@ -27,12 +27,13 @@ public class RolPermisosRepo {
 
         Map<Integer, RolPermisos> permisosDeRol = new HashMap<>();
 
-        for (RolPermisos rp : rol.getPermisos()) {
-            permisosDeRol.put(rp.getPermiso().getIdpermiso(), rp);
+
+        for (RolPermisos rp : listarPermisosDeRol(rol.getIdRol())) {
+            permisosDeRol.put(rp.getPermiso().getIdPermiso(), rp);
         }
         for(Permiso p : permisos) {
-            if(permisosDeRol.containsKey(p.getIdpermiso())) {
-                rolPermisos.add(permisosDeRol.get(p.getIdpermiso()));
+            if(permisosDeRol.containsKey(p.getIdPermiso())) {
+                rolPermisos.add(permisosDeRol.get(p.getIdPermiso()));
                 continue;
             }
 
@@ -43,8 +44,50 @@ public class RolPermisosRepo {
     }
 
     public List<RolPermisos> listarPermisosDeRol(int idRol) {
-        String sql = "SELECT id_rol_permiso, modificacion, eliminacion, creacion, id_permiso, descripcion, pantalla_html, acceso_directo FROM v_RolPermisos WHERE id_rol = ?";
+        String sql = "SELECT id_rol_permiso, modificacion, eliminacion, creacion, id_permiso, descripcion, endpoint, acceso_directo FROM v_RolPermisos WHERE id_rol = ?";
         return jdbcTemplate.query(sql, CustomRowMapper.rolPermisoSimpleRowMapper, idRol);
     }
 
+    public boolean actualizarPermisosDeRol(List<RolPermisos> rps) {
+        for(var rp : rps) {
+            int afectados;
+
+            if(rp.getIdRolPermiso() != 0) {
+                String sql = "UPDATE RolPermisos SET acceso = ?, modificacion = ?, eliminacion = ?, creacion = ?, id_permiso = ?, id_rol = ? WHERE id_rol_permiso = ?";
+
+                afectados = jdbcTemplate.update(
+                        sql,
+                        rp.getAcceso() ? 1 : 0,
+                        rp.getModificacion() ? 1 : 0,
+                        rp.getEliminacion() ? 1 : 0,
+                        rp.getCreacion() ? 1 : 0,
+                        rp.getPermiso().getIdPermiso(),
+                        rp.getRol().getIdRol(),
+                        rp.getIdRolPermiso()
+                );
+
+                if (afectados == 0) {
+                    return false;
+                }
+            }
+
+            String sql = "INSERT INTO RolPermisos (acceso, modificacion, eliminacion, creacion, id_permiso, id_rol) VALUES (?, ?, ?, ?, ?, ?)";
+
+            afectados = jdbcTemplate.update(
+                    sql,
+                    rp.getAcceso() ? 1 : 0,
+                    rp.getModificacion() ? 1 : 0,
+                    rp.getEliminacion() ? 1 : 0,
+                    rp.getCreacion() ? 1 : 0,
+                    rp.getPermiso().getIdPermiso(),
+                    rp.getRol().getIdRol()
+            );
+
+            if (afectados == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -23,7 +23,14 @@ public class PermisosController {
         List<RolPermisos> permisos = permisosService.listarPermisosDeRol(rol);
 
         return ResponseEntity.ok(permisos);
+    }
 
+    @PutMapping("/rol")
+    public ResponseEntity<?> actualizarPermisosDeRol(@RequestBody List<RolPermisos> rps) {
+        if(permisosService.actualizarPermisosDeRol(rps))
+            return ResponseEntity.ok("");
+
+        return ResponseEntity.badRequest().body("");
     }
 
 }

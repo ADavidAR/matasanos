@@ -40,7 +40,7 @@ public class RolPermisos {
         this.creacion = false;
     }
 
-    public int getIdrolpermiso() { return idRolPermiso; }
+    public int getIdRolPermiso() { return idRolPermiso; }
 
     public void setIdRolPermiso(int idRolPermiso ){
         this.idRolPermiso = idRolPermiso;
