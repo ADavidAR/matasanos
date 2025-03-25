@@ -4,43 +4,47 @@ import java.time.LocalDate;
 
 public class FacturacionSAR {
 
-    private int idFacturaSar;
-    private LocalDate fechaVigencia;
-    private int rangoInicio;
-    private int rangoFin;
-    private boolean vigente;
-    private String cai;
+    private int idFacturaSar;// id_factura_sar
+    private LocalDate fechaVigencia;// fecha_vigencia
+    private int rangoInicio;// rango_inicio
+    private int rangoFin;// rango_fin
+    private boolean vigente;// vigente
+    private String cai;// cai
+    private String inicioCodFactura;// inicio_cod_factura
 
-    public FacturacionSAR (int idFacturaSar, LocalDate fechaVigencia, int rangoInicio, int rangoFin, boolean vigente, String cai) {
+    public FacturacionSAR() {}
+     
+    public FacturacionSAR (int idFacturaSar, LocalDate fechaVigencia, int rangoInicio, int rangoFin, boolean vigente, String cai, String inicioCodFactura) {
         this.idFacturaSar = idFacturaSar;
         this.fechaVigencia = fechaVigencia;
         this.rangoInicio = rangoInicio;
         this.rangoFin = rangoFin;
         this.vigente = vigente;
         this.cai = cai;
+        this.inicioCodFactura = inicioCodFactura;
     }
 
-    public int getIdfacturasar() { return idFacturaSar; }
+    public int getIdFacturaSar() { return idFacturaSar; }
 
-    public void setIdfacturasar(int idFacturaSar ){
+    public void setIdFacturaSar(int idFacturaSar ){
         this.idFacturaSar = idFacturaSar;
     }
 
-    public LocalDate getFechavigencia() { return fechaVigencia; }
+    public LocalDate getFechaVigencia() { return fechaVigencia; }
 
-    public void setFechavigencia(LocalDate fechaVigencia ){
+    public void setFechaVigencia(LocalDate fechaVigencia ){
         this.fechaVigencia = fechaVigencia;
     }
 
-    public int getRangoinicio() { return rangoInicio; }
+    public int getRangoInicio() { return rangoInicio; }
 
-    public void setRangoinicio(int rangoInicio ){
+    public void setRangoInicio(int rangoInicio ){
         this.rangoInicio = rangoInicio;
     }
 
-    public int getRangofin() { return rangoFin; }
+    public int getRangoFin() { return rangoFin; }
 
-    public void setRangofin(int rangoFin ){
+    public void setRangoFin(int rangoFin ){
         this.rangoFin = rangoFin;
     }
 
@@ -54,5 +58,11 @@ public class FacturacionSAR {
 
     public void setCai(String cai ){
         this.cai = cai;
+    }
+
+    public String getInicioCodFactura() { return inicioCodFactura; }
+
+    public void setInicioCodFactura(String inicioCodFactura ){
+        this.inicioCodFactura = inicioCodFactura;
     }
 }

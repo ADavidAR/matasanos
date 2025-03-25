@@ -4,16 +4,18 @@ package com.matasanos.model;
 
 public class Direcciones {
 
-    private int idDireccion;
-    private String colonia;
-    private String direccion;
-    private int idCiudad;
+    private int idDireccion;// id_direccion
+    private String colonia;// colonia
+    private String direccion;// direccion
+    private Ciudad ciudad;
 
-    public Direcciones (int idDireccion, String colonia, String direccion, int idCiudad) {
+    public Direcciones() {}
+     
+    public Direcciones (int idDireccion, String colonia, String direccion, Ciudad ciudad) {
         this.idDireccion = idDireccion;
         this.colonia = colonia;
         this.direccion = direccion;
-        this.idCiudad = idCiudad;
+        this.ciudad = ciudad;
     }
 
     public int getIddireccion() { return idDireccion; }
@@ -34,9 +36,9 @@ public class Direcciones {
         this.direccion = direccion;
     }
 
-    public int getIdciudad() { return idCiudad; }
+    public Ciudad getCiudad() { return ciudad; }
 
-    public void setIdciudad(int idCiudad ){
-        this.idCiudad = idCiudad;
+    public void setCiudad(Ciudad ciudad ){
+        this.ciudad = ciudad;
     }
 }

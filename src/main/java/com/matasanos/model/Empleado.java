@@ -1,30 +1,32 @@
 package com.matasanos.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class Empleado {
 
-    private int idEmpleado;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private String telefono;
-    private String correo;
-    private BigDecimal salario;
-    private LocalDate fechaContratacion;
-    private LocalDate fechaBaja;
-    private boolean activo;
-    private LocalDate fechaModificacion;
-    private int idDireccion;
-    private int idCargo;
-    private int idUsuario;
-    private int idSucursal;
-    private int idUsuarioCreacion;
-    private int idUsuarioModificacion;
+    private int idEmpleado;// id_empleado
+    private String primerNombre;// primer_nombre
+    private String segundoNombre;// segundo_nombre
+    private String primerApellido;// primer_apellido
+    private String segundoApellido;// segundo_apellido
+    private String telefono;// telefono
+    private String correo;// correo
+    private BigDecimal salario;// salario
+    private LocalDate fechaContratacion;// fecha_contratacion
+    private LocalDate fechaBaja;// fecha_baja
+    private boolean activo;// activo
+    private LocalDate fechaModificacion;// fecha_modificacion
+    private Direcciones direccion;
+    private Cargo cargo;
+    private Usuario usuario;
+    private Sucursal sucursal;
+    private int idUsuarioCreacion;// id_usuario_creacion
+    private int idUsuarioModificacion;// id_usuario_modificacion
 
-    public Empleado (int idEmpleado, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String telefono, String correo, BigDecimal salario, LocalDate fechaContratacion, LocalDate fechaBaja, boolean activo, LocalDate fechaModificacion, int idDireccion, int idCargo, int idUsuario, int idSucursal, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Empleado() {}
+     
+    public Empleado (int idEmpleado, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String telefono, String correo, BigDecimal salario, LocalDate fechaContratacion, LocalDate fechaBaja, boolean activo, LocalDate fechaModificacion, Direcciones direccion, Cargo cargo, Usuario usuario, Sucursal sucursal, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idEmpleado = idEmpleado;
         this.primerNombre = primerNombre;
         this.segundoNombre = segundoNombre;
@@ -37,41 +39,41 @@ public class Empleado {
         this.fechaBaja = fechaBaja;
         this.activo = activo;
         this.fechaModificacion = fechaModificacion;
-        this.idDireccion = idDireccion;
-        this.idCargo = idCargo;
-        this.idUsuario = idUsuario;
-        this.idSucursal = idSucursal;
+        this.direccion = direccion;
+        this.cargo = cargo;
+        this.usuario = usuario;
+        this.sucursal = sucursal;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public int getIdempleado() { return idEmpleado; }
+    public int getIdEmpleado() { return idEmpleado; }
 
-    public void setIdempleado(int idEmpleado ){
+    public void setIdEmpleado(int idEmpleado ){
         this.idEmpleado = idEmpleado;
     }
 
-    public String getPrimernombre() { return primerNombre; }
+    public String getPrimerNombre() { return primerNombre; }
 
-    public void setPrimernombre(String primerNombre ){
+    public void setPrimerNombre(String primerNombre ){
         this.primerNombre = primerNombre;
     }
 
-    public String getSegundonombre() { return segundoNombre; }
+    public String getSegundoNombre() { return segundoNombre; }
 
-    public void setSegundonombre(String segundoNombre ){
+    public void setSegundoNombre(String segundoNombre ){
         this.segundoNombre = segundoNombre;
     }
 
-    public String getPrimerapellido() { return primerApellido; }
+    public String getPrimerApellido() { return primerApellido; }
 
-    public void setPrimerapellido(String primerApellido ){
+    public void setPrimerApellido(String primerApellido ){
         this.primerApellido = primerApellido;
     }
 
-    public String getSegundoapellido() { return segundoApellido; }
+    public String getSegundoApellido() { return segundoApellido; }
 
-    public void setSegundoapellido(String segundoApellido ){
+    public void setSegundoApellido(String segundoApellido ){
         this.segundoApellido = segundoApellido;
     }
 
@@ -93,15 +95,15 @@ public class Empleado {
         this.salario = salario;
     }
 
-    public LocalDate getFechacontratacion() { return fechaContratacion; }
+    public LocalDate getFechaContratacion() { return fechaContratacion; }
 
-    public void setFechacontratacion(LocalDate fechaContratacion ){
+    public void setFechaContratacion(LocalDate fechaContratacion ){
         this.fechaContratacion = fechaContratacion;
     }
 
-    public LocalDate getFechabaja() { return fechaBaja; }
+    public LocalDate getFechaBaja() { return fechaBaja; }
 
-    public void setFechabaja(LocalDate fechaBaja ){
+    public void setFechaBaja(LocalDate fechaBaja ){
         this.fechaBaja = fechaBaja;
     }
 
@@ -111,45 +113,45 @@ public class Empleado {
         this.activo = activo;
     }
 
-    public LocalDate getFechamodificacion() { return fechaModificacion; }
+    public LocalDate getFechaModificacion() { return fechaModificacion; }
 
-    public void setFechamodificacion(LocalDate fechaModificacion ){
+    public void setFechaModificacion(LocalDate fechaModificacion ){
         this.fechaModificacion = fechaModificacion;
     }
 
-    public int getIddireccion() { return idDireccion; }
+    public Direcciones getDireccion() { return direccion; }
 
-    public void setIddireccion(int idDireccion ){
-        this.idDireccion = idDireccion;
+    public void setDireccion(Direcciones direccion ){
+        this.direccion = direccion;
     }
 
-    public int getIdcargo() { return idCargo; }
+    public Cargo getCargo() { return cargo; }
 
-    public void setIdcargo(int idCargo ){
-        this.idCargo = idCargo;
+    public void setCargo(Cargo cargo ){
+        this.cargo = cargo;
     }
 
-    public int getIdusuario() { return idUsuario; }
+    public Usuario getUsuario() { return usuario; }
 
-    public void setIdusuario(int idUsuario ){
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario ){
+        this.usuario = usuario;
     }
 
-    public int getIdsucursal() { return idSucursal; }
+    public Sucursal getSucursal() { return sucursal; }
 
-    public void setIdsucursal(int idSucursal ){
-        this.idSucursal = idSucursal;
+    public void setSucursal(Sucursal sucursal ){
+        this.sucursal = sucursal;
     }
 
-    public int getIdusuariocreacion() { return idUsuarioCreacion; }
+    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setIdusuariocreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdusuariomodificacion() { return idUsuarioModificacion; }
+    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdusuariomodificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }

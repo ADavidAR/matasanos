@@ -4,14 +4,16 @@ package com.matasanos.model;
 
 public class Proveedor {
 
-    private int idProveedor;
-    private String razonSocial;
-    private String contacto;
-    private String rtnContacto;
-    private String telefono;
-    private String correo;
-    private String direccion;
+    private int idProveedor;// id_proveedor
+    private String razonSocial;// razon_social
+    private String contacto;// contacto
+    private String rtnContacto;// RTN_contacto
+    private String telefono;// telefono
+    private String correo;// correo
+    private String direccion;// direccion
 
+    public Proveedor() {}
+     
     public Proveedor (int idProveedor, String razonSocial, String contacto, String rtnContacto, String telefono, String correo, String direccion) {
         this.idProveedor = idProveedor;
         this.razonSocial = razonSocial;
@@ -22,15 +24,15 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
-    public int getIdproveedor() { return idProveedor; }
+    public int getIdProveedor() { return idProveedor; }
 
-    public void setIdproveedor(int idProveedor ){
+    public void setIdProveedor(int idProveedor ){
         this.idProveedor = idProveedor;
     }
 
-    public String getRazonsocial() { return razonSocial; }
+    public String getRazonSocial() { return razonSocial; }
 
-    public void setRazonsocial(String razonSocial ){
+    public void setRazonSocial(String razonSocial ){
         this.razonSocial = razonSocial;
     }
 
@@ -40,9 +42,9 @@ public class Proveedor {
         this.contacto = contacto;
     }
 
-    public String getRtncontacto() { return rtnContacto; }
+    public String getRtnContacto() { return rtnContacto; }
 
-    public void setRtncontacto(String rtnContacto ){
+    public void setRtnContacto(String rtnContacto ){
         this.rtnContacto = rtnContacto;
     }
 

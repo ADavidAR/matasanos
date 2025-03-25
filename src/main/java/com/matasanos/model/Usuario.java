@@ -45,9 +45,9 @@ public class Usuario {
         this.idUsuarioModificacion = 0;
     }
 
-    public int getIdusuario() { return idUsuario; }
+    public int getIdUsuario() { return idUsuario; }
 
-    public void setIdusuario(int idUsuario ){
+    public void setIduUsuario(int idUsuario ){
         this.idUsuario = idUsuario;
     }
 
@@ -63,15 +63,15 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public LocalDate getFechacreacion() { return fechaCreacion; }
+    public LocalDate getFechaDreacion() { return fechaCreacion; }
 
-    public void setFechacreacion(LocalDate fechaCreacion ){
+    public void setFechaDreacion(LocalDate fechaCreacion ){
         this.fechaCreacion = fechaCreacion;
     }
 
-    public LocalDate getFechamodificacion() { return fechaModificacion; }
+    public LocalDate getFechaModificacion() { return fechaModificacion; }
 
-    public void setFechamodificacion(LocalDate fechaModificacion ){
+    public void setFechaModificacion(LocalDate fechaModificacion ){
         this.fechaModificacion = fechaModificacion;
     }
 
@@ -81,15 +81,15 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public int getIdusuariocreacion() { return idUsuarioCreacion; }
+    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setIdusuariocreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdusuariomodificacion() { return idUsuarioModificacion; }
+    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdusuariomodificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }

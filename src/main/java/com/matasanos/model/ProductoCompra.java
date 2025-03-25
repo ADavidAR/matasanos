@@ -4,23 +4,25 @@ import java.math.BigDecimal;
 
 public class ProductoCompra {
 
-    private int idProductoCompra;
-    private int cantidad;
-    private BigDecimal costo;
-    private int idCompra;
-    private int idProducto;
+    private int idProductoCompra;// id_producto_compra
+    private int cantidad;// cantidad
+    private BigDecimal costo;// costo
+    private Compra compra;
+    private Producto producto;
 
-    public ProductoCompra (int idProductoCompra, int cantidad, BigDecimal costo, int idCompra, int idProducto) {
+    public ProductoCompra() {}
+     
+    public ProductoCompra (int idProductoCompra, int cantidad, BigDecimal costo, Compra compra, Producto producto) {
         this.idProductoCompra = idProductoCompra;
         this.cantidad = cantidad;
         this.costo = costo;
-        this.idCompra = idCompra;
-        this.idProducto = idProducto;
+        this.compra = compra;
+        this.producto = producto;
     }
 
-    public int getIdproductocompra() { return idProductoCompra; }
+    public int getIdProductoCompra() { return idProductoCompra; }
 
-    public void setIdproductocompra(int idProductoCompra ){
+    public void setIdProductoCompra(int idProductoCompra ){
         this.idProductoCompra = idProductoCompra;
     }
 
@@ -36,15 +38,15 @@ public class ProductoCompra {
         this.costo = costo;
     }
 
-    public int getIdcompra() { return idCompra; }
+    public Compra getCompra() { return compra; }
 
-    public void setIdcompra(int idCompra ){
-        this.idCompra = idCompra;
+    public void setCompra(Compra compra ){
+        this.compra = compra;
     }
 
-    public int getIdproducto() { return idProducto; }
+    public Producto getProducto() { return producto; }
 
-    public void setIdproducto(int idProducto ){
-        this.idProducto = idProducto;
+    public void setProducto(Producto producto ){
+        this.producto = producto;
     }
 }
