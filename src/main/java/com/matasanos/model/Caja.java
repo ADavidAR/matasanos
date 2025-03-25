@@ -4,31 +4,33 @@ package com.matasanos.model;
 
 public class Caja {
 
-    private int idCaja;
-    private int numCaja;
-    private int idSucursal;
+    private int idCaja;// id_caja
+    private int numCaja;// num_caja
+    private Sucursal sucursal;
 
-    public Caja (int idCaja, int numCaja, int idSucursal) {
+    public Caja() {}
+     
+    public Caja (int idCaja, int numCaja, Sucursal sucursal) {
         this.idCaja = idCaja;
         this.numCaja = numCaja;
-        this.idSucursal = idSucursal;
+        this.sucursal = sucursal;
     }
 
-    public int getIdcaja() { return idCaja; }
+    public int getIdCaja() { return idCaja; }
 
-    public void setIdcaja(int idCaja ){
+    public void setIdCaja(int idCaja ){
         this.idCaja = idCaja;
     }
 
-    public int getNumcaja() { return numCaja; }
+    public int getNumCaja() { return numCaja; }
 
-    public void setNumcaja(int numCaja ){
+    public void setNumCaja(int numCaja ){
         this.numCaja = numCaja;
     }
 
-    public int getIdsucursal() { return idSucursal; }
+    public Sucursal getSucursal() { return sucursal; }
 
-    public void setIdsucursal(int idSucursal ){
-        this.idSucursal = idSucursal;
+    public void setSucursal(Sucursal sucursal ){
+        this.sucursal = sucursal;
     }
 }

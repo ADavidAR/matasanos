@@ -2,6 +2,15 @@ CREATE DATABASE matasanos;
 
 USE matasanos;
 
+CREATE TABLE Medico(
+    id_medico INT IDENTITY (1,1) PRIMARY KEY,
+    primer_nombre VARCHAR (100) NOT NULL,
+    segundo_nombre VARCHAR (100),
+    primer_apellido VARCHAR (100) NOT NULL,
+    segundo_apellido VARCHAR (100),
+    num_colegiado VARCHAR (10) NOT NULL
+);
+
 CREATE TABLE Sucursal(
 	id_sucursal INT IDENTITY (1,1) PRIMARY KEY,
 	nombre_sucursal VARCHAR (200) NOT NULL,
@@ -16,6 +25,7 @@ CREATE TABLE Funcion(
 CREATE TABLE Permiso(
 	id_permiso INT IDENTITY (1,1) PRIMARY KEY,
 	descripcion VARCHAR (400),
+	acceso_directo BIT NOT NULL,
 	pantalla_html VARCHAR (200) NOT NULL
 );
 
@@ -36,11 +46,14 @@ CREATE TABLE Proveedor(
 
 CREATE TABLE FacturacionSAR(
 	id_factura_sar INT IDENTITY (1,1) PRIMARY KEY,
+	id_sucursal
 	fecha_vigencia DATE NOT NULL,
 	rango_inicio INT NOT NULL,
 	rango_fin INT NOT NULL,
 	vigente BIT NOT NULL,
-	cai VARCHAR (44) UNIQUE NOT NULL
+	cai VARCHAR (44) UNIQUE NOT NULL,
+	inicio_cod_factura VARCHAR (11) NOT NULL,
+	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal)
 );
 
 CREATE TABLE Descuento(
@@ -118,7 +131,7 @@ CREATE TABLE Cliente(
 	primer_nombre VARCHAR (100) NOT NULL,
 	segundo_nombre VARCHAR (100),
 	primer_apellido VARCHAR (100) NOT NULL,
-	segundo_apellido VARCHAR (100) NOT NULL,
+	segundo_apellido VARCHAR (100),
 	telefono VARCHAR (15),
 	correo VARCHAR (250),
 	rtn VARCHAR (20),
@@ -201,12 +214,13 @@ CREATE TABLE FacturaProducto(
 
 CREATE TABLE Receta(
 	id_receta INT IDENTITY(1,1) PRIMARY KEY,
-	nombre_medico VARCHAR(250) NOT NULL,
+	id_medico INT ,
 	fecha DATE,
 	descripcion TEXT,
 	indicaciones TEXT,
 	id_cliente INT,
-	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+	FOREIGN KEY (id_medico) REFERENCES Medico(id_medico)
 );
 
 CREATE TABLE RecetaProducto(
@@ -290,7 +304,7 @@ CREATE VIEW v_RolPermisos AS
 
 
 CREATE VIEW v_ProductoSucursal AS
-	SELECT p.*, nombre_categoria, nombre_departamento, s.id_sucursal, nombre_sucursal, inventario_sucursal FROM Producto p
+	SELECT p.*, nombre_categoria, d.id_departamento, nombre_departamento, s.id_sucursal, nombre_sucursal, inventario_sucursal FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
 	INNER JOIN SucursalProducto sp ON sp.id_producto = p.id_producto

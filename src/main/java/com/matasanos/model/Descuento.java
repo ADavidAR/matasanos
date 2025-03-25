@@ -4,25 +4,27 @@ import java.math.BigDecimal;
 
 public class Descuento {
 
-    private int idDescuento;
-    private String descuentoNombre;
-    private BigDecimal porcentaje;
+    private int idDescuento;// id_descuento
+    private String descuentoNombre;// descuento_nombre
+    private BigDecimal porcentaje;// porcentaje
 
+    public Descuento() {}
+     
     public Descuento (int idDescuento, String descuentoNombre, BigDecimal porcentaje) {
         this.idDescuento = idDescuento;
         this.descuentoNombre = descuentoNombre;
         this.porcentaje = porcentaje;
     }
 
-    public int getIddescuento() { return idDescuento; }
+    public int getIdDescuento() { return idDescuento; }
 
-    public void setIddescuento(int idDescuento ){
+    public void setIdDescuento(int idDescuento ){
         this.idDescuento = idDescuento;
     }
 
-    public String getDescuentonombre() { return descuentoNombre; }
+    public String getDescuentoNombre() { return descuentoNombre; }
 
-    public void setDescuentonombre(String descuentoNombre ){
+    public void setDescuentoNombre(String descuentoNombre ){
         this.descuentoNombre = descuentoNombre;
     }
 

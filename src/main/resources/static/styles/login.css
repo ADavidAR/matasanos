@@ -23,9 +23,9 @@ body {
 }
 
 #logo {
-    width: 10rem;
+    width: calc( (1200/700) * 10rem);
     height: 10rem;
-    background: url(/img/logo.png);
+    background: url(/img/logo-letters.png);
     background-size: 100% 100% ;
     align-self: center;
 }

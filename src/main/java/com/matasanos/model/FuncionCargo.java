@@ -4,31 +4,33 @@ package com.matasanos.model;
 
 public class FuncionCargo {
 
-    private int idFuncionCargo;
-    private int idFuncion;
-    private int idCargo;
+    private int idFuncionCargo;// id_funcion_cargo
+    private Funcion funcion;
+    private Cargo cargo;
 
-    public FuncionCargo (int idFuncionCargo, int idFuncion, int idCargo) {
+    public FuncionCargo() {}
+     
+    public FuncionCargo (int idFuncionCargo, Funcion funcion, Cargo cargo) {
         this.idFuncionCargo = idFuncionCargo;
-        this.idFuncion = idFuncion;
-        this.idCargo = idCargo;
+        this.funcion = funcion;
+        this.cargo = cargo;
     }
 
-    public int getIdfuncioncargo() { return idFuncionCargo; }
+    public int getIdFuncionCargo() { return idFuncionCargo; }
 
-    public void setIdfuncioncargo(int idFuncionCargo ){
+    public void setIdFuncionCargo(int idFuncionCargo ){
         this.idFuncionCargo = idFuncionCargo;
     }
 
-    public int getIdfuncion() { return idFuncion; }
+    public Funcion getFuncion() { return funcion; }
 
-    public void setIdfuncion(int idFuncion ){
-        this.idFuncion = idFuncion;
+    public void setFuncion(Funcion funcion ){
+        this.funcion = funcion;
     }
 
-    public int getIdcargo() { return idCargo; }
+    public Cargo getCargo() { return cargo; }
 
-    public void setIdcargo(int idCargo ){
-        this.idCargo = idCargo;
+    public void setCargo(Cargo cargo ){
+        this.cargo = cargo;
     }
 }

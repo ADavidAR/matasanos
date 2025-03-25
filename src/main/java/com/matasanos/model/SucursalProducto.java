@@ -4,39 +4,41 @@ package com.matasanos.model;
 
 public class SucursalProducto {
 
-    private int idSucursalProducto;
-    private int inventarioSucursal;
-    private int idProducto;
-    private int idSucursal;
+    private int idSucursalProducto;// id_sucursal_producto
+    private int inventarioSucursal;// inventario_sucursal
+    private Producto producto;
+    private Sucursal sucursal;
 
-    public SucursalProducto (int idSucursalProducto, int inventarioSucursal, int idProducto, int idSucursal) {
+    public SucursalProducto() {}
+     
+    public SucursalProducto (int idSucursalProducto, int inventarioSucursal, Producto producto, Sucursal sucursal) {
         this.idSucursalProducto = idSucursalProducto;
         this.inventarioSucursal = inventarioSucursal;
-        this.idProducto = idProducto;
-        this.idSucursal = idSucursal;
+        this.producto = producto;
+        this.sucursal = sucursal;
     }
 
-    public int getIdsucursalproducto() { return idSucursalProducto; }
+    public int getIdSucursalProducto() { return idSucursalProducto; }
 
-    public void setIdsucursalproducto(int idSucursalProducto ){
+    public void setIdSucursalProducto(int idSucursalProducto ){
         this.idSucursalProducto = idSucursalProducto;
     }
 
-    public int getInventariosucursal() { return inventarioSucursal; }
+    public int getInventarioSucursal() { return inventarioSucursal; }
 
-    public void setInventariosucursal(int inventarioSucursal ){
+    public void setInventarioSucursal(int inventarioSucursal ){
         this.inventarioSucursal = inventarioSucursal;
     }
 
-    public int getIdproducto() { return idProducto; }
+    public Producto getProducto() { return producto; }
 
-    public void setIdproducto(int idProducto ){
-        this.idProducto = idProducto;
+    public void setProducto(Producto producto ){
+        this.producto = producto;
     }
 
-    public int getIdsucursal() { return idSucursal; }
+    public Sucursal getSucursal() { return sucursal; }
 
-    public void setIdsucursal(int idSucursal ){
-        this.idSucursal = idSucursal;
+    public void setSucursal(Sucursal sucursal ){
+        this.sucursal = sucursal;
     }
 }
