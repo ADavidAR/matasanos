@@ -43,7 +43,7 @@ public class RolPermisosRepo {
     }
 
     public List<RolPermisos> listarPermisosDeRol(int idRol) {
-        String sql = "SELECT id_rol_permiso, modificacion, eliminacion, creacion, id_permiso, descripcion, pantalla_html FROM v_RolPermisos WHERE id_rol = ?";
+        String sql = "SELECT id_rol_permiso, modificacion, eliminacion, creacion, id_permiso, descripcion, pantalla_html, acceso_directo FROM v_RolPermisos WHERE id_rol = ?";
         return jdbcTemplate.query(sql, CustomRowMapper.rolPermisoSimpleRowMapper, idRol);
     }
 

@@ -1,28 +1,47 @@
 package com.matasanos.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class Producto {
 
-    private int idProducto;
-    private String nombre;
-    private String descripcion;
-    private BigDecimal precioVenta;
-    private int inventario;
-    private LocalDate fechaVencimiento;
-    private boolean ventaLibre;
-    private BigDecimal precioDescuento;
-    private LocalDate fechaCreacion;
-    private LocalDate fechaModificacion;
+    private int idProducto;// id_producto
+    private String nombreProducto;// nombre_producto
+    private String descripcion;// descripcion
+    private BigDecimal precioVenta;// precio_venta
+    private int inventario;// inventario
+    private LocalDate fechaVencimiento;// fecha_vencimiento
+    private boolean ventaLibre;// venta_libre
+    private BigDecimal precioDescuento;// precio_descuento
+    private LocalDate fechaCreacion;// fecha_creacion
+    private LocalDate fechaModificacion;// fecha_modificacion
     private Categoria categoria;
-    private int idProveedor;
-    private int idUsuarioCreacion;
-    private int idUsuarioModificacion;
+    private Proveedor proveedor;
+    private int idUsuarioCreacion;// id_usuario_creacion
+    private int idUsuarioModificacion;// id_usuario_modificacion
+
+    public Producto() {}
+     
+    public Producto (int idProducto, String nombreProducto, String descripcion, BigDecimal precioVenta, int inventario, LocalDate fechaVencimiento, boolean ventaLibre, BigDecimal precioDescuento, LocalDate fechaCreacion, LocalDate fechaModificacion, Categoria categoria, Proveedor proveedor, int idUsuarioCreacion, int idUsuarioModificacion) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.descripcion = descripcion;
+        this.precioVenta = precioVenta;
+        this.inventario = inventario;
+        this.fechaVencimiento = fechaVencimiento;
+        this.ventaLibre = ventaLibre;
+        this.precioDescuento = precioDescuento;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaModificacion = fechaModificacion;
+        this.categoria = categoria;
+        this.proveedor = proveedor;
+        this.idUsuarioCreacion = idUsuarioCreacion;
+        this.idUsuarioModificacion = idUsuarioModificacion;
+    }
 
     public Producto (
             int idProducto,
-            String nombre,
+            String nombreProducto,
             String descripcion,
             BigDecimal precioVenta,
             int inventario,
@@ -36,7 +55,7 @@ public class Producto {
             int idUsuarioModificacion
     ) {
         this.idProducto = idProducto;
-        this.nombre = nombre;
+        this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
         this.inventario = inventario;
@@ -50,16 +69,16 @@ public class Producto {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public int getIdproducto() { return idProducto; }
+    public int getIdProducto() { return idProducto; }
 
-    public void setIdproducto(int idProducto ){
+    public void setIdProducto(int idProducto ){
         this.idProducto = idProducto;
     }
 
-    public String getNombre() { return nombre; }
+    public String getNombreProducto() { return nombreProducto; }
 
-    public void setNombre(String nombre ){
-        this.nombre = nombre;
+    public void setNombreProducto(String nombreProducto ){
+        this.nombreProducto = nombreProducto;
     }
 
     public String getDescripcion() { return descripcion; }
@@ -68,9 +87,9 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getPrecioventa() { return precioVenta; }
+    public BigDecimal getPrecioVenta() { return precioVenta; }
 
-    public void setPrecioventa(BigDecimal precioVenta ){
+    public void setPrecioVenta(BigDecimal precioVenta ){
         this.precioVenta = precioVenta;
     }
 
@@ -80,61 +99,57 @@ public class Producto {
         this.inventario = inventario;
     }
 
-    public LocalDate getFechavencimiento() { return fechaVencimiento; }
+    public LocalDate getFechaVencimiento() { return fechaVencimiento; }
 
-    public void setFechavencimiento(LocalDate fechaVencimiento ){
+    public void setFechaVencimiento(LocalDate fechaVencimiento ){
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public boolean getVentalibre() { return ventaLibre; }
+    public boolean getVentaLibre() { return ventaLibre; }
 
-    public void setVentalibre(boolean ventaLibre ){
+    public void setVentaLibre(boolean ventaLibre ){
         this.ventaLibre = ventaLibre;
     }
 
-    public BigDecimal getPreciodescuento() { return precioDescuento; }
+    public BigDecimal getPrecioDescuento() { return precioDescuento; }
 
-    public void setPreciodescuento(BigDecimal precioDescuento ){
+    public void setPrecioDescuento(BigDecimal precioDescuento ){
         this.precioDescuento = precioDescuento;
     }
 
-    public LocalDate getFechacreacion() { return fechaCreacion; }
+    public LocalDate getFechaCreacion() { return fechaCreacion; }
 
-    public void setFechacreacion(LocalDate fechaCreacion ){
+    public void setFechaCreacion(LocalDate fechaCreacion ){
         this.fechaCreacion = fechaCreacion;
     }
 
-    public LocalDate getFechamodificacion() { return fechaModificacion; }
+    public LocalDate getFechaModificacion() { return fechaModificacion; }
 
-    public void setFechamodificacion(LocalDate fechaModificacion ){
+    public void setFechaModificacion(LocalDate fechaModificacion ){
         this.fechaModificacion = fechaModificacion;
     }
 
-    public int getIdusuariocreacion() { return idUsuarioCreacion; }
+    public Categoria getCategoria() { return categoria; }
 
-    public void setIdusuariocreacion(int idUsuarioCreacion ){
-        this.idUsuarioCreacion = idUsuarioCreacion;
-    }
-
-    public int getIdusuariomodificacion() { return idUsuarioModificacion; }
-
-    public void setIdusuariomodificacion(int idUsuarioModificacion ){
-        this.idUsuarioModificacion = idUsuarioModificacion;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(Categoria categoria ){
         this.categoria = categoria;
     }
 
-    public int getIdProveedor() {
-        return idProveedor;
+    public Proveedor getProveedor() { return proveedor; }
+
+    public void setProveedor(Proveedor proveedor ){
+        this.proveedor = proveedor;
     }
 
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
+    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
+
+    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
+        this.idUsuarioCreacion = idUsuarioCreacion;
+    }
+
+    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
+
+    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
+        this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }

@@ -42,7 +42,7 @@ public class RolPermisos {
 
     public int getIdrolpermiso() { return idRolPermiso; }
 
-    public void setIdrolpermiso(int idRolPermiso ){
+    public void setIdRolPermiso(int idRolPermiso ){
         this.idRolPermiso = idRolPermiso;
     }
 
