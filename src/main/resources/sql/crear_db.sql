@@ -26,7 +26,7 @@ CREATE TABLE Permiso(
 	id_permiso INT IDENTITY (1,1) PRIMARY KEY,
 	descripcion VARCHAR (400),
 	acceso_directo BIT NOT NULL,
-	endpoint VARCHAR (200) NOT NULL
+	endpoint_url VARCHAR (200) NOT NULL
 );
 
 CREATE TABLE Departamento(
@@ -300,7 +300,7 @@ CREATE VIEW v_UsuarioConRol AS
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
 CREATE VIEW v_RolPermisos AS
-    SELECT rp.*, r.nombre_rol, p.descripcion, p.endpoint, p.acceso_directo FROM Rol r
+    SELECT rp.*, r.nombre_rol, p.descripcion, p.endpoint_url, p.acceso_directo FROM Rol r
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
