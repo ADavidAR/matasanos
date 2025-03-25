@@ -7,14 +7,18 @@ public class RolPermisos {
     private int idRolPermiso;// id_rol_permiso
     private Rol rol;
     private Permiso permiso;
+    private boolean acceso;// acceso
     private boolean modificacion;// modificacion
     private boolean eliminacion;// eliminacion
     private boolean creacion;// creacion
 
-    public RolPermisos (int idRolPermiso, Rol rol, Permiso permiso, boolean modificacion, boolean eliminacion, boolean creacion) {
+    public RolPermisos() {}
+
+    public RolPermisos (int idRolPermiso, Rol rol, Permiso permiso, boolean acceso, boolean modificacion, boolean eliminacion, boolean creacion) {
         this.idRolPermiso = idRolPermiso;
         this.rol = rol;
         this.permiso = permiso;
+        this.acceso = acceso;
         this.modificacion = modificacion;
         this.eliminacion = eliminacion;
         this.creacion = creacion;
@@ -36,6 +40,12 @@ public class RolPermisos {
 
     public void setPermiso(Permiso permiso ){
         this.permiso = permiso;
+    }
+
+    public boolean getAcceso() { return acceso; }
+
+    public void setAcceso(boolean acceso ){
+        this.acceso = acceso;
     }
 
     public boolean getModificacion() { return modificacion; }
