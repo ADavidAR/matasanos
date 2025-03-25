@@ -26,7 +26,7 @@ CREATE TABLE Permiso(
 	id_permiso INT IDENTITY (1,1) PRIMARY KEY,
 	descripcion VARCHAR (400),
 	acceso_directo BIT NOT NULL,
-	pantalla_html VARCHAR (200) NOT NULL
+	endpoint VARCHAR (200) NOT NULL
 );
 
 CREATE TABLE Departamento(
@@ -90,11 +90,13 @@ CREATE TABLE RolPermisos(
 	id_rol_permiso INT IDENTITY(1,1) PRIMARY KEY,
 	id_rol INT,
 	id_permiso INT NOT NULL,
+	acceso BIT NOT NULL,
 	modificacion BIT NOT NULL,
 	eliminacion BIT NOT NULL,
 	creacion BIT NOT NULL,
 	FOREIGN KEY (id_rol) REFERENCES Rol(id_rol),
-	FOREIGN KEY (id_permiso) REFERENCES Permiso(id_permiso)
+	FOREIGN KEY (id_permiso) REFERENCES Permiso(id_permiso),
+	CONSTRAINT UC_RolPermisos_id_rol_id_permiso UNIQUE (id_rol, id_permiso)
 );
 
 CREATE TABLE Categoria(
@@ -298,7 +300,7 @@ CREATE VIEW v_UsuarioConRol AS
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
 CREATE VIEW v_RolPermisos AS
-    SELECT rp.*, r.nombre_rol, p.descripcion, p.pantalla_html, p.acceso_directo FROM Rol r
+    SELECT rp.*, r.nombre_rol, p.descripcion, p.endpoint, p.acceso_directo FROM Rol r
     LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
