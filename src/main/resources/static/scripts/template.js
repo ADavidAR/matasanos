@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             option.textContent = p.permiso.descripcion;
             option.dataset.id = p.permiso.idPermiso;
 
-            option.href = p.permiso.endpoint;
+            option.href = p.permiso.endpointUrl;
             optionsNav.appendChild(option);
         }
     })
