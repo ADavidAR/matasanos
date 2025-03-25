@@ -1,59 +1,61 @@
 package com.matasanos.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class Compra {
 
-    private int idCompra;
-    private String numFacturaCompra;
-    private LocalDate fechaCompra;
-    private LocalDate fechaEntrega;
-    private BigDecimal costoTotal;
-    private int idProveedor;
+    private int idCompra;// id_compra
+    private String numFacturaCompra;// num_factura_compra
+    private LocalDate fechaCompra;// fecha_compra
+    private LocalDate fechaEntrega;// fecha_entrega
+    private BigDecimal costoTotal;// costo_total
+    private Proveedor proveedor;
 
-    public Compra (int idCompra, String numFacturaCompra, LocalDate fechaCompra, LocalDate fechaEntrega, BigDecimal costoTotal, int idProveedor) {
+    public Compra() {}
+     
+    public Compra (int idCompra, String numFacturaCompra, LocalDate fechaCompra, LocalDate fechaEntrega, BigDecimal costoTotal, Proveedor proveedor) {
         this.idCompra = idCompra;
         this.numFacturaCompra = numFacturaCompra;
         this.fechaCompra = fechaCompra;
         this.fechaEntrega = fechaEntrega;
         this.costoTotal = costoTotal;
-        this.idProveedor = idProveedor;
+        this.proveedor = proveedor;
     }
 
-    public int getIdcompra() { return idCompra; }
+    public int getIdCompra() { return idCompra; }
 
-    public void setIdcompra(int idCompra ){
+    public void setIdCompra(int idCompra ){
         this.idCompra = idCompra;
     }
 
-    public String getNumfacturacompra() { return numFacturaCompra; }
+    public String getNumFacturaCompra() { return numFacturaCompra; }
 
-    public void setNumfacturacompra(String numFacturaCompra ){
+    public void setNumFacturaCompra(String numFacturaCompra ){
         this.numFacturaCompra = numFacturaCompra;
     }
 
-    public LocalDate getFechacompra() { return fechaCompra; }
+    public LocalDate getFechaCompra() { return fechaCompra; }
 
-    public void setFechacompra(LocalDate fechaCompra ){
+    public void setFechaCompra(LocalDate fechaCompra ){
         this.fechaCompra = fechaCompra;
     }
 
-    public LocalDate getFechaentrega() { return fechaEntrega; }
+    public LocalDate getFechaEntrega() { return fechaEntrega; }
 
-    public void setFechaentrega(LocalDate fechaEntrega ){
+    public void setFechaEntrega(LocalDate fechaEntrega ){
         this.fechaEntrega = fechaEntrega;
     }
 
-    public BigDecimal getCostototal() { return costoTotal; }
+    public BigDecimal getCostoTotal() { return costoTotal; }
 
-    public void setCostototal(BigDecimal costoTotal ){
+    public void setCostoTotal(BigDecimal costoTotal ){
         this.costoTotal = costoTotal;
     }
 
-    public int getIdproveedor() { return idProveedor; }
+    public Proveedor getProveedor() { return proveedor; }
 
-    public void setIdproveedor(int idProveedor ){
-        this.idProveedor = idProveedor;
+    public void setProveedor(Proveedor proveedor ){
+        this.proveedor = proveedor;
     }
 }

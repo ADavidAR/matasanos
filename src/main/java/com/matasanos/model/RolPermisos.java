@@ -20,9 +20,9 @@ public class RolPermisos {
         this.creacion = creacion;
     }
 
-    public int getIdrolpermiso() { return idRolPermiso; }
+    public int getIdRolPermiso() { return idRolPermiso; }
 
-    public void setIdrolpermiso(int idRolPermiso ){
+    public void setIdRolPermiso(int idRolPermiso ){
         this.idRolPermiso = idRolPermiso;
     }
 

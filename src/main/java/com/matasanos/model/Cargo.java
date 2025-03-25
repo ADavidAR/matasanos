@@ -4,17 +4,19 @@ package com.matasanos.model;
 
 public class Cargo {
 
-    private int idCargo;
-    private String descripcion;
+    private int idCargo;// id_cargo
+    private String descripcion;// descripcion
 
+    public Cargo() {}
+     
     public Cargo (int idCargo, String descripcion) {
         this.idCargo = idCargo;
         this.descripcion = descripcion;
     }
 
-    public int getIdcargo() { return idCargo; }
+    public int getIdCargo() { return idCargo; }
 
-    public void setIdcargo(int idCargo ){
+    public void setIdCargo(int idCargo ){
         this.idCargo = idCargo;
     }
 
