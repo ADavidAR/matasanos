@@ -11,6 +11,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         option.classList.add("btn");
         option.textContent = p.permiso.descripcion;
         option.dataset.id = p.permiso.idpermiso;
+
+        option.href = p.permiso.pantallahtml;
         optionsNav.appendChild(option);
     })
 })

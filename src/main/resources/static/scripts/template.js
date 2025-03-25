@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     let userData = JSON.parse(localStorage.getItem("userData"));
 
 
-  roleH1.textContent = userData.rol.nombrerol;
+    roleH1.textContent = userData.rol.nombrerol;
     
     userData.rol.permisos.forEach((p) => {
         const option = document.createElement("a");

@@ -277,7 +277,7 @@ CREATE TABLE SucursalProducto(
 --VISTAS
 
 CREATE VIEW v_Usuario AS
-    SELECT * FROM Usuario
+    SELECT * FROM Usuario;
 
 CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
@@ -301,3 +301,6 @@ CREATE VIEW v_Producto AS
 	SELECT p.*, nombre_categoria, nombre_departamento FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento;
+
+CREATE VIEW v_Permiso AS
+	SELECT * FROM Permiso;
