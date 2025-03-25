@@ -9,7 +9,7 @@ public class CustomRowMapper {
                     rs.getInt("id_permiso"),
                     rs.getString("descripcion"),
                     rs.getBoolean("acceso_directo"),
-                    rs.getString("pantalla_html")
+                    rs.getString("endpoint_url")
             );
 
     public static final RowMapper<Rol> rolRowMapper = (rs, numCol) ->
