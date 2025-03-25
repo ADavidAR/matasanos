@@ -4,15 +4,17 @@ VALUES
     ('Administrador'),  -- Rol 1
 	('Empleado');  -- Rol 2
 
-INSERT INTO Permiso (descripcion, endpoint, acceso_directo)
+INSERT INTO Permiso (descripcion, endpoint_url, acceso_directo)
 VALUES 
     ('Permisos','/permisos', 0),  -- Permiso 1
     ('Usuarios', '/usuarios', 1);  -- Permiso 2
+    ('Roles', '/roles', 1);  -- Permiso 2
 
 INSERT INTO RolPermisos (id_rol, id_permiso, modificacion, eliminacion, creacion)
 VALUES
-    (1, 1, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Acceder al sistema)
-    (1, 2, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Modificar registros)
+    (1, 1, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Permisos)
+    (1, 2, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Usuarios)
+    (1, 3, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 3 (Roles)
     (2, 2, 1, 0, 0, 0);  -- Rol 2 (Empleado) con Permiso 3 (Ver reportes)
 
 INSERT INTO Ciudad (ciudad)
