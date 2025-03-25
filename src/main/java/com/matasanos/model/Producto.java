@@ -39,6 +39,36 @@ public class Producto {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
+    public Producto (
+            int idProducto,
+            String nombreProducto,
+            String descripcion,
+            BigDecimal precioVenta,
+            int inventario,
+            LocalDate fechaVencimiento,
+            boolean ventaLibre,
+            BigDecimal precioDescuento,
+            LocalDate fechaCreacion,
+            LocalDate fechaModificacion,
+            Categoria categoria,
+            int idUsuarioCreacion,
+            int idUsuarioModificacion
+    ) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.descripcion = descripcion;
+        this.precioVenta = precioVenta;
+        this.inventario = inventario;
+        this.fechaVencimiento = fechaVencimiento;
+        this.ventaLibre = ventaLibre;
+        this.precioDescuento = precioDescuento;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaModificacion = fechaModificacion;
+        this.categoria = categoria;
+        this.idUsuarioCreacion = idUsuarioCreacion;
+        this.idUsuarioModificacion = idUsuarioModificacion;
+    }
+
     public int getIdProducto() { return idProducto; }
 
     public void setIdProducto(int idProducto ){
