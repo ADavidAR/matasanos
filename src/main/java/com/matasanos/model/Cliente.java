@@ -4,22 +4,24 @@ import java.time.LocalDate;
 
 public class Cliente {
 
-    private int idCliente;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private String telefono;
-    private String correo;
-    private String rtn;
-    private String cedula;
-    private LocalDate fechaCreacion;
-    private LocalDate fechaModificacion;
-    private int idDireccion;
-    private int idUsuarioCreacion;
-    private int idUsuarioModificacion;
+    private int idCliente;// id_cliente
+    private String primerNombre;// primer_nombre
+    private String segundoNombre;// segundo_nombre
+    private String primerApellido;// primer_apellido
+    private String segundoApellido;// segundo_apellido
+    private String telefono;// telefono
+    private String correo;// correo
+    private String rtn;// rtn
+    private String cedula;// cedula
+    private LocalDate fechaCreacion;// fecha_creacion
+    private LocalDate fechaModificacion;// fecha_modificacion
+    private Direcciones direccion;
+    private int idUsuarioCreacion;// id_usuario_creacion
+    private int idUsuarioModificacion;// id_usuario_modificacion
 
-    public Cliente (int idCliente, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String telefono, String correo, String rtn, String cedula, LocalDate fechaCreacion, LocalDate fechaModificacion, int idDireccion, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Cliente() {}
+     
+    public Cliente (int idCliente, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String telefono, String correo, String rtn, String cedula, LocalDate fechaCreacion, LocalDate fechaModificacion, Direcciones direccion, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idCliente = idCliente;
         this.primerNombre = primerNombre;
         this.segundoNombre = segundoNombre;
@@ -31,38 +33,38 @@ public class Cliente {
         this.cedula = cedula;
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
-        this.idDireccion = idDireccion;
+        this.direccion = direccion;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public int getIdcliente() { return idCliente; }
+    public int getIdCliente() { return idCliente; }
 
-    public void setIdcliente(int idCliente ){
+    public void setIdCliente(int idCliente ){
         this.idCliente = idCliente;
     }
 
-    public String getPrimernombre() { return primerNombre; }
+    public String getPrimerNombre() { return primerNombre; }
 
-    public void setPrimernombre(String primerNombre ){
+    public void setPrimerNombre(String primerNombre ){
         this.primerNombre = primerNombre;
     }
 
-    public String getSegundonombre() { return segundoNombre; }
+    public String getSegundoNombre() { return segundoNombre; }
 
-    public void setSegundonombre(String segundoNombre ){
+    public void setSegundoNombre(String segundoNombre ){
         this.segundoNombre = segundoNombre;
     }
 
-    public String getPrimerapellido() { return primerApellido; }
+    public String getPrimerApellido() { return primerApellido; }
 
-    public void setPrimerapellido(String primerApellido ){
+    public void setPrimerApellido(String primerApellido ){
         this.primerApellido = primerApellido;
     }
 
-    public String getSegundoapellido() { return segundoApellido; }
+    public String getSegundoApellido() { return segundoApellido; }
 
-    public void setSegundoapellido(String segundoApellido ){
+    public void setSegundoApellido(String segundoApellido ){
         this.segundoApellido = segundoApellido;
     }
 
@@ -90,33 +92,33 @@ public class Cliente {
         this.cedula = cedula;
     }
 
-    public LocalDate getFechacreacion() { return fechaCreacion; }
+    public LocalDate getFechaCreacion() { return fechaCreacion; }
 
-    public void setFechacreacion(LocalDate fechaCreacion ){
+    public void setFechaCreacion(LocalDate fechaCreacion ){
         this.fechaCreacion = fechaCreacion;
     }
 
-    public LocalDate getFechamodificacion() { return fechaModificacion; }
+    public LocalDate getFechaModificacion() { return fechaModificacion; }
 
-    public void setFechamodificacion(LocalDate fechaModificacion ){
+    public void setFechaModificacion(LocalDate fechaModificacion ){
         this.fechaModificacion = fechaModificacion;
     }
 
-    public int getIddireccion() { return idDireccion; }
+    public Direcciones getDireccion() { return direccion; }
 
-    public void setIddireccion(int idDireccion ){
-        this.idDireccion = idDireccion;
+    public void setDireccion(Direcciones direccion ){
+        this.direccion = direccion;
     }
 
-    public int getIdusuariocreacion() { return idUsuarioCreacion; }
+    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setIdusuariocreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdusuariomodificacion() { return idUsuarioModificacion; }
+    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdusuariomodificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }
