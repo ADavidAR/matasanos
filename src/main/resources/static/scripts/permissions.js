@@ -1,23 +1,16 @@
 const userPermissions = new Map();
 
 let changeCount = 0;
+const saveChangesBtn = document.querySelector("#btn-save-changes");
+
+
 
 function checkIfChanged(event) {
     const checkbox = event.target;
     const initialState = checkbox.getAttribute('data-initial') === 'true';
 
-    if (checkbox.checked !== initialState) {
-        if (!checkbox.checked) {
-            changeCount--;
-
-        } else {
-            changeCount++;
-        }
-
-        checkbox.setAttribute('data-initial', checkbox.checked);
-  
-        button.disabled = changeCount === 0;
-    }
+    changeCount += ( checkbox.checked === initialState ) ? 1 : -1;
+    saveChangesBtn.disabled = changeCount === 0;
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -28,29 +21,33 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     permissionTable.classList.add("enable");
 
-    if(localStorage.getItem("userData") === null)
-        window.location.href = "/login";
-
     let userData = JSON.parse(localStorage.getItem("userData"));
 
     let access = false;
     let mod = false;
     for(const p of userData.rol.permisos ) {
-        if(p.permiso.pantallahtml === "permissions.html") {
+        if(p.permiso.pantallaHtml === "permissions.html") {
             access = true;
             mod = p.modificacion;
             break;
         }
     }
 
-    if(!access) window.location.href = "/home"
-    
-    let selectedRole = JSON.parse(localStorage.getItem("selectedRole"));
+    if(!access) window.location.href = "/home";
+
+    const modifyElems = document.querySelectorAll(".modify");
+    let modifyDisplay = mod ? "block" : "none";
+
+    modifyElems.forEach( (el) => {
+        el.style.display = modifyDisplay;
+    })
 
     // if(localStorage.getItem("selectedRole") === null) {
-    //     window.location.href = "/Permisos";
+    //     window.location.href = "/roles";
     // }
-
+        
+    let selectedRole = JSON.parse(localStorage.getItem("selectedRole"));
+    
     let permissions = await fetch("/api/permisos/rol", {
         method: "POST",
         headers: {
@@ -69,7 +66,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         tdDesc.classList.add("desc");
         tr.appendChild(tdDesc);
-
 
         const tdValues = [
             {
@@ -93,6 +89,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             inputCheckbox.type = "checkbox";
             inputCheckbox.name = v.name;
             inputCheckbox.checked = v.value;
+            inputCheckbox.addEventListener("change", checkIfChanged);
 
             tdCheckbox.appendChild(inputCheckbox);
 
@@ -100,25 +97,15 @@ window.addEventListener("DOMContentLoaded", async () => {
         })
 
         permissionTBody.appendChild(tr);
-
-
     });
-    const modifyElems = document.querySelectorAll(".modify");
 
-    
-    
-    modifyElems.forEach( (el) => {
-        el.style.display = "none";
-    })
-
-    
     roleH1.textContent = userData.rol.nombrerol;
     
     userData.rol.permisos.forEach((p) => {
         const option = document.createElement("a");
         option.classList.add("btn");
         option.textContent = p.permiso.descripcion;
-        option.dataset.id = p.permiso.idpermiso;
+        option.dataset.id = p.permiso.idPermiso;
         optionsNav.appendChild(option);
     })
 })

@@ -4,15 +4,17 @@ window.addEventListener("DOMContentLoaded", async () => {
     
     let userData = JSON.parse(localStorage.getItem("userData"));
     
-    roleH1.textContent = userData.rol.nombrerol;
-    
-    userData.rol.permisos.forEach((p) => {
-        const option = document.createElement("a");
-        option.classList.add("btn");
-        option.textContent = p.permiso.descripcion;
-        option.dataset.id = p.permiso.idpermiso;
+    roleH1.textContent = userData.rol.nombreRol;
 
-        option.href = p.permiso.pantallahtml;
-        optionsNav.appendChild(option);
+    userData.rol.permisos.forEach((p) => {
+        if(p.permiso.accesoDirecto) {
+            const option = document.createElement("a");
+            option.classList.add("btn");
+            option.textContent = p.permiso.descripcion;
+            option.dataset.id = p.permiso.idPermiso;
+
+            option.href = p.permiso.pantallaHtml;
+            optionsNav.appendChild(option);
+        }
     })
 })
