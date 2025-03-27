@@ -20,7 +20,7 @@ public class RolPermisosRepo {
         this.permisoRepo = permisoRepo;
     }
 
-    public List<RolPermisos> listarPermisosPorRol(Rol rol) {
+    public List<RolPermisos> listarPermisosPorRol(int idRol) {
 
         List<Permiso> permisos = permisoRepo.listarPermisos();
         List<RolPermisos> rolPermisos = new LinkedList<>();
@@ -28,7 +28,7 @@ public class RolPermisosRepo {
         Map<Integer, RolPermisos> permisosDeRol = new HashMap<>();
 
 
-        for (RolPermisos rp : listarPermisosDeRol(rol.getIdRol())) {
+        for (RolPermisos rp : listarPermisosDeRol(idRol)) {
             permisosDeRol.put(rp.getPermiso().getIdPermiso(), rp);
         }
         for(Permiso p : permisos) {
@@ -69,25 +69,28 @@ public class RolPermisosRepo {
                 if (afectados == 0) {
                     return false;
                 }
+                continue;
             }
 
-            String sql = "INSERT INTO RolPermisos (acceso, modificacion, eliminacion, creacion, id_permiso, id_rol) VALUES (?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO RolPermisos (acceso, modificacion, eliminacion, creacion, id_permiso, id_rol) VALUES (?, ?, ?, ?, ?, ?)";
 
-            afectados = jdbcTemplate.update(
-                    sql,
-                    rp.getAcceso() ? 1 : 0,
-                    rp.getModificacion() ? 1 : 0,
-                    rp.getEliminacion() ? 1 : 0,
-                    rp.getCreacion() ? 1 : 0,
-                    rp.getPermiso().getIdPermiso(),
-                    rp.getRol().getIdRol()
-            );
+                afectados = jdbcTemplate.update(
+                        sql,
+                        rp.getAcceso() ? 1 : 0,
+                        rp.getModificacion() ? 1 : 0,
+                        rp.getEliminacion() ? 1 : 0,
+                        rp.getCreacion() ? 1 : 0,
+                        rp.getPermiso().getIdPermiso(),
+                        rp.getRol().getIdRol()
+                );
 
-            if (afectados == 0) {
-                return false;
+                if (afectados == 0) {
+                    return false;
+                }
             }
-        }
 
         return true;
     }
+
 }
+

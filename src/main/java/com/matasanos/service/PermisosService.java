@@ -21,9 +21,12 @@ public class PermisosService {
         this.usuarioService = usuarioService;
     }
 
-    public List<RolPermisos> listarPermisosDeRol(Rol rol) {
+    public List<RolPermisos> listarPermisosPorRol(int idRol) {
+        return rolPermisosRepo.listarPermisosPorRol(idRol);
+    }
 
-        return rolPermisosRepo.listarPermisosPorRol(rol);
+    public List<RolPermisos> listarPermisosDeRol(int idRol) {
+        return rolPermisosRepo.listarPermisosDeRol(idRol);
     }
 
     public boolean actualizarPermisosDeRol(List<RolPermisos> rps) {

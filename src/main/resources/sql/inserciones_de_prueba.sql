@@ -14,8 +14,8 @@ INSERT INTO RolPermisos (id_rol, id_permiso, acceso, modificacion, eliminacion, 
 VALUES
     (1, 1, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 1 (Permisos)
     (1, 2, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Usuarios)
-    (1, 3, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 3 (Roles)
-    (2, 2, 1, 0, 0, 0);  -- Rol 2 (Empleado) con Permiso 3 (Ver reportes)
+    (1, 3, 1, 1, 1, 1),  -- Rol 1 (Administrador) con Permiso 2 (Roles)
+    (2, 2, 1, 0, 0, 0);  -- Rol 2 (Empleado) con Permiso 3 (Usuarios)
 
 INSERT INTO Ciudad (ciudad)
 VALUES 

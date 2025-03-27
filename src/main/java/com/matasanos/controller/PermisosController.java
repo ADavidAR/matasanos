@@ -18,12 +18,19 @@ public class PermisosController {
         this.permisosService = permisosService;
     }
 
-    @PostMapping("/rol")
-    public ResponseEntity<?> listarPermisosDeRol(@RequestBody Rol rol) {
-        List<RolPermisos> permisos = permisosService.listarPermisosDeRol(rol);
+    @GetMapping("/rol/f/{idRol}")
+    public ResponseEntity<?> listarPermisosPorRol(@PathVariable int idRol) {
+        List<RolPermisos> permisos = permisosService.listarPermisosPorRol(idRol);
 
         return ResponseEntity.ok(permisos);
     }
+    @GetMapping("/rol/p/{idRol}")
+    public ResponseEntity<?> listarPermisosDeRol(@PathVariable int idRol) {
+        List<RolPermisos> permisos = permisosService.listarPermisosDeRol(idRol);
+
+        return ResponseEntity.ok(permisos);
+    }
+
 
     @PutMapping("/rol")
     public ResponseEntity<?> actualizarPermisosDeRol(@RequestBody List<RolPermisos> rps) {
