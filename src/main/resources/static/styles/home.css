@@ -2,17 +2,14 @@ body {
     background-color: #DCFFFD;
 }
 
-#role-section {
+#title-section {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     background-color: #037171;
     height: 6rem;
-}
-
-#role {
-    color: whitesmoke;
+    color: white;
 }
 
 #options {
@@ -24,6 +21,26 @@ body {
     gap: 2rem;
     min-height: 0vh; 
     width: 100%; 
+}
+
+#nav-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+a.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: auto;
+    font-size: 2rem;
+    cursor: pointer;
+    color: whitesmoke;
+    text-decoration: none;
 }
 
 a[class="btn"] {

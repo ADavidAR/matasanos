@@ -1,7 +1,7 @@
 package com.matasanos.model;
 
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Factura {
 
@@ -11,7 +11,6 @@ public class Factura {
     private String rtnCliente;// rtn_cliente
     private BigDecimal subtotal;// subtotal
     private BigDecimal impuesto;// impuesto
-    private BigDecimal total;// total
     private FacturacionSAR facturaSar;
     private Usuario usuario;
     private Cliente cliente;
@@ -19,14 +18,13 @@ public class Factura {
 
     public Factura() {}
      
-    public Factura (int idFactura, String numeroFactura, LocalDate fechaEmision, String rtnCliente, BigDecimal subtotal, BigDecimal impuesto, BigDecimal total, FacturacionSAR facturaSar, Usuario usuario, Cliente cliente, Caja caja) {
+    public Factura (int idFactura, String numeroFactura, LocalDate fechaEmision, String rtnCliente, BigDecimal subtotal, BigDecimal impuesto, FacturacionSAR facturaSar, Usuario usuario, Cliente cliente, Caja caja) {
         this.idFactura = idFactura;
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
         this.rtnCliente = rtnCliente;
         this.subtotal = subtotal;
         this.impuesto = impuesto;
-        this.total = total;
         this.facturaSar = facturaSar;
         this.usuario = usuario;
         this.cliente = cliente;
@@ -67,12 +65,6 @@ public class Factura {
 
     public void setImpuesto(BigDecimal impuesto ){
         this.impuesto = impuesto;
-    }
-
-    public BigDecimal getTotal() { return total; }
-
-    public void setTotal(BigDecimal total ){
-        this.total = total;
     }
 
     public FacturacionSAR getFacturaSar() { return facturaSar; }

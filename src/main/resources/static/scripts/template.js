@@ -1,9 +1,8 @@
 window.addEventListener("DOMContentLoaded", async () => {
-    const roleH1 = document.querySelector("#role");
+    const roleH1 = document.querySelector("#title");
     const optionsNav = document.querySelector("#nav-options");
     
     let userData = JSON.parse(localStorage.getItem("userData"));
-
 
     roleH1.textContent = userData.rol.nombreRol;
     

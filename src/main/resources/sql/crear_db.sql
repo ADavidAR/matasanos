@@ -2,19 +2,36 @@ CREATE DATABASE matasanos;
 
 USE matasanos;
 
-CREATE TABLE Medico(
-    id_medico INT IDENTITY (1,1) PRIMARY KEY,
-    primer_nombre VARCHAR (100) NOT NULL,
-    segundo_nombre VARCHAR (100),
-    primer_apellido VARCHAR (100) NOT NULL,
-    segundo_apellido VARCHAR (100),
-    num_colegiado VARCHAR (10) NOT NULL
+CREATE TABLE Ciudad(
+	id_ciudad INT IDENTITY(1,1) PRIMARY KEY,
+	ciudad VARCHAR (200) NOT NULL
+);
+
+CREATE TABLE Colonia(
+	id_colonia INT IDENTITY(1,1) PRIMARY KEY,
+	nombre_colonia VARCHAR(200),
+	id_ciudad INT,
+	FOREIGN KEY (id_ciudad) REFERENCES Ciudad(id_ciudad)
+);
+
+CREATE TABLE Direccion(
+	id_direccion INT IDENTITY(1,1) PRIMARY KEY,
+	referencia VARCHAR (500) NOT NULL,
+	id_colonia INT NOT NULL,
+	FOREIGN KEY (id_colonia) REFERENCES Colonia(id_colonia)
 );
 
 CREATE TABLE Sucursal(
 	id_sucursal INT IDENTITY (1,1) PRIMARY KEY,
+	id_direccion INT,
 	nombre_sucursal VARCHAR (200) NOT NULL,
-	num_establecimiento VARCHAR (3) NOT NULL
+	FOREIGN KEY (id_direccion) REFERENCES Direccion(id_direccion)
+);
+
+CREATE TABLE TipoMovimiento(
+	id_tipo_movimiento INT IDENTITY (1,1) PRIMARY KEY,
+	nombre VARCHAR(50),
+	factor INT
 );
 
 CREATE TABLE Funcion(
@@ -65,12 +82,7 @@ CREATE TABLE Descuento(
 
 CREATE TABLE Rol(
 	id_rol INT IDENTITY(1,1) PRIMARY KEY,
-	nombre_rol VARCHAR (300) NOT NULL,
-);
-
-CREATE TABLE Ciudad(
-	id_ciudad INT IDENTITY(1,1) PRIMARY KEY,
-	ciudad VARCHAR (200) NOT NULL
+	nombre_rol VARCHAR (300) UNIQUE NOT NULL,
 );
 
 CREATE TABLE Cargo(
@@ -86,7 +98,7 @@ CREATE TABLE FuncionCargo(
 	FOREIGN KEY (id_cargo) REFERENCES Cargo(id_cargo)
 );
 
-CREATE TABLE RolPermisos(
+CREATE TABLE RolPermiso(
 	id_rol_permiso INT IDENTITY(1,1) PRIMARY KEY,
 	id_rol INT,
 	id_permiso INT NOT NULL,
@@ -96,7 +108,7 @@ CREATE TABLE RolPermisos(
 	creacion BIT NOT NULL,
 	FOREIGN KEY (id_rol) REFERENCES Rol(id_rol),
 	FOREIGN KEY (id_permiso) REFERENCES Permiso(id_permiso),
-	CONSTRAINT UC_RolPermisos_id_rol_id_permiso UNIQUE (id_rol, id_permiso)
+	CONSTRAINT UC_RolPermiso_id_rol_id_permiso UNIQUE (id_rol, id_permiso)
 );
 
 CREATE TABLE Categoria(
@@ -104,14 +116,6 @@ CREATE TABLE Categoria(
 	nombre_categoria VARCHAR (200) NOT NULL,
 	id_departamento INT NOT NULL,
 	FOREIGN KEY (id_departamento) REFERENCES Departamento(id_departamento)
-);
-
-CREATE TABLE Direcciones(
-	id_direccion INT IDENTITY(1,1) PRIMARY KEY,
-	colonia VARCHAR (200) NOT NULL,
-	direccion VARCHAR (500) NOT NULL,
-	id_ciudad INT NOT NULL
-	FOREIGN KEY (id_ciudad) REFERENCES Ciudad(id_ciudad)
 );
 
 CREATE TABLE Usuario(
@@ -128,22 +132,34 @@ CREATE TABLE Usuario(
 	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
 
+CREATE TABLE Persona(
+	id_persona INT IDENTITY(1,1) PRIMARY KEY,
+	primer_nombre VARCHAR(100) NOT NULL,
+	segundo_nombre VARCHAR(100),
+	primer_apellido VARCHAR(100) NOT NULL,
+	segundo_apellido VARCHAR(100),
+	dni VARCHAR(15) UNIQUE,
+	id_direccion INT,
+	FOREIGN KEY (id_direccion) REFERENCES Direccion(id_direccion)
+);
+
+CREATE TABLE Medico(
+    id_medico INT IDENTITY (1,1) PRIMARY KEY,
+    num_colegiado VARCHAR (10) NOT NULL,
+	id_persona INT,
+	FOREIGN KEY (id_persona) REFERENCES Persona (id_persona)
+);
+
+
 CREATE TABLE Cliente(
 	id_cliente INT IDENTITY(1,1) PRIMARY KEY,
-	primer_nombre VARCHAR (100) NOT NULL,
-	segundo_nombre VARCHAR (100),
-	primer_apellido VARCHAR (100) NOT NULL,
-	segundo_apellido VARCHAR (100),
-	telefono VARCHAR (15),
-	correo VARCHAR (250),
 	rtn VARCHAR (20),
-	cedula VARCHAR (15) UNIQUE,
 	fecha_creacion DATE,
 	fecha_modificacion DATE,
-	id_direccion INT NOT NULL,
+	id_persona INT,
 	id_usuario_creacion INT,
 	id_usuario_modificacion INT,
-	FOREIGN KEY (id_direccion) REFERENCES Direcciones(id_direccion),
+	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona),
 	FOREIGN KEY (id_usuario_creacion) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
@@ -163,7 +179,6 @@ CREATE TABLE Factura(
 	rtn_cliente VARCHAR(20),
 	subtotal DECIMAL NOT NULL,
 	impuesto DECIMAL NOT NULL,
-	total DECIMAL NOT NULL,
 	id_factura_sar INT NOT NULL,
 	id_usuario INT NOT NULL,
 	id_cliente INT NOT NULL,
@@ -187,12 +202,13 @@ CREATE TABLE Producto(
 	nombre_producto VARCHAR(300) NOT NULL,
 	descripcion TEXT NOT NULL,
 	precio_venta DECIMAL NOT NULL,
-	inventario INT NOT NULL,
 	fecha_vencimiento DATE NOT NULL,
 	venta_libre BIT NOT NULL,
 	precio_descuento DECIMAL,
+	impuesto DECIMAL,
 	fecha_creacion DATE,
 	fecha_modificacion DATE,
+	costo_venta DECIMAL,
 	id_categoria INT NOT NULL,
 	id_proveedor INT NOT NULL,
 	id_usuario_creacion INT,
@@ -203,10 +219,25 @@ CREATE TABLE Producto(
 	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
 
+CREATE TABLE FichaInventario(
+	id_ficha INT IDENTITY (1,1) PRIMARY KEY,
+	cantidad INT,
+	referencia VARCHAR(50),
+	fecha DATE,
+	id_producto INT,
+	id_sucursal INT,
+	id_tipo_movimiento INT,
+	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
+	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal),
+	FOREIGN KEY (id_tipo_movimiento) REFERENCES TipoMovimiento(id_tipo_movimiento),
+);
+
 CREATE TABLE FacturaProducto(
 	id_factura_producto INT IDENTITY(1,1) PRIMARY KEY,
 	cantidad INT NOT NULL,
 	precio_unitario DECIMAL NOT NULL,
+	impuset_porcentaje DECIMAL,
+	impuesto DECIMAL,
 	subtotal DECIMAL,
 	id_factura INT NOT NULL,
 	id_producto INT NOT NULL,
@@ -216,10 +247,9 @@ CREATE TABLE FacturaProducto(
 
 CREATE TABLE Receta(
 	id_receta INT IDENTITY(1,1) PRIMARY KEY,
-	id_medico INT ,
 	fecha DATE,
 	descripcion TEXT,
-	indicaciones TEXT,
+	id_medico INT ,
 	id_cliente INT,
 	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
 	FOREIGN KEY (id_medico) REFERENCES Medico(id_medico)
@@ -228,6 +258,7 @@ CREATE TABLE Receta(
 CREATE TABLE RecetaProducto(
 	id_receta_producto INT IDENTITY(1,1) PRIMARY KEY,
 	cantidad INT NOT NULL,
+	indicaciones TEXT,
 	id_receta INT NOT NULL,
 	id_producto INT NOT NULL,
 	FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
@@ -256,24 +287,19 @@ CREATE TABLE ProductoCompra(
 
 CREATE TABLE Empleado(
 	id_empleado INT IDENTITY(1,1) PRIMARY KEY,
-	primer_nombre VARCHAR (100) NOT NULL,
-	segundo_nombre VARCHAR (100),
-	primer_apellido VARCHAR (100) NOT NULL,
-	segundo_apellido VARCHAR (100) NOT NULL,
-	telefono VARCHAR (15),
-	correo VARCHAR (250),
 	salario DECIMAL,
 	fecha_contratacion DATE NOT NULL,
 	fecha_baja DATE,
 	activo BIT NOT NULL,
+	fecha_creacion DATE NOT NULL,
 	fecha_modificacion DATE,
-	id_direccion INT NOT NULL,
+	id_persona INT NOT NULL,
 	id_cargo INT NOT NULL,
 	id_usuario INT NOT NULL,
 	id_sucursal INT NOT NULL,
 	id_usuario_creacion INT,
 	id_usuario_modificacion INT,
-	FOREIGN KEY (id_direccion) REFERENCES Direcciones(id_direccion),
+	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona),
 	FOREIGN KEY (id_cargo) REFERENCES Cargo(id_cargo),
 	FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal),
@@ -281,13 +307,36 @@ CREATE TABLE Empleado(
 	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
 
-CREATE TABLE SucursalProducto(
-	id_sucursal_producto INT IDENTITY(1,1) PRIMARY KEY,
-	inventario_sucursal INT NOT NULL,
-	id_producto INT NOT NULL,
-	id_sucursal INT NOT NULL,
-	FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
-	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal)
+--Nuevo
+
+CREATE TABLE MetodoPago(
+	id_metodo INT IDENTITY(1,1) PRIMARY KEY,
+	descripcion VARCHAR(100)
+);
+
+CREATE TABLE Pago(
+	id_pago INT IDENTITY(1,1) PRIMARY KEY,
+	importe DECIMAL,
+	fecha DATE,
+	id_factura INT,
+	id_metodo INT,
+	FOREIGN KEY (id_factura) REFERENCES Factura(id_factura),
+	FOREIGN KEY (id_metodo) REFERENCES MetodoPago(id_metodo)
+
+);
+
+CREATE TABLE Correo(
+	id_correo INT IDENTITY(1,1) PRIMARY KEY,
+	correo VARCHAR(100),
+	id_persona INT,
+	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona)
+);
+
+CREATE TABLE Telefono(
+	id_telefono INT IDENTITY(1,1) PRIMARY KEY,
+	telefono VARCHAR(100),
+	id_persona INT,
+	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona)
 );
 
 --VISTAS
@@ -299,21 +348,23 @@ CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
 
-CREATE VIEW v_RolPermisos AS
+CREATE VIEW v_RolPermiso AS
     SELECT rp.*, r.nombre_rol, p.descripcion, p.endpoint_url, p.acceso_directo FROM Rol r
-    LEFT JOIN RolPermisos rp ON rp.id_rol = r.id_rol
+    LEFT JOIN RolPermiso rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
 
-
 CREATE VIEW v_ProductoSucursal AS
-	SELECT p.*, nombre_categoria, d.id_departamento, nombre_departamento, s.id_sucursal, nombre_sucursal, inventario_sucursal FROM Producto p
+	SELECT p.*, nombre_categoria, d.id_departamento, nombre_departamento, s.id_sucursal, nombre_sucursal, fi.cantidad, fi.fecha, fi.referencia, tm.factor, tm.nombre FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
-	INNER JOIN SucursalProducto sp ON sp.id_producto = p.id_producto
-	INNER JOIN Sucursal s ON s.id_sucursal = sp.id_sucursal;
+	INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
+	INNER JOIN Sucursal s ON s.id_sucursal = fi.id_sucursal
+	INNER JOIN TipoMovimiento tm ON tm.id_tipo_movimiento = fi.id_tipo_movimiento;
 
 
 CREATE VIEW v_Producto AS
-	SELECT p.*, nombre_categoria, nombre_departamento FROM Producto p
+	SELECT p.*, d.id_departamento, nombre_categoria, nombre_departamento, fi.cantidad, fi.fecha, fi.referencia, tm.factor, tm.nombre FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
-	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento;
+	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
+	INNER JOIN FichaInventario fi ON fi.id_producto = fi.id_producto
+	INNER JOIN TipoMovimiento tm ON tm.id_tipo_movimiento = fi.id_tipo_movimiento;
