@@ -1,7 +1,7 @@
 package com.matasanos.model;
 
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Producto {
 
@@ -9,32 +9,53 @@ public class Producto {
     private String nombreProducto;// nombre_producto
     private String descripcion;// descripcion
     private BigDecimal precioVenta;// precio_venta
-    private int inventario;// inventario
     private LocalDate fechaVencimiento;// fecha_vencimiento
     private boolean ventaLibre;// venta_libre
     private BigDecimal precioDescuento;// precio_descuento
+    private BigDecimal impuesto;// impuesto
     private LocalDate fechaCreacion;// fecha_creacion
     private LocalDate fechaModificacion;// fecha_modificacion
+    private BigDecimal costoVenta;// costo_venta
     private Categoria categoria;
     private Proveedor proveedor;
+    private int inventario;
     private int idUsuarioCreacion;// id_usuario_creacion
     private int idUsuarioModificacion;// id_usuario_modificacion
 
     public Producto() {}
      
-    public Producto (int idProducto, String nombreProducto, String descripcion, BigDecimal precioVenta, int inventario, LocalDate fechaVencimiento, boolean ventaLibre, BigDecimal precioDescuento, LocalDate fechaCreacion, LocalDate fechaModificacion, Categoria categoria, Proveedor proveedor, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Producto (
+            int idProducto,
+            String nombreProducto,
+            String descripcion,
+            BigDecimal precioVenta,
+            LocalDate fechaVencimiento,
+            boolean ventaLibre,
+            BigDecimal precioDescuento,
+            BigDecimal impuesto,
+            LocalDate fechaCreacion,
+            LocalDate fechaModificacion,
+            BigDecimal costoVenta,
+            Categoria categoria,
+            Proveedor proveedor,
+            int inventario,
+            int idUsuarioCreacion,
+            int idUsuarioModificacion
+    ) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
-        this.inventario = inventario;
         this.fechaVencimiento = fechaVencimiento;
         this.ventaLibre = ventaLibre;
         this.precioDescuento = precioDescuento;
+        this.impuesto = impuesto;
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
+        this.costoVenta = costoVenta;
         this.categoria = categoria;
         this.proveedor = proveedor;
+        this.inventario = inventario;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
@@ -44,13 +65,15 @@ public class Producto {
             String nombreProducto,
             String descripcion,
             BigDecimal precioVenta,
-            int inventario,
             LocalDate fechaVencimiento,
             boolean ventaLibre,
             BigDecimal precioDescuento,
+            BigDecimal impuesto,
             LocalDate fechaCreacion,
             LocalDate fechaModificacion,
+            BigDecimal costoVenta,
             Categoria categoria,
+            int inventario,
             int idUsuarioCreacion,
             int idUsuarioModificacion
     ) {
@@ -58,13 +81,16 @@ public class Producto {
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
         this.precioVenta = precioVenta;
-        this.inventario = inventario;
         this.fechaVencimiento = fechaVencimiento;
         this.ventaLibre = ventaLibre;
         this.precioDescuento = precioDescuento;
+        this.impuesto = impuesto;
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
+        this.costoVenta = costoVenta;
         this.categoria = categoria;
+        this.proveedor = null;
+        this.inventario = inventario;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
@@ -93,12 +119,6 @@ public class Producto {
         this.precioVenta = precioVenta;
     }
 
-    public int getInventario() { return inventario; }
-
-    public void setInventario(int inventario ){
-        this.inventario = inventario;
-    }
-
     public LocalDate getFechaVencimiento() { return fechaVencimiento; }
 
     public void setFechaVencimiento(LocalDate fechaVencimiento ){
@@ -117,6 +137,12 @@ public class Producto {
         this.precioDescuento = precioDescuento;
     }
 
+    public BigDecimal getImpuesto() { return impuesto; }
+
+    public void setImpuesto(BigDecimal impuesto ){
+        this.impuesto = impuesto;
+    }
+
     public LocalDate getFechaCreacion() { return fechaCreacion; }
 
     public void setFechaCreacion(LocalDate fechaCreacion ){
@@ -129,6 +155,12 @@ public class Producto {
         this.fechaModificacion = fechaModificacion;
     }
 
+    public BigDecimal getCostoVenta() { return costoVenta; }
+
+    public void setCostoVenta(BigDecimal costoVenta ){
+        this.costoVenta = costoVenta;
+    }
+
     public Categoria getCategoria() { return categoria; }
 
     public void setCategoria(Categoria categoria ){
@@ -139,6 +171,12 @@ public class Producto {
 
     public void setProveedor(Proveedor proveedor ){
         this.proveedor = proveedor;
+    }
+
+    public int getInventario() { return inventario; }
+
+    public void setInventario(int inventario) {
+        this.inventario = inventario;
     }
 
     public int getIdUsuarioCreacion() { return idUsuarioCreacion; }

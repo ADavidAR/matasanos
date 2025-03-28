@@ -5,15 +5,15 @@ package com.matasanos.model;
 public class Sucursal {
 
     private int idSucursal;// id_sucursal
+    private Direccion direccion;
     private String nombreSucursal;// nombre_sucursal
-    private String numEstablecimiento;// num_establecimiento
 
     public Sucursal() {}
      
-    public Sucursal (int idSucursal, String nombreSucursal, String numEstablecimiento) {
+    public Sucursal (int idSucursal, Direccion direccion, String nombreSucursal) {
         this.idSucursal = idSucursal;
+        this.direccion = direccion;
         this.nombreSucursal = nombreSucursal;
-        this.numEstablecimiento = numEstablecimiento;
     }
 
     public int getIdSucursal() { return idSucursal; }
@@ -22,15 +22,15 @@ public class Sucursal {
         this.idSucursal = idSucursal;
     }
 
+    public Direccion getDireccion() { return direccion; }
+
+    public void setDireccion(Direccion direccion ){
+        this.direccion = direccion;
+    }
+
     public String getNombreSucursal() { return nombreSucursal; }
 
     public void setNombreSucursal(String nombreSucursal ){
         this.nombreSucursal = nombreSucursal;
-    }
-
-    public String getNumEstablecimiento() { return numEstablecimiento; }
-
-    public void setNumEstablecimiento(String numEstablecimiento ){
-        this.numEstablecimiento = numEstablecimiento;
     }
 }

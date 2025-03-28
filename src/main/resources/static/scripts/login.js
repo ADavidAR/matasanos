@@ -1,8 +1,7 @@
 
 
 (function () {
-
-
+    
     document.addEventListener("DOMContentLoaded", (e) => {
         const form = document.querySelector("#main-container ");
         setTimeout(() => {

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class FacturacionSAR {
 
     private int idFacturaSar;// id_factura_sar
+    private Sucursal sucursal;
     private LocalDate fechaVigencia;// fecha_vigencia
     private int rangoInicio;// rango_inicio
     private int rangoFin;// rango_fin
@@ -14,8 +15,9 @@ public class FacturacionSAR {
 
     public FacturacionSAR() {}
      
-    public FacturacionSAR (int idFacturaSar, LocalDate fechaVigencia, int rangoInicio, int rangoFin, boolean vigente, String cai, String inicioCodFactura) {
+    public FacturacionSAR (int idFacturaSar, Sucursal sucursal, LocalDate fechaVigencia, int rangoInicio, int rangoFin, boolean vigente, String cai, String inicioCodFactura) {
         this.idFacturaSar = idFacturaSar;
+        this.sucursal = sucursal;
         this.fechaVigencia = fechaVigencia;
         this.rangoInicio = rangoInicio;
         this.rangoFin = rangoFin;
@@ -28,6 +30,12 @@ public class FacturacionSAR {
 
     public void setIdFacturaSar(int idFacturaSar ){
         this.idFacturaSar = idFacturaSar;
+    }
+
+    public Sucursal getSucursal() { return sucursal; }
+
+    public void setSucursal(Sucursal sucursal ){
+        this.sucursal = sucursal;
     }
 
     public LocalDate getFechaVigencia() { return fechaVigencia; }
