@@ -1,7 +1,7 @@
 package com.matasanos.model;
 
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Compra {
 
