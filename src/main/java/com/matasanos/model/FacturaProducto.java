@@ -7,16 +7,20 @@ public class FacturaProducto {
     private int idFacturaProducto;// id_factura_producto
     private int cantidad;// cantidad
     private BigDecimal precioUnitario;// precio_unitario
+    private BigDecimal impusetPorcentaje;// impuset_porcentaje
+    private BigDecimal impuesto;// impuesto
     private BigDecimal subtotal;// subtotal
     private Factura factura;
     private Producto producto;
 
     public FacturaProducto() {}
      
-    public FacturaProducto (int idFacturaProducto, int cantidad, BigDecimal precioUnitario, BigDecimal subtotal, Factura factura, Producto producto) {
+    public FacturaProducto (int idFacturaProducto, int cantidad, BigDecimal precioUnitario, BigDecimal impusetPorcentaje, BigDecimal impuesto, BigDecimal subtotal, Factura factura, Producto producto) {
         this.idFacturaProducto = idFacturaProducto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
+        this.impusetPorcentaje = impusetPorcentaje;
+        this.impuesto = impuesto;
         this.subtotal = subtotal;
         this.factura = factura;
         this.producto = producto;
@@ -38,6 +42,18 @@ public class FacturaProducto {
 
     public void setPrecioUnitario(BigDecimal precioUnitario ){
         this.precioUnitario = precioUnitario;
+    }
+
+    public BigDecimal getImpusetPorcentaje() { return impusetPorcentaje; }
+
+    public void setImpusetPorcentaje(BigDecimal impusetPorcentaje ){
+        this.impusetPorcentaje = impusetPorcentaje;
+    }
+
+    public BigDecimal getImpuesto() { return impuesto; }
+
+    public void setImpuesto(BigDecimal impuesto ){
+        this.impuesto = impuesto;
     }
 
     public BigDecimal getSubtotal() { return subtotal; }

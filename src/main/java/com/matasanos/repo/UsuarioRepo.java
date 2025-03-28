@@ -1,7 +1,7 @@
 package com.matasanos.repo;
 
 
-import com.matasanos.model.RolPermisos;
+import com.matasanos.model.RolPermiso;
 import com.matasanos.model.Usuario;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,11 +13,11 @@ import java.util.List;
 public class UsuarioRepo {
 
     JdbcTemplate jdbcTemplate;
-    RolPermisosRepo rolPermisosRepo;
+    RolPermisoRepo rolPermisoRepo;
 
-    public UsuarioRepo(JdbcTemplate jdbcTemplate, RolPermisosRepo rolPermisosRepo) {
+    public UsuarioRepo(JdbcTemplate jdbcTemplate, RolPermisoRepo rolPermisoRepo) {
         this.jdbcTemplate = jdbcTemplate;
-        this.rolPermisosRepo = rolPermisosRepo;
+        this.rolPermisoRepo = rolPermisoRepo;
     }
 
     public List<Usuario> listarUsuarios() {
@@ -33,14 +33,14 @@ public class UsuarioRepo {
     }
 
     public Usuario obtenerUsuario(String usuario) {
-        String sql = "SELECT * FROM v_Usuario WHERE usuario = ?";
+        String sql = "SELECT id_usuario, usuario, contrasena FROM v_Usuario WHERE usuario = ?";
         List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioSimpleRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();
     }
 
     public Usuario obtenerUsuarioConRol(String usuario) {
-        String sql = "SELECT * FROM v_UsuarioConRol WHERE usuario = ?";
+        String sql = "SELECT id_usuario, usuario, contrasena, id_rol, nombre_rol FROM v_UsuarioConRol WHERE usuario = ?";
         List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioConRolRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();
@@ -52,7 +52,7 @@ public class UsuarioRepo {
         if(u == null)
             return null;
 
-        List<RolPermisos> permisos = rolPermisosRepo.listarPermisosDeRol(u.getRol().getIdRol());
+        List<RolPermiso> permisos = rolPermisoRepo.listarPermisosDeRol(u.getRol().getIdRol());
 
         u.getRol().setPermisos(permisos);
 

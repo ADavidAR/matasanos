@@ -2,7 +2,7 @@ package com.matasanos.model;
 
 
 
-public class RolPermisos {
+public class RolPermiso {
 
     private int idRolPermiso;// id_rol_permiso
     private Rol rol;
@@ -12,9 +12,9 @@ public class RolPermisos {
     private boolean eliminacion;// eliminacion
     private boolean creacion;// creacion
 
-    public RolPermisos() {}
+    public RolPermiso() {}
 
-    public RolPermisos (int idRolPermiso, Rol rol, Permiso permiso, boolean acceso, boolean modificacion, boolean eliminacion, boolean creacion) {
+    public RolPermiso(int idRolPermiso, Rol rol, Permiso permiso, boolean acceso, boolean modificacion, boolean eliminacion, boolean creacion) {
         this.idRolPermiso = idRolPermiso;
         this.rol = rol;
         this.permiso = permiso;
