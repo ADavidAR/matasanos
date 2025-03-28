@@ -13,6 +13,8 @@ public class Usuario {
     private int idUsuarioCreacion;// id_usuario_creacion
     private int idUsuarioModificacion;// id_usuario_modificacion
 
+    public Usuario() {}
+     
     public Usuario (int idUsuario, String usuario, String contrasena, LocalDate fechaCreacion, LocalDate fechaModificacion, Rol rol, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
@@ -24,30 +26,9 @@ public class Usuario {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public Usuario (int idUsuario, String usuario, String contrasena, Rol rol) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.fechaCreacion = null;
-        this.fechaModificacion = null;
-        this.rol = rol;
-        this.idUsuarioCreacion = 0;
-        this.idUsuarioModificacion = 0;
-    }
-
-    public Usuario (int idUsuario, String usuario, String contrasena) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.fechaCreacion = null;
-        this.fechaModificacion = null;
-        this.idUsuarioCreacion = 0;
-        this.idUsuarioModificacion = 0;
-    }
-
     public int getIdUsuario() { return idUsuario; }
 
-    public void setIduUsuario(int idUsuario ){
+    public void setIdUsuario(int idUsuario ){
         this.idUsuario = idUsuario;
     }
 
@@ -63,9 +44,9 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public LocalDate getFechaDreacion() { return fechaCreacion; }
+    public LocalDate getFechaCreacion() { return fechaCreacion; }
 
-    public void setFechaDreacion(LocalDate fechaCreacion ){
+    public void setFechaCreacion(LocalDate fechaCreacion ){
         this.fechaCreacion = fechaCreacion;
     }
 

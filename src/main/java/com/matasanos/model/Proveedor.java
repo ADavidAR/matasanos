@@ -14,7 +14,15 @@ public class Proveedor {
 
     public Proveedor() {}
      
-    public Proveedor (int idProveedor, String razonSocial, String contacto, String rtnContacto, String telefono, String correo, String direccion) {
+    public Proveedor (
+            int idProveedor,
+            String razonSocial,
+            String contacto,
+            String rtnContacto,
+            String telefono,
+            String correo,
+            String direccion
+    ) {
         this.idProveedor = idProveedor;
         this.razonSocial = razonSocial;
         this.contacto = contacto;
@@ -22,6 +30,10 @@ public class Proveedor {
         this.telefono = telefono;
         this.correo = correo;
         this.direccion = direccion;
+    }
+
+    public Proveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     public int getIdProveedor() { return idProveedor; }
