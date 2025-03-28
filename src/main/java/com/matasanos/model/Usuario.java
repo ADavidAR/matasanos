@@ -26,6 +26,28 @@ public class Usuario {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
+    public Usuario(int idUsuario, String usuario, String contrasena, Rol rol) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.rol = rol;
+        this.fechaCreacion = null;
+        this.fechaModificacion = null;
+        this.idUsuarioCreacion = 0;
+        this.idUsuarioModificacion = 0;
+    }
+
+    public Usuario(int idUsuario, String usuario, String contrasena) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.rol = null;
+        this.fechaCreacion = null;
+        this.fechaModificacion = null;
+        this.idUsuarioCreacion = 0;
+        this.idUsuarioModificacion = 0;
+    }
+
     public int getIdUsuario() { return idUsuario; }
 
     public void setIdUsuario(int idUsuario ){

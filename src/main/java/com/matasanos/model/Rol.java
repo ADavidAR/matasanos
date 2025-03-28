@@ -1,11 +1,13 @@
 package com.matasanos.model;
 
 
+import java.util.List;
 
 public class Rol {
 
     private int idRol;// id_rol
     private String nombreRol;// nombre_rol
+    List<RolPermiso> permisos;
 
     public Rol() {}
      
@@ -24,5 +26,13 @@ public class Rol {
 
     public void setNombreRol(String nombreRol ){
         this.nombreRol = nombreRol;
+    }
+
+    public List<RolPermiso> getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(List<RolPermiso> permisos) {
+        this.permisos = permisos;
     }
 }

@@ -1,9 +1,8 @@
 package com.matasanos.service;
 
-import com.matasanos.model.Rol;
-import com.matasanos.model.RolPermisos;
+import com.matasanos.model.RolPermiso;
 import com.matasanos.repo.PermisoRepo;
-import com.matasanos.repo.RolPermisosRepo;
+import com.matasanos.repo.RolPermisoRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,24 +11,24 @@ import java.util.List;
 public class PermisosService {
 
     PermisoRepo permisoRepo;
-    RolPermisosRepo rolPermisosRepo;
+    RolPermisoRepo rolPermisoRepo;
     UsuarioService usuarioService;
 
-    public PermisosService(PermisoRepo permisoRepo, RolPermisosRepo rolPermisosRepo, UsuarioService usuarioService) {
+    public PermisosService(PermisoRepo permisoRepo, RolPermisoRepo rolPermisoRepo, UsuarioService usuarioService) {
         this.permisoRepo = permisoRepo;
-        this.rolPermisosRepo = rolPermisosRepo;
+        this.rolPermisoRepo = rolPermisoRepo;
         this.usuarioService = usuarioService;
     }
 
-    public List<RolPermisos> listarPermisosPorRol(int idRol) {
-        return rolPermisosRepo.listarPermisosPorRol(idRol);
+    public List<RolPermiso> listarPermisosPorRol(int idRol) {
+        return rolPermisoRepo.listarPermisosPorRol(idRol);
     }
 
-    public List<RolPermisos> listarPermisosDeRol(int idRol) {
-        return rolPermisosRepo.listarPermisosDeRol(idRol);
+    public List<RolPermiso> listarPermisosDeRol(int idRol) {
+        return rolPermisoRepo.listarPermisosDeRol(idRol);
     }
 
-    public boolean actualizarPermisosDeRol(List<RolPermisos> rps) {
-        return rolPermisosRepo.actualizarPermisosDeRol(rps);
+    public boolean actualizarPermisosDeRol(List<RolPermiso> rps) {
+        return rolPermisoRepo.actualizarPermisosDeRol(rps);
     }
 }

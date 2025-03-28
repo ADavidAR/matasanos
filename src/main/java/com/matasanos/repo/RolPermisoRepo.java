@@ -1,6 +1,7 @@
 package com.matasanos.repo;
 
-import com.matasanos.model.RolPermisos;
+import com.matasanos.model.Permiso;
+import com.matasanos.model.RolPermiso;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,20 +14,20 @@ public class RolPermisoRepo {
     JdbcTemplate jdbcTemplate;
     PermisoRepo permisoRepo;
 
-    public RolPermisoRepo(JdbcTemplate jdbcTemplate) {
+    public RolPermisoRepo(JdbcTemplate jdbcTemplate, PermisoRepo permisoRepo) {
         this.jdbcTemplate = jdbcTemplate;
         this.permisoRepo = permisoRepo;
     }
 
-    public List<RolPermisos> listarPermisosPorRol(int idRol) {
+    public List<RolPermiso> listarPermisosPorRol(int idRol) {
 
         List<Permiso> permisos = permisoRepo.listarPermisos();
-        List<RolPermisos> rolPermisos = new LinkedList<>();
+        List<RolPermiso> rolPermisos = new LinkedList<>();
 
-        Map<Integer, RolPermisos> permisosDeRol = new HashMap<>();
+        Map<Integer, RolPermiso> permisosDeRol = new HashMap<>();
 
 
-        for (RolPermisos rp : listarPermisosDeRol(idRol)) {
+        for (RolPermiso rp : listarPermisosDeRol(idRol)) {
             permisosDeRol.put(rp.getPermiso().getIdPermiso(), rp);
         }
         for(Permiso p : permisos) {
@@ -35,7 +36,7 @@ public class RolPermisoRepo {
                 continue;
             }
 
-            rolPermisos.add(new RolPermisos(p));
+            rolPermisos.add(new RolPermiso(p));
         }
 
         return rolPermisos;
@@ -46,12 +47,12 @@ public class RolPermisoRepo {
         return jdbcTemplate.query(sql, CustomRowMapper.rolPermisoSimpleRowMapper, idRol);
     }
 
-    public boolean actualizarPermisosDeRol(List<RolPermisos> rps) {
+    public boolean actualizarPermisosDeRol(List<RolPermiso> rps) {
         for(var rp : rps) {
             int afectados;
 
             if(rp.getIdRolPermiso() != 0) {
-                String sql = "UPDATE RolPermisos SET acceso = ?, modificacion = ?, eliminacion = ?, creacion = ?, id_permiso = ?, id_rol = ? WHERE id_rol_permiso = ?";
+                String sql = "UPDATE RolPermiso SET acceso = ?, modificacion = ?, eliminacion = ?, creacion = ?, id_permiso = ?, id_rol = ? WHERE id_rol_permiso = ?";
 
                 afectados = jdbcTemplate.update(
                         sql,
@@ -70,7 +71,7 @@ public class RolPermisoRepo {
                 continue;
             }
 
-                String sql = "INSERT INTO RolPermisos (acceso, modificacion, eliminacion, creacion, id_permiso, id_rol) VALUES (?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO RolPermiso (acceso, modificacion, eliminacion, creacion, id_permiso, id_rol) VALUES (?, ?, ?, ?, ?, ?)";
 
                 afectados = jdbcTemplate.update(
                         sql,

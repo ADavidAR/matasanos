@@ -24,7 +24,7 @@ public class RolPermiso {
         this.creacion = creacion;
     }
 
-    public RolPermisos (int idRolPermiso, Permiso permiso) {
+    public RolPermiso(int idRolPermiso, Permiso permiso) {
         this.idRolPermiso = idRolPermiso;
         this.rol = null;
         this.permiso = permiso;
@@ -34,7 +34,7 @@ public class RolPermiso {
         this.creacion = false;
     }
 
-    public RolPermisos (Permiso permiso) {
+    public RolPermiso(Permiso permiso) {
         this.idRolPermiso = 0;
         this.rol = null;
         this.permiso = permiso;

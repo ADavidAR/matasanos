@@ -1,7 +1,6 @@
 package com.matasanos.controller;
 
-import com.matasanos.model.Rol;
-import com.matasanos.model.RolPermisos;
+import com.matasanos.model.RolPermiso;
 import com.matasanos.service.PermisosService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,20 +19,20 @@ public class PermisosController {
 
     @GetMapping("/rol/f/{idRol}")
     public ResponseEntity<?> listarPermisosPorRol(@PathVariable int idRol) {
-        List<RolPermisos> permisos = permisosService.listarPermisosPorRol(idRol);
+        List<RolPermiso> permisos = permisosService.listarPermisosPorRol(idRol);
 
         return ResponseEntity.ok(permisos);
     }
     @GetMapping("/rol/p/{idRol}")
     public ResponseEntity<?> listarPermisosDeRol(@PathVariable int idRol) {
-        List<RolPermisos> permisos = permisosService.listarPermisosDeRol(idRol);
+        List<RolPermiso> permisos = permisosService.listarPermisosDeRol(idRol);
 
         return ResponseEntity.ok(permisos);
     }
 
 
     @PutMapping("/rol")
-    public ResponseEntity<?> actualizarPermisosDeRol(@RequestBody List<RolPermisos> rps) {
+    public ResponseEntity<?> actualizarPermisosDeRol(@RequestBody List<RolPermiso> rps) {
         if(permisosService.actualizarPermisosDeRol(rps))
             return ResponseEntity.ok("");
 
