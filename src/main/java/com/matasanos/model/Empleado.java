@@ -14,14 +14,13 @@ public class Empleado {
     private LocalDate fechaModificacion;// fecha_modificacion
     private Persona persona;
     private Cargo cargo;
-    private Usuario usuario;
     private Sucursal sucursal;
     private int idUsuarioCreacion;// id_usuario_creacion
     private int idUsuarioModificacion;// id_usuario_modificacion
 
     public Empleado() {}
      
-    public Empleado (int idEmpleado, BigDecimal salario, LocalDate fechaContratacion, LocalDate fechaBaja, boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Persona persona, Cargo cargo, Usuario usuario, Sucursal sucursal, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Empleado (int idEmpleado, BigDecimal salario, LocalDate fechaContratacion, LocalDate fechaBaja, boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Persona persona, Cargo cargo, Sucursal sucursal, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idEmpleado = idEmpleado;
         this.salario = salario;
         this.fechaContratacion = fechaContratacion;
@@ -31,7 +30,6 @@ public class Empleado {
         this.fechaModificacion = fechaModificacion;
         this.persona = persona;
         this.cargo = cargo;
-        this.usuario = usuario;
         this.sucursal = sucursal;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
@@ -89,12 +87,6 @@ public class Empleado {
 
     public void setCargo(Cargo cargo ){
         this.cargo = cargo;
-    }
-
-    public Usuario getUsuario() { return usuario; }
-
-    public void setUsuario(Usuario usuario ){
-        this.usuario = usuario;
     }
 
     public Sucursal getSucursal() { return sucursal; }

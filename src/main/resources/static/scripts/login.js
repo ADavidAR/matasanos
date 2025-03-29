@@ -35,7 +35,7 @@
             if (input.value.trim() === '') return;
         }
 
-        await validarUsuario();
+        await validateUser();
 
 
     }, false)
@@ -55,7 +55,7 @@
 
 }) ()
 
-async function validarUsuario() {
+async function validateUser() {
     const msgPass = document.querySelector("#msg-pass");
     const msgUser = document.querySelector("#msg-user");
     let user = document.querySelector("#user");
@@ -90,7 +90,7 @@ async function validarUsuario() {
     window.location.href = "/home"
 }
 
-function mostrarContraseña() {
+function showPassword() {
     let passwordInput = document.getElementById("password");
     let toggleIcon = document.getElementById("toggleIcon");
 
