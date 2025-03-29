@@ -34,7 +34,7 @@ public class UsuarioRepo {
     }
 
     public Usuario obtenerUsuarioConRol(String usuario) {
-        String sql = "SELECT id_usuario, usuario, contrasena, id_rol, nombre_rol FROM v_UsuarioConRol WHERE usuario = ?";
+        String sql = "SELECT id_usuario, usuario, contrasena, activo,  id_rol, nombre_rol FROM v_UsuarioConRol WHERE usuario = ?";
         List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioConRolRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();

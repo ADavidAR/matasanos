@@ -133,16 +133,25 @@ INSERT INTO RolPermiso (id_rol, id_permiso, acceso, modificacion, eliminacion, c
     (4, 2, 1, 0, 0, 0),  -- Rol 4 (Empleado) puede solo ver Usuarios
     (4, 4, 1, 0, 0, 0);  -- Rol 4 (Empleado) puede solo ver Empleados
 
--- Primero insertamos personas
 -- Personas
-INSERT INTO Persona (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni, id_direccion) VALUES
-('Juan', 'Carlos', 'Garcia', 'Lopez', '0801199000123', 1),
-('Maria', 'Fernanda', 'Martinez', NULL, '0801198700456', 2),
-('Pedro', NULL, 'Hernandez', 'Ramirez', '0801199500789', 3),
-('Ana', 'Sofia', 'Rodriguez', 'Vargas', '0801199200321', 4),
-('Luis', 'Alberto', 'Fernandez', 'Diaz', '0801199300456', 1),
-('Marta', 'Lucia', 'Gomez', NULL, '0801199400567', 2),
-('Carlos', 'Eduardo', 'Vasquez', 'Pineda', '0801199600678', 3);
+INSERT INTO Persona (
+    primer_nombre, 
+    segundo_nombre, 
+    primer_apellido, 
+    segundo_apellido, 
+    dni, 
+    id_direccion
+) VALUES
+('Juan', 'Carlos', 'García', 'López', '0801199000123', 1),
+('María', NULL, 'Martínez', 'Hernández', '0801198700456', 2),
+('Pedro', 'Antonio', 'Ramírez', NULL, '0801199500789', 3),
+('José', 'María', 'Flores', 'Castro', '0801199200321', 4),
+('Ana', 'Sofía', 'Pérez', 'González', '0801199300456', 1),
+('Luis', NULL, 'Mejía', NULL, '0801199600678', 2),
+('Carlos', 'Alberto', 'Vásquez', 'Pineda', '0801199400567', NULL),
+('Rosa', 'Isabel', 'Castillo', 'Montenegro', '0801199700789', 3),
+('Mario', 'Enrique', 'Reyes', NULL, '0801199800890', 4),
+('Gabriela', 'Patricia', 'Ordoñez', 'Silva', '0801199900901', 1);
 
 -- Cargos
 INSERT INTO Cargo (descripcion) VALUES
@@ -153,53 +162,56 @@ INSERT INTO Cargo (descripcion) VALUES
 ('Cajero'),
 ('Bodeguero');
 
--- Usuarios
-INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, id_usuario_creacion) VALUES
-('admin', 'admin123', GETDATE(), 1, 1),          -- Administrador
-('gerente1', 'gerente123', GETDATE(), 2, 1),     -- Gerente
-('supervisor1', 'super123', GETDATE(), 3, 1),    -- Supervisor
-('farmaceutico1', 'farma123', GETDATE(), 4, 1),  -- Farmacéutico
-('cajero1', 'cajero123', GETDATE(), 4, 1),       -- Cajero
-('bodega1', 'bodega123', GETDATE(), 4, 1);       -- Bodeguero
+-- Usuarios admin
+INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, activo, id_usuario_creacion) VALUES
+('admin', 'admin123', GETDATE(), 1, 1, 1);          -- Administrador
 
--- Inserción de empleados con todos los campos requeridos, incluyendo fecha_creacion
+
+DECLARE @idAdmin INT;
+
+SELECT @idAdmin = id_usuario 
+FROM Usuario 
+WHERE usuario = 'admin';
+
+-- Empleados
 INSERT INTO Empleado (
     salario, 
     fecha_contratacion, 
     activo, 
     id_persona, 
-    id_cargo, 
-    id_usuario, 
+    id_cargo,
     id_sucursal, 
     id_usuario_creacion,
 	fecha_creacion
 ) VALUES
--- Sucursal 1
-(35000.00, '2023-01-15', 1, 1, 1, 1, 1, 1, '2023-01-15'),     -- Administrador
-(28000.00, '2023-02-20', 1, 2, 2, 2, 1, 1, '2023-02-20'),     -- Gerente
-(22000.00, '2023-03-10', 1, 3, 3, 3, 1, 1, '2023-03-10'),     -- Supervisor
-(18000.00, '2023-04-05', 1, 4, 4, 4, 1, 1, '2023-04-05'),    -- Farmacéutico
-(15000.00, '2023-05-12', 1, 5, 5, 5, 1, 1, '2023-05-12'),     -- Cajero
-(17000.00, '2023-06-18', 1, 6, 6, 6, 1, 1, '2023-06-18');     -- Bodeguero
+(35000.00, '2023-01-15', 1, 1, 1, 1, @idAdmin, '2023-01-15'),     -- Administrador
+(28000.00, '2023-02-20', 1, 2, 2, 1, @idAdmin, '2023-02-20'),     -- Gerente
+(22000.00, '2023-03-10', 1, 3, 3, 1, @idAdmin, '2023-03-10'),     -- Supervisor
+(18000.00, '2023-04-05', 1, 4, 4, 1, @idAdmin, '2023-04-05'),    -- Farmacéutico
+(15000.00, '2023-05-12', 1, 5, 5, 1, @idAdmin, '2023-05-12'),     -- Cajero
+(17000.00, '2023-06-18', 1, 6, 6, 1, @idAdmin, '2023-06-18');     -- Bodeguero
 
--- Personas para clientes
-INSERT INTO Persona (primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni, id_direccion) VALUES
-('Luis', 'Alberto', 'Fernandez', 'Diaz', '0801198000123', 1),
-('Marta', 'Lucia', 'Gomez', NULL, '0801198100456', 2),
-('Carlos', 'Eduardo', 'Vasquez', 'Pineda', '0801198200789', 3),
-('Sofia', NULL, 'Castro', 'Mejia', '0801198300321', 4);
+UPDATE Usuario SET id_empleado = 1 WHERE id_usuario = @idAdmin;
+
+-- Usuarios
+INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, activo, id_empleado, id_usuario_creacion) VALUES
+('gerente1', 'gerente123', GETDATE(), 2, 1, 2, 1),     -- Gerente
+('supervisor1', 'super123', GETDATE(), 3, 1, 3, 1),    -- Supervisor
+('farmaceutico1', 'farma123', GETDATE(), 4, 1, 4, 1),  -- Farmacéutico
+('cajero1', 'cajero123', GETDATE(), 4, 1 , 5, 1),       -- Cajero
+('bodega1', 'bodega123', GETDATE(), 4, 1, 6, 1);       -- Bodeguero
 
 -- Clientes
 INSERT INTO Cliente (rtn, fecha_creacion, id_persona, id_usuario_creacion) VALUES
-('0801199000123', '08011990001234', GETDATE(), 5, 1),
-(NULL, '08011987004567', GETDATE(), 6, 1),
-('0801199500789', '08011995007890', GETDATE(), 7, 1),
-(NULL, '08011992003210', GETDATE(), 8, 1);
+('0801199000123', GETDATE(), 5, 1),
+(NULL, GETDATE(), 6, 1),
+('0801199500789', GETDATE(), 7, 1),
+(NULL, GETDATE(), 8, 1);
 
 -- Médicos
 INSERT INTO Medico (num_colegiado, id_persona) VALUES
-('CM12345', 1),  -- Usando la persona del empleado Juan Carlos
-('CM67890', 2);  -- Usando la persona de la empleada Maria Fernanda
+('CM12345', 9),  -- Usando la persona del empleado Juan Carlos
+('CM67890', 10);  -- Usando la persona de la empleada Maria Fernanda
 
 INSERT INTO MetodoPago (descripcion) VALUES
 ('Efectivo'),

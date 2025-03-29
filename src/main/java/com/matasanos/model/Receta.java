@@ -5,20 +5,18 @@ import java.time.LocalDate;
 public class Receta {
 
     private int idReceta;// id_receta
-    private Medico medico;
     private LocalDate fecha;// fecha
     private String descripcion;// descripcion
-    private String indicaciones;// indicaciones
+    private Medico medico;
     private Cliente cliente;
 
     public Receta() {}
      
-    public Receta (int idReceta, Medico medico, LocalDate fecha, String descripcion, String indicaciones, Cliente cliente) {
+    public Receta (int idReceta, LocalDate fecha, String descripcion, Medico medico, Cliente cliente) {
         this.idReceta = idReceta;
-        this.medico = medico;
         this.fecha = fecha;
         this.descripcion = descripcion;
-        this.indicaciones = indicaciones;
+        this.medico = medico;
         this.cliente = cliente;
     }
 
@@ -26,12 +24,6 @@ public class Receta {
 
     public void setIdReceta(int idReceta ){
         this.idReceta = idReceta;
-    }
-
-    public Medico getMedico() { return medico; }
-
-    public void setMedico(Medico medico ){
-        this.medico = medico;
     }
 
     public LocalDate getFecha() { return fecha; }
@@ -46,10 +38,10 @@ public class Receta {
         this.descripcion = descripcion;
     }
 
-    public String getIndicaciones() { return indicaciones; }
+    public Medico getMedico() { return medico; }
 
-    public void setIndicaciones(String indicaciones ){
-        this.indicaciones = indicaciones;
+    public void setMedico(Medico medico ){
+        this.medico = medico;
     }
 
     public Cliente getCliente() { return cliente; }
