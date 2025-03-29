@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     roleH1.textContent = userData.rol.nombreRol;
     
     userData.rol.permisos.forEach((p) => {
-        if(p.permiso.accesoDirecto) {
+        if(p.acceso && p.permiso.accesoDirecto) {
             const option = document.createElement("a");
             option.classList.add("btn");
             option.textContent = p.permiso.descripcion;

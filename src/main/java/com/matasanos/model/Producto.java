@@ -18,29 +18,28 @@ public class Producto {
     private BigDecimal costoVenta;// costo_venta
     private Categoria categoria;
     private Proveedor proveedor;
-    private int inventario;
+    int inventario;
     private int idUsuarioCreacion;// id_usuario_creacion
     private int idUsuarioModificacion;// id_usuario_modificacion
 
     public Producto() {}
-     
-    public Producto (
-            int idProducto,
-            String nombreProducto,
-            String descripcion,
-            BigDecimal precioVenta,
-            LocalDate fechaVencimiento,
-            boolean ventaLibre,
-            BigDecimal precioDescuento,
-            BigDecimal impuesto,
-            LocalDate fechaCreacion,
-            LocalDate fechaModificacion,
-            BigDecimal costoVenta,
-            Categoria categoria,
-            Proveedor proveedor,
-            int inventario,
-            int idUsuarioCreacion,
-            int idUsuarioModificacion
+
+    public Producto (int idProducto,
+                     String nombreProducto,
+                     String descripcion,
+                     BigDecimal precioVenta,
+                     LocalDate fechaVencimiento,
+                     boolean ventaLibre,
+                     BigDecimal precioDescuento,
+                     BigDecimal impuesto,
+                     LocalDate fechaCreacion,
+                     LocalDate fechaModificacion,
+                     BigDecimal costoVenta,
+                     int inventario,
+                     Categoria categoria,
+                     Proveedor proveedor,
+                     int idUsuarioCreacion,
+                     int idUsuarioModificacion
     ) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
@@ -55,41 +54,6 @@ public class Producto {
         this.costoVenta = costoVenta;
         this.categoria = categoria;
         this.proveedor = proveedor;
-        this.inventario = inventario;
-        this.idUsuarioCreacion = idUsuarioCreacion;
-        this.idUsuarioModificacion = idUsuarioModificacion;
-    }
-
-    public Producto (
-            int idProducto,
-            String nombreProducto,
-            String descripcion,
-            BigDecimal precioVenta,
-            LocalDate fechaVencimiento,
-            boolean ventaLibre,
-            BigDecimal precioDescuento,
-            BigDecimal impuesto,
-            LocalDate fechaCreacion,
-            LocalDate fechaModificacion,
-            BigDecimal costoVenta,
-            Categoria categoria,
-            int inventario,
-            int idUsuarioCreacion,
-            int idUsuarioModificacion
-    ) {
-        this.idProducto = idProducto;
-        this.nombreProducto = nombreProducto;
-        this.descripcion = descripcion;
-        this.precioVenta = precioVenta;
-        this.fechaVencimiento = fechaVencimiento;
-        this.ventaLibre = ventaLibre;
-        this.precioDescuento = precioDescuento;
-        this.impuesto = impuesto;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaModificacion = fechaModificacion;
-        this.costoVenta = costoVenta;
-        this.categoria = categoria;
-        this.proveedor = null;
         this.inventario = inventario;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
@@ -173,7 +137,9 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-    public int getInventario() { return inventario; }
+    public int getInventario() {
+        return inventario;
+    }
 
     public void setInventario(int inventario) {
         this.inventario = inventario;
