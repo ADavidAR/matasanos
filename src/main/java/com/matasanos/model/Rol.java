@@ -7,8 +7,7 @@ public class Rol {
 
     private int idRol;// id_rol
     private String nombreRol;// nombre_rol
-    List<RolPermiso> permisos;
-
+    private List<RolPermiso> permisos;
     public Rol() {}
      
     public Rol (int idRol, String nombreRol) {

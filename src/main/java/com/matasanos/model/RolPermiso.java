@@ -13,8 +13,8 @@ public class RolPermiso {
     private boolean creacion;// creacion
 
     public RolPermiso() {}
-
-    public RolPermiso(int idRolPermiso, Rol rol, Permiso permiso, boolean acceso, boolean modificacion, boolean eliminacion, boolean creacion) {
+     
+    public RolPermiso (int idRolPermiso, Rol rol, Permiso permiso, boolean acceso, boolean modificacion, boolean eliminacion, boolean creacion) {
         this.idRolPermiso = idRolPermiso;
         this.rol = rol;
         this.permiso = permiso;

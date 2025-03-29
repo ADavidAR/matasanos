@@ -122,9 +122,11 @@ CREATE TABLE Usuario(
 	id_usuario INT IDENTITY(1,1) PRIMARY KEY,
 	usuario VARCHAR (100) UNIQUE NOT NULL,
 	contrasena VARCHAR (300) NOT NULL,
-	fecha_creacion DATE NOT NULL,
+	activo BIT NOT NULL,
+	fecha_creacion DATE NOT NULL DEFAULT GETDATE(),
 	fecha_modificacion DATE,
 	id_rol INT NOT NULL,
+	id_empleado INT,
 	id_usuario_creacion INT,
 	id_usuario_modificacion INT,
 	FOREIGN KEY (id_rol) REFERENCES Rol(id_rol),
@@ -154,7 +156,7 @@ CREATE TABLE Medico(
 CREATE TABLE Cliente(
 	id_cliente INT IDENTITY(1,1) PRIMARY KEY,
 	rtn VARCHAR (20),
-	fecha_creacion DATE,
+	fecha_creacion DATE NOT NULL DEFAULT GETDATE(),
 	fecha_modificacion DATE,
 	id_persona INT,
 	id_usuario_creacion INT,
@@ -206,7 +208,7 @@ CREATE TABLE Producto(
 	venta_libre BIT NOT NULL,
 	precio_descuento DECIMAL,
 	impuesto DECIMAL,
-	fecha_creacion DATE,
+	fecha_creacion DATE NOT NULL DEFAULT GETDATE(),
 	fecha_modificacion DATE,
 	costo_venta DECIMAL,
 	id_categoria INT NOT NULL,
@@ -291,21 +293,23 @@ CREATE TABLE Empleado(
 	fecha_contratacion DATE NOT NULL,
 	fecha_baja DATE,
 	activo BIT NOT NULL,
-	fecha_creacion DATE NOT NULL,
+	fecha_creacion DATE NOT NULL DEFAULT GETDATE(),
 	fecha_modificacion DATE,
 	id_persona INT NOT NULL,
 	id_cargo INT NOT NULL,
-	id_usuario INT NOT NULL,
 	id_sucursal INT NOT NULL,
 	id_usuario_creacion INT,
 	id_usuario_modificacion INT,
 	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona),
 	FOREIGN KEY (id_cargo) REFERENCES Cargo(id_cargo),
-	FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal),
 	FOREIGN KEY (id_usuario_creacion) REFERENCES Usuario(id_usuario),
 	FOREIGN KEY (id_usuario_modificacion) REFERENCES Usuario(id_usuario)
 );
+
+ALTER TABLE Usuario
+ADD CONSTRAINT FK_usuario_empleado
+FOREIGN KEY (id_empleado) REFERENCES Empleado(id_empleado);
 
 --Nuevo
 
