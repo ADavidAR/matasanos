@@ -38,4 +38,8 @@ public class ProductoService {
     public List<Producto> filtrarProductosPorNombre(String filtro) {
         return productoRepo.filtrarProductosPorNombre(filtro);
     }
+
+    public List<Producto> listarProductosDeSucursalPorCategoria(int idSucursal, int idCategoria) {
+        return productoRepo.listarProductosDeSucursalPorCategoria(idSucursal, idCategoria);
+    }
 }

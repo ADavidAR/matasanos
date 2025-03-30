@@ -305,7 +305,7 @@ public class CustomRowMapper {
                     rs.getBigDecimal("costo_venta"),
                     rs.getInt("inventario_actual"),
                     CustomRowMapper.categoriaRowMapper.mapRow(rs, numCol),
-                    proveedorIdRowMapper.mapRow(rs, numCol),
+                    CustomRowMapper.proveedorIdRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"), // retorna 0 si es NULL
                     rs.getInt("id_usuario_modificacion") // retorna 0 si es NULL
             );
