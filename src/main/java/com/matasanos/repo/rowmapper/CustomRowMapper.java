@@ -87,7 +87,7 @@ public class CustomRowMapper {
             new FacturacionSAR(
                     rs.getInt("id_factura_sar"),
                     CustomRowMapper.sucursalRowMapper.mapRow(rs, numCol),
-                    rs.getObject("fechaVigencia", LocalDate.class),
+                    rs.getObject("fecha_vigencia", LocalDate.class),
                     rs.getInt("rango_inicio"),
                     rs.getInt("rango_fin"),
                     rs.getBoolean("vigente"),
@@ -156,14 +156,13 @@ public class CustomRowMapper {
                     rs.getString("usuario"),
                     rs.getString("contrasena"),
                     rs.getBoolean("activo"),
-                    rs.getObject("fechaCreacion", LocalDate.class),
-                    rs.getObject("fechaModificacion", LocalDate.class),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    rs.getObject("fecha_modificacion", LocalDate.class),
                     CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_empleado"),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
             );
-
 
     public static final RowMapper<Usuario> usuarioConRolRowMapper = (rs, numCol) ->
             new Usuario(
@@ -215,8 +214,8 @@ public class CustomRowMapper {
             new Cliente(
                     rs.getInt("id_cliente"),
                     rs.getString("rtn"),
-                    rs.getObject("fechaCreacion", LocalDate.class),
-                    rs.getObject("fechaModificacion", LocalDate.class),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    rs.getObject("fecha_modificacion", LocalDate.class),
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
@@ -233,7 +232,7 @@ public class CustomRowMapper {
             new Factura(
                     rs.getInt("id_factura"),
                     rs.getString("numero_factura"),
-                    rs.getObject("fechaEmision", LocalDate.class),
+                    rs.getObject("fecha_emision", LocalDate.class),
                     rs.getString("rtn_cliente"),
                     rs.getBigDecimal("subtotal"),
                     rs.getBigDecimal("impuesto"),
@@ -255,17 +254,38 @@ public class CustomRowMapper {
                     rs.getInt("id_producto"),
                     rs.getString("nombre_producto"),
                     rs.getString("descripcion"),
-                    rs.getBigDecimal("precioVenta"),
-                    rs.getObject("fechaVencimiento", LocalDate.class),
+                    rs.getBigDecimal("precio_venta"),
+                    rs.getObject("fecha_vencimiento", LocalDate.class),
                     rs.getBoolean("venta_libre"),
-                    rs.getBigDecimal("precioDescuento"),
+                    rs.getBigDecimal("precio_descuento"),
                     rs.getBigDecimal("impuesto"),
-                    rs.getObject("fechaCreacion", LocalDate.class),
-                    rs.getObject("fechaModificacion", LocalDate.class),
-                    rs.getBigDecimal("costoVenta"),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    rs.getObject("fecha_modificacion", LocalDate.class),
+                    rs.getBigDecimal("costo_venta"),
                     rs.getInt("inventario_actual"),
                     CustomRowMapper.categoriaRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.proveedorRowMapper.mapRow(rs, numCol),
+                    rs.getInt("id_usuario_creacion"),
+                    rs.getInt("id_usuario_modificacion")
+            );
+
+
+    public static final RowMapper<Producto> productoProveedorIdRowMapper = (rs, numCol) ->
+            new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("descripcion"),
+                    rs.getBigDecimal("precio_venta"),
+                    rs.getObject("fecha_vencimiento", LocalDate.class),
+                    rs.getBoolean("venta_libre"),
+                    rs.getBigDecimal("precio_descuento"),
+                    rs.getBigDecimal("impuesto"),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    rs.getObject("fecha_modificacion", LocalDate.class),
+                    rs.getBigDecimal("costo_venta"),
+                    rs.getInt("inventario_actual"),
+                    CustomRowMapper.categoriaRowMapper.mapRow(rs, numCol),
+                    proveedorIdRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
             );
@@ -285,9 +305,9 @@ public class CustomRowMapper {
                     rs.getBigDecimal("costo_venta"),
                     rs.getInt("inventario_actual"),
                     CustomRowMapper.categoriaRowMapper.mapRow(rs, numCol),
-                    null,
+                    proveedorIdRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"), // retorna 0 si es NULL
-                    rs.getInt("id_usuario_creacion") // retorna 0 si es NULL
+                    rs.getInt("id_usuario_modificacion") // retorna 0 si es NULL
             );
 
     public static final RowMapper<FichaInventario> fichaInventarioRowMapper = (rs, numCol) ->
@@ -305,8 +325,8 @@ public class CustomRowMapper {
             new FacturaProducto(
                     rs.getInt("id_factura_producto"),
                     rs.getInt("cantidad"),
-                    rs.getBigDecimal("precioUnitario"),
-                    rs.getBigDecimal("impusetPorcentaje"),
+                    rs.getBigDecimal("precio_unitario"),
+                    rs.getBigDecimal("impuset_porcentaje"),
                     rs.getBigDecimal("impuesto"),
                     rs.getBigDecimal("subtotal"),
                     CustomRowMapper.facturaRowMapper.mapRow(rs, numCol),
@@ -335,9 +355,9 @@ public class CustomRowMapper {
             new Compra(
                     rs.getInt("id_compra"),
                     rs.getString("num_factura_compra"),
-                    rs.getObject("fechaCompra", LocalDate.class),
-                    rs.getObject("fechaEntrega", LocalDate.class),
-                    rs.getBigDecimal("costoTotal"),
+                    rs.getObject("fecha_compra", LocalDate.class),
+                    rs.getObject("fecha_entrega", LocalDate.class),
+                    rs.getBigDecimal("costo_total"),
                     CustomRowMapper.proveedorRowMapper.mapRow(rs, numCol)
             );
 
@@ -354,11 +374,11 @@ public class CustomRowMapper {
             new Empleado(
                     rs.getInt("id_empleado"),
                     rs.getBigDecimal("salario"),
-                    rs.getObject("fechaContratacion", LocalDate.class),
-                    rs.getObject("fechaBaja", LocalDate.class),
+                    rs.getObject("fecha_contratacion", LocalDate.class),
+                    rs.getObject("fecha_baja", LocalDate.class),
                     rs.getBoolean("activo"),
-                    rs.getObject("fechaCreacion", LocalDate.class),
-                    rs.getObject("fechaModificacion", LocalDate.class),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    rs.getObject("fecha_modificacion", LocalDate.class),
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.cargoRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.sucursalRowMapper.mapRow(rs, numCol),
