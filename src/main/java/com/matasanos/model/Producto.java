@@ -35,7 +35,6 @@ public class Producto {
                      LocalDate fechaCreacion,
                      LocalDate fechaModificacion,
                      BigDecimal costoVenta,
-                     int inventario,
                      Categoria categoria,
                      Proveedor proveedor,
                      int idUsuarioCreacion,
@@ -54,7 +53,6 @@ public class Producto {
         this.costoVenta = costoVenta;
         this.categoria = categoria;
         this.proveedor = proveedor;
-        this.inventario = inventario;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }

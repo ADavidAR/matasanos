@@ -43,3 +43,72 @@ a.nav {
 a.nav:hover {
     background-color: #2061b5;
 }
+
+
+/*seccion*/
+#main-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la tabla */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background: #007bff;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Estilos del modal */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background: #007bff;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-footer {
+    border-radius: 0 0 10px 10px;
+}
+
+/* Select */
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+select:hover {
+    border-color: #007bff;
+}

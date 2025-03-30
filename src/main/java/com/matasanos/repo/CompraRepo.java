@@ -14,19 +14,33 @@ public class CompraRepo {
     public CompraRepo(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate=jdbcTemplate;
     }
-    //public  class Compra CreaCompra()
+    //public  class Compra creaCompra()
 
-        public void CreaCompra(){
-
-        }
-
-        public  void ActualizaCompra(){
+        public void creaCompra(){
 
         }
 
-       /* public List<Compra> listarCompras(){
+        public  void actualizaCompra(){
+
+        }
+
+        public List<Compra> listarCompras(){
         String sql= "select * from Compra";
         return jdbcTemplate.query(sql, CustomRowMapper.compraRowMapper);
-        }*/
+        }
+        public  List<Proveedor> listarProveedores() {
+        String sql= "select * from Proveedor";
+        return jdbcTemplate.query(sql, CustomRowMapper.proveedorRowMapper);
+    }
+        public List<Producto> listarProductoProveedor(int idProveedor){
+        String sql="SELECT p.*, d.id_departamento, nombre_categoria, nombre_departamento,pv.*  FROM Producto p "+
+            "INNER JOIN Categoria c ON c.id_categoria = p.id_categoria "+
+            "INNER JOIN Departamento d ON d.id_departamento = c.id_departamento "+
+            "INNER JOIN Proveedor pv ON pv.id_proveedor=p.id_proveedor where pv.id_proveedor = ?";
+        return jdbcTemplate.query(sql,CustomRowMapper.productoRowMapper,idProveedor);
+        }
+        public  void  crearCompra(){
+        String sql= ""
+        }
 
 }
