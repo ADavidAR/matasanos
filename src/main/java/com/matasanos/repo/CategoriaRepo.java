@@ -18,7 +18,7 @@ public class CategoriaRepo {
     }
 
     public List<Categoria> listarCategorias(int idDepartamento) {
-        String sql = "SELECT c.id_categoria, c.nombre_categoria, d.id_departamento, d.nombre_departamento FROM Categoria c  JOIN Cepartamento d ON c.id_departamento = d.id_departamento  WHERE c.id_departamento = ?";
+        String sql = "SELECT c.id_categoria, c.nombre_categoria, d.id_departamento, d.nombre_departamento FROM Categoria c  JOIN Departamento d ON c.id_departamento = d.id_departamento  WHERE c.id_departamento = ?";
 
         return jdbcTemplate.query(sql, CustomRowMapper.categoriaRowMapper, idDepartamento);
     }
