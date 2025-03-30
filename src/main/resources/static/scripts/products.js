@@ -8,6 +8,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     const products = await response.json();
     console.log(products);
 
+    document.getElementById("view-title").textContent = `${products[0].categoria.nombreCategoria}`;
+
     const section = document.querySelector("#products-container");
     section.innerHTML = "";
 
@@ -27,7 +29,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         const card = column.querySelector(".card");
         card.addEventListener("click", () => {
-            window.location.href = `./productos?idCategoria=${p.idCategoria}&idDepartamento=${idDepartment}`;
+            window.location.href = `/detalles?idProducto=${p.idProducto}&idSucursal=${idSucursal}`;
         })
     })
 })

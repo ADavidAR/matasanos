@@ -1,0 +1,47 @@
+.card-products {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    border-radius: 20px;
+    transition: 150ms ease;
+}
+
+.card {
+    width: 20rem;
+    height: 100px;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-text {
+    margin: 2px;
+}
+
+.card-products:hover {
+    box-shadow: 3px 5px rgba(0, 0, 0, 0.1);
+    scale: 1.1;
+}
+
+#products-container {
+    display: flex;
+}
+
+.col {
+    width: 20rem;
+    margin: 50px;
+}
+
+.row {
+    margin: 0;
+}
+
+#products {
+    display: grid;
+    place-items: center;
+}

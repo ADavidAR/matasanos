@@ -6,6 +6,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     const categories = await response.json();
     console.log(categories);
 
+    document.getElementById("view-title").textContent = `${categories[0].departamento.nombreDepartamento}`;
+
     const section = document.querySelector("#categories-container");
     section.innerHTML = "";
 
@@ -25,7 +27,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         const card = column.querySelector(".card");
         card.addEventListener("click", () => {
-            window.location.href = `./productos?idCategoria=${p.idCategoria}&idDepartamento=${idDepartment}`;
+            window.location.href = `/productos?idCategoria=${p.idCategoria}&idDepartamento=${idDepartment}`;
         })
     })
 })

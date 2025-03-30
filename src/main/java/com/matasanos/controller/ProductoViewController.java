@@ -13,4 +13,10 @@ public class ProductoViewController {
         model.addAttribute("idDepartamento", idDepartamento);
         model.addAttribute("idCategoria", idCategoria);
         return "products.html"; }
+
+    @GetMapping("/detalles")
+    public String viewProductDetails(@RequestParam("idProducto") int idProducto, @RequestParam("idSucursal") int idSucursal, Model model) {
+        model.addAttribute("idProducto", idProducto);
+        model.addAttribute("idSucursal", idSucursal);
+        return "product-details.html"; }
 }
