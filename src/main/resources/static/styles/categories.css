@@ -1,4 +1,4 @@
-.card-department {
+.card-categories {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,12 +23,12 @@
     margin: 2px;
 }
 
-.card-department:hover {
+.card-categories:hover {
     box-shadow: 3px 5px rgba(0, 0, 0, 0.1);
     scale: 1.1;
 }
 
-#departments-container {
+#categories-container {
     display: flex;
 }
 
@@ -41,7 +41,7 @@
     margin: 0;
 }
 
-#departments {
+#categories {
     display: grid;
     place-items: center;
 }

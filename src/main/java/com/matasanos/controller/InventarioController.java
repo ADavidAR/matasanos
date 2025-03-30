@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class InventarioController {
 
     @GetMapping
-    public String inventario() { return "inventory.html"; }
+    public String inventory() { return "inventory.html"; }
 }

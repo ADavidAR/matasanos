@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inventario</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/styles/inventory.css">
+  </head>
+  <body>
+    <header>
+        <section id="role-section">
+          <h1 id="role"></h1>
+        </section>
+      </header>
+    <section id="main-container">
+      <section id="options">
+      </section>
+    </section>
+
+    <section id="inventory-options">
+      <btn class="btn options-btn">Inventario</btn>
+      <btn class="btn options-btn">Lotes</btn>
+      <btn class="btn options-btn">Proveedores</btn>
+      <btn class="btn options-btn">Reportes</btn>
+    </section>
+
+    <section id="products">
+      <div id="products-title"><h2>Productos disponibles por nombreSucursal</h2></div>
+      <!--Inventario, muestra los productos disponibles por sucursal !-->
+      <div class="row" id="product-container">
+      </div>
+    </section>
+
+    <!--Muestra los detalles del producto seleccionado !-->
+    <section id="detail">
+      <div id="detail-container">
+
+        <div class="card card-details" style="width: 60rem;">
+          <div class="card-header">
+            <btn class="btn close-btn" id="closebtn">Cerrar</btn>
+            <h2 id="productName"></h2>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="productDescription"></li>
+            <li class="list-group-item" id="productId"></li>
+            <li class="list-group-item" id="productAvaila"></li>
+            <li class="list-group-item" id="productPrice"></li>
+            <li class="list-group-item" id="productDiscount"></li>
+            <li class="list-group-item" id="productRestriction"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="./scripts/inventory.js"></script>
+    <script src="./scripts/home.js"></script>
+  </body>
+</html>
