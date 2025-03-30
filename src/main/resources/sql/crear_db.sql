@@ -58,7 +58,7 @@ CREATE TABLE Proveedor(
 	RTN_contacto VARCHAR (20),
 	telefono VARCHAR (15) NOT NULL,
 	correo VARCHAR (250) NOT NULL,
-	direccion TEXT NOT NULL
+	direccion VARCHAR(MAX) NOT NULL
 );
 
 CREATE TABLE FacturacionSAR(
@@ -202,7 +202,7 @@ CREATE TABLE FacturaDescuento(
 CREATE TABLE Producto(
 	id_producto INT IDENTITY(1,1) PRIMARY KEY,
 	nombre_producto VARCHAR(300) NOT NULL,
-	descripcion TEXT NOT NULL,
+	descripcion VARCHAR(MAX) NOT NULL,
 	precio_venta DECIMAL NOT NULL,
 	fecha_vencimiento DATE NOT NULL,
 	venta_libre BIT NOT NULL,
@@ -250,7 +250,7 @@ CREATE TABLE FacturaProducto(
 CREATE TABLE Receta(
 	id_receta INT IDENTITY(1,1) PRIMARY KEY,
 	fecha DATE,
-	descripcion TEXT,
+	descripcion VARCHAR(MAX),
 	id_medico INT ,
 	id_cliente INT,
 	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
@@ -260,7 +260,7 @@ CREATE TABLE Receta(
 CREATE TABLE RecetaProducto(
 	id_receta_producto INT IDENTITY(1,1) PRIMARY KEY,
 	cantidad INT NOT NULL,
-	indicaciones TEXT,
+	indicaciones VARCHAR(MAX),
 	id_receta INT NOT NULL,
 	id_producto INT NOT NULL,
 	FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
@@ -370,5 +370,5 @@ CREATE VIEW v_Producto AS
 	SELECT p.*, d.id_departamento, nombre_categoria, nombre_departamento, fi.cantidad, fi.fecha, fi.referencia, tm.factor, tm.nombre FROM Producto p
 	INNER JOIN Categoria c ON c.id_categoria = p.id_categoria
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
-	INNER JOIN FichaInventario fi ON fi.id_producto = fi.id_producto
+	INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
 	INNER JOIN TipoMovimiento tm ON tm.id_tipo_movimiento = fi.id_tipo_movimiento;
