@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Receta {
 
-    private int idReceta;// id_receta
+    private Integer idReceta;// id_receta
     private LocalDate fecha;// fecha
     private String descripcion;// descripcion
     private Medico medico;
@@ -12,7 +12,7 @@ public class Receta {
 
     public Receta() {}
      
-    public Receta (int idReceta, LocalDate fecha, String descripcion, Medico medico, Cliente cliente) {
+    public Receta (Integer idReceta, LocalDate fecha, String descripcion, Medico medico, Cliente cliente) {
         this.idReceta = idReceta;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -20,9 +20,9 @@ public class Receta {
         this.cliente = cliente;
     }
 
-    public int getIdReceta() { return idReceta; }
+    public Integer getIdReceta() { return idReceta; }
 
-    public void setIdReceta(int idReceta ){
+    public void setIdReceta(Integer idReceta ){
         this.idReceta = idReceta;
     }
 
