@@ -4,23 +4,23 @@ package com.matasanos.model;
 
 public class Permiso {
 
-    private int idPermiso;// id_permiso
+    private Integer idPermiso;// id_permiso
     private String descripcion;// descripcion
-    private boolean accesoDirecto;// acceso_directo
+    private Boolean accesoDirecto;// acceso_directo
     private String endpointUrl;// endpoint_url
 
     public Permiso() {}
      
-    public Permiso (int idPermiso, String descripcion, boolean accesoDirecto, String endpointUrl) {
+    public Permiso (Integer idPermiso, String descripcion, Boolean accesoDirecto, String endpointUrl) {
         this.idPermiso = idPermiso;
         this.descripcion = descripcion;
         this.accesoDirecto = accesoDirecto;
         this.endpointUrl = endpointUrl;
     }
 
-    public int getIdPermiso() { return idPermiso; }
+    public Integer getIdPermiso() { return idPermiso; }
 
-    public void setIdPermiso(int idPermiso ){
+    public void setIdPermiso(Integer idPermiso ){
         this.idPermiso = idPermiso;
     }
 
@@ -30,9 +30,9 @@ public class Permiso {
         this.descripcion = descripcion;
     }
 
-    public boolean getAccesoDirecto() { return accesoDirecto; }
+    public Boolean getAccesoDirecto() { return accesoDirecto; }
 
-    public void setAccesoDirecto(boolean accesoDirecto ){
+    public void setAccesoDirecto(Boolean accesoDirecto ){
         this.accesoDirecto = accesoDirecto;
     }
 

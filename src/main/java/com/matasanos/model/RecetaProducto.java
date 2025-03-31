@@ -4,15 +4,15 @@ package com.matasanos.model;
 
 public class RecetaProducto {
 
-    private int idRecetaProducto;// id_receta_producto
-    private int cantidad;// cantidad
+    private Integer idRecetaProducto;// id_receta_producto
+    private Integer cantidad;// cantidad
     private String indicaciones;// indicaciones
     private Receta receta;
     private Producto producto;
 
     public RecetaProducto() {}
      
-    public RecetaProducto (int idRecetaProducto, int cantidad, String indicaciones, Receta receta, Producto producto) {
+    public RecetaProducto (Integer idRecetaProducto, Integer cantidad, String indicaciones, Receta receta, Producto producto) {
         this.idRecetaProducto = idRecetaProducto;
         this.cantidad = cantidad;
         this.indicaciones = indicaciones;
@@ -20,15 +20,15 @@ public class RecetaProducto {
         this.producto = producto;
     }
 
-    public int getIdRecetaProducto() { return idRecetaProducto; }
+    public Integer getIdRecetaProducto() { return idRecetaProducto; }
 
-    public void setIdRecetaProducto(int idRecetaProducto ){
+    public void setIdRecetaProducto(Integer idRecetaProducto ){
         this.idRecetaProducto = idRecetaProducto;
     }
 
-    public int getCantidad() { return cantidad; }
+    public Integer getCantidad() { return cantidad; }
 
-    public void setCantidad(int cantidad ){
+    public void setCantidad(Integer cantidad ){
         this.cantidad = cantidad;
     }
 

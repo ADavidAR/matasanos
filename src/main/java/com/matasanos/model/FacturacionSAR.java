@@ -4,18 +4,18 @@ import java.time.LocalDate;
 
 public class FacturacionSAR {
 
-    private int idFacturaSar;// id_factura_sar
+    private Integer idFacturaSar;// id_factura_sar
     private Sucursal sucursal;
     private LocalDate fechaVigencia;// fecha_vigencia
-    private int rangoInicio;// rango_inicio
-    private int rangoFin;// rango_fin
-    private boolean vigente;// vigente
+    private Integer rangoInicio;// rango_inicio
+    private Integer rangoFin;// rango_fin
+    private Boolean vigente;// vigente
     private String cai;// cai
     private String inicioCodFactura;// inicio_cod_factura
 
     public FacturacionSAR() {}
      
-    public FacturacionSAR (int idFacturaSar, Sucursal sucursal, LocalDate fechaVigencia, int rangoInicio, int rangoFin, boolean vigente, String cai, String inicioCodFactura) {
+    public FacturacionSAR (Integer idFacturaSar, Sucursal sucursal, LocalDate fechaVigencia, Integer rangoInicio, Integer rangoFin, Boolean vigente, String cai, String inicioCodFactura) {
         this.idFacturaSar = idFacturaSar;
         this.sucursal = sucursal;
         this.fechaVigencia = fechaVigencia;
@@ -26,9 +26,9 @@ public class FacturacionSAR {
         this.inicioCodFactura = inicioCodFactura;
     }
 
-    public int getIdFacturaSar() { return idFacturaSar; }
+    public Integer getIdFacturaSar() { return idFacturaSar; }
 
-    public void setIdFacturaSar(int idFacturaSar ){
+    public void setIdFacturaSar(Integer idFacturaSar ){
         this.idFacturaSar = idFacturaSar;
     }
 
@@ -44,21 +44,21 @@ public class FacturacionSAR {
         this.fechaVigencia = fechaVigencia;
     }
 
-    public int getRangoInicio() { return rangoInicio; }
+    public Integer getRangoInicio() { return rangoInicio; }
 
-    public void setRangoInicio(int rangoInicio ){
+    public void setRangoInicio(Integer rangoInicio ){
         this.rangoInicio = rangoInicio;
     }
 
-    public int getRangoFin() { return rangoFin; }
+    public Integer getRangoFin() { return rangoFin; }
 
-    public void setRangoFin(int rangoFin ){
+    public void setRangoFin(Integer rangoFin ){
         this.rangoFin = rangoFin;
     }
 
-    public boolean getVigente() { return vigente; }
+    public Boolean getVigente() { return vigente; }
 
-    public void setVigente(boolean vigente ){
+    public void setVigente(Boolean vigente ){
         this.vigente = vigente;
     }
 

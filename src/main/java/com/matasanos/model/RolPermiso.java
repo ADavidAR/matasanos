@@ -4,17 +4,17 @@ package com.matasanos.model;
 
 public class RolPermiso {
 
-    private int idRolPermiso;// id_rol_permiso
+    private Integer idRolPermiso;// id_rol_permiso
     private Rol rol;
     private Permiso permiso;
-    private boolean acceso;// acceso
-    private boolean modificacion;// modificacion
-    private boolean eliminacion;// eliminacion
-    private boolean creacion;// creacion
+    private Boolean acceso;// acceso
+    private Boolean modificacion;// modificacion
+    private Boolean eliminacion;// eliminacion
+    private Boolean creacion;// creacion
 
     public RolPermiso() {}
      
-    public RolPermiso (int idRolPermiso, Rol rol, Permiso permiso, boolean acceso, boolean modificacion, boolean eliminacion, boolean creacion) {
+    public RolPermiso (Integer idRolPermiso, Rol rol, Permiso permiso, Boolean acceso, Boolean modificacion, Boolean eliminacion, Boolean creacion) {
         this.idRolPermiso = idRolPermiso;
         this.rol = rol;
         this.permiso = permiso;
@@ -24,9 +24,9 @@ public class RolPermiso {
         this.creacion = creacion;
     }
 
-    public int getIdRolPermiso() { return idRolPermiso; }
+    public Integer getIdRolPermiso() { return idRolPermiso; }
 
-    public void setIdRolPermiso(int idRolPermiso ){
+    public void setIdRolPermiso(Integer idRolPermiso ){
         this.idRolPermiso = idRolPermiso;
     }
 
@@ -42,27 +42,27 @@ public class RolPermiso {
         this.permiso = permiso;
     }
 
-    public boolean getAcceso() { return acceso; }
+    public Boolean getAcceso() { return acceso; }
 
-    public void setAcceso(boolean acceso ){
+    public void setAcceso(Boolean acceso ){
         this.acceso = acceso;
     }
 
-    public boolean getModificacion() { return modificacion; }
+    public Boolean getModificacion() { return modificacion; }
 
-    public void setModificacion(boolean modificacion ){
+    public void setModificacion(Boolean modificacion ){
         this.modificacion = modificacion;
     }
 
-    public boolean getEliminacion() { return eliminacion; }
+    public Boolean getEliminacion() { return eliminacion; }
 
-    public void setEliminacion(boolean eliminacion ){
+    public void setEliminacion(Boolean eliminacion ){
         this.eliminacion = eliminacion;
     }
 
-    public boolean getCreacion() { return creacion; }
+    public Boolean getCreacion() { return creacion; }
 
-    public void setCreacion(boolean creacion ){
+    public void setCreacion(Boolean creacion ){
         this.creacion = creacion;
     }
 }

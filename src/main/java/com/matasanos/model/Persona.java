@@ -4,7 +4,7 @@ package com.matasanos.model;
 
 public class Persona {
 
-    private int idPersona;// id_persona
+    private Integer idPersona;// id_persona
     private String primerNombre;// primer_nombre
     private String segundoNombre;// segundo_nombre
     private String primerApellido;// primer_apellido
@@ -14,7 +14,7 @@ public class Persona {
 
     public Persona() {}
      
-    public Persona (int idPersona, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String dni, Direccion direccion) {
+    public Persona (Integer idPersona, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String dni, Direccion direccion) {
         this.idPersona = idPersona;
         this.primerNombre = primerNombre;
         this.segundoNombre = segundoNombre;
@@ -24,9 +24,9 @@ public class Persona {
         this.direccion = direccion;
     }
 
-    public int getIdPersona() { return idPersona; }
+    public Integer getIdPersona() { return idPersona; }
 
-    public void setIdPersona(int idPersona ){
+    public void setIdPersona(Integer idPersona ){
         this.idPersona = idPersona;
     }
 

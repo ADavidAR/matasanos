@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class Medico {
 
-    private int idMedico;// id_medico
+    private Integer idMedico;// id_medico
     private String numColegiado;// num_colegiado
-    private int idPersona;// id_persona
+    private Integer idPersona;// id_persona
 
     public Medico() {}
      
-    public Medico (int idMedico, String numColegiado, int idPersona) {
+    public Medico (Integer idMedico, String numColegiado, Integer idPersona) {
         this.idMedico = idMedico;
         this.numColegiado = numColegiado;
         this.idPersona = idPersona;
     }
 
-    public int getIdMedico() { return idMedico; }
+    public Integer getIdMedico() { return idMedico; }
 
-    public void setIdMedico(int idMedico ){
+    public void setIdMedico(Integer idMedico ){
         this.idMedico = idMedico;
     }
 
@@ -28,9 +28,9 @@ public class Medico {
         this.numColegiado = numColegiado;
     }
 
-    public int getIdPersona() { return idPersona; }
+    public Integer getIdPersona() { return idPersona; }
 
-    public void setIdPersona(int idPersona ){
+    public void setIdPersona(Integer idPersona ){
         this.idPersona = idPersona;
     }
 }

@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class Telefono {
 
-    private int idTelefono;// id_telefono
+    private Integer idTelefono;// id_telefono
     private String telefono;// telefono
     private Persona persona;
 
     public Telefono() {}
      
-    public Telefono (int idTelefono, String telefono, Persona persona) {
+    public Telefono (Integer idTelefono, String telefono, Persona persona) {
         this.idTelefono = idTelefono;
         this.telefono = telefono;
         this.persona = persona;
     }
 
-    public int getIdTelefono() { return idTelefono; }
+    public Integer getIdTelefono() { return idTelefono; }
 
-    public void setIdTelefono(int idTelefono ){
+    public void setIdTelefono(Integer idTelefono ){
         this.idTelefono = idTelefono;
     }
 
