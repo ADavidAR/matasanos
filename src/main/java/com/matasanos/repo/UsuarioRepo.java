@@ -23,7 +23,7 @@ public class UsuarioRepo {
     public List<Usuario> listarUsuarios() {
         String sql = "SELECT * FROM v_UsuarioConRol";
 
-        return jdbcTemplate.query(sql, CustomRowMapper.usuarioRowMapper);
+        return jdbcTemplate.query(sql, CustomRowMapper.usuarioConRolRowMapper);
     }
 
     public Usuario obtenerUsuario(String usuario) {

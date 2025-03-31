@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class Categoria {
 
-    private int idCategoria;// id_categoria
+    private Integer idCategoria;// id_categoria
     private String nombreCategoria;// nombre_categoria
     private Departamento departamento;
 
     public Categoria() {}
      
-    public Categoria (int idCategoria, String nombreCategoria, Departamento departamento) {
+    public Categoria (Integer idCategoria, String nombreCategoria, Departamento departamento) {
         this.idCategoria = idCategoria;
         this.nombreCategoria = nombreCategoria;
         this.departamento = departamento;
     }
 
-    public int getIdCategoria() { return idCategoria; }
+    public Integer getIdCategoria() { return idCategoria; }
 
-    public void setIdCategoria(int idCategoria ){
+    public void setIdCategoria(Integer idCategoria ){
         this.idCategoria = idCategoria;
     }
 

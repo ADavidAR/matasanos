@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class FacturaProducto {
 
-    private int idFacturaProducto;// id_factura_producto
-    private int cantidad;// cantidad
+    private Integer idFacturaProducto;// id_factura_producto
+    private Integer cantidad;// cantidad
     private BigDecimal precioUnitario;// precio_unitario
     private BigDecimal impusetPorcentaje;// impuset_porcentaje
     private BigDecimal impuesto;// impuesto
@@ -15,7 +15,7 @@ public class FacturaProducto {
 
     public FacturaProducto() {}
      
-    public FacturaProducto (int idFacturaProducto, int cantidad, BigDecimal precioUnitario, BigDecimal impusetPorcentaje, BigDecimal impuesto, BigDecimal subtotal, Factura factura, Producto producto) {
+    public FacturaProducto (Integer idFacturaProducto, Integer cantidad, BigDecimal precioUnitario, BigDecimal impusetPorcentaje, BigDecimal impuesto, BigDecimal subtotal, Factura factura, Producto producto) {
         this.idFacturaProducto = idFacturaProducto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -26,15 +26,15 @@ public class FacturaProducto {
         this.producto = producto;
     }
 
-    public int getIdFacturaProducto() { return idFacturaProducto; }
+    public Integer getIdFacturaProducto() { return idFacturaProducto; }
 
-    public void setIdFacturaProducto(int idFacturaProducto ){
+    public void setIdFacturaProducto(Integer idFacturaProducto ){
         this.idFacturaProducto = idFacturaProducto;
     }
 
-    public int getCantidad() { return cantidad; }
+    public Integer getCantidad() { return cantidad; }
 
-    public void setCantidad(int cantidad ){
+    public void setCantidad(Integer cantidad ){
         this.cantidad = cantidad;
     }
 

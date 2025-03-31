@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class Cliente {
 
-    private int idCliente;// id_cliente
+    private Integer idCliente;// id_cliente
     private String rtn;// rtn
     private LocalDate fechaCreacion;// fecha_creacion
     private LocalDate fechaModificacion;// fecha_modificacion
     private Persona persona;
-    private int idUsuarioCreacion;// id_usuario_creacion
-    private int idUsuarioModificacion;// id_usuario_modificacion
+    private Integer idUsuarioCreacion;// id_usuario_creacion
+    private Integer idUsuarioModificacion;// id_usuario_modificacion
 
     public Cliente() {}
      
-    public Cliente (int idCliente, String rtn, LocalDate fechaCreacion, LocalDate fechaModificacion, Persona persona, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Cliente (Integer idCliente, String rtn, LocalDate fechaCreacion, LocalDate fechaModificacion, Persona persona, Integer idUsuarioCreacion, Integer idUsuarioModificacion) {
         this.idCliente = idCliente;
         this.rtn = rtn;
         this.fechaCreacion = fechaCreacion;
@@ -24,9 +24,9 @@ public class Cliente {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public int getIdCliente() { return idCliente; }
+    public Integer getIdCliente() { return idCliente; }
 
-    public void setIdCliente(int idCliente ){
+    public void setIdCliente(Integer idCliente ){
         this.idCliente = idCliente;
     }
 
@@ -54,15 +54,15 @@ public class Cliente {
         this.persona = persona;
     }
 
-    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
+    public Integer getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(Integer idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
+    public Integer getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(Integer idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }
