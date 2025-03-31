@@ -11,13 +11,13 @@ public class Usuario {
     private LocalDate fechaCreacion;// fecha_creacion
     private LocalDate fechaModificacion;// fecha_modificacion
     private Rol rol;
-    private int idEmpleado;// id_empleado
+    private Empleado empleado;
     private int idUsuarioCreacion;// id_usuario_creacion
     private int idUsuarioModificacion;// id_usuario_modificacion
 
     public Usuario() {}
      
-    public Usuario (int idUsuario, String usuario, String contrasena, boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Rol rol, int idEmpleado, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Usuario (int idUsuario, String usuario, String contrasena, boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Rol rol, Empleado empleado, int idUsuarioCreacion, int idUsuarioModificacion) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -25,7 +25,7 @@ public class Usuario {
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
         this.rol = rol;
-        this.idEmpleado = idEmpleado;
+        this.empleado = empleado;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
@@ -94,10 +94,10 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public int getIdEmpleado() { return idEmpleado; }
+    public Empleado getEmpleado() { return empleado; }
 
-    public void setIdEmpleado(int idEmpleado ){
-        this.idEmpleado = idEmpleado;
+    public void setEmpleado(Empleado empleado ){
+        this.empleado = empleado;
     }
 
     public int getIdUsuarioCreacion() { return idUsuarioCreacion; }

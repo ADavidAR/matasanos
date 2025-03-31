@@ -48,8 +48,10 @@ public class RolRepo {
     }
 
     public boolean eliminarRol(int idRol) {
-        String sql = "DELETE FROM v_Rol WHERE id_rol = ?";
-        int afectado = jdbcTemplate.update(sql, idRol);
+        String sqlRolPermiso = "DELETE FROM RolPermiso WHERE id_rol = ?";
+        jdbcTemplate.update(sqlRolPermiso,idRol);
+        String sqlRol = "DELETE FROM v_Rol WHERE id_rol = ?";
+        int afectado = jdbcTemplate.update(sqlRol, idRol);
 
         return afectado != 0;
     }

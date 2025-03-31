@@ -159,7 +159,7 @@ public class CustomRowMapper {
                     rs.getObject("fecha_creacion", LocalDate.class),
                     rs.getObject("fecha_modificacion", LocalDate.class),
                     CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
-                    rs.getInt("id_empleado"),
+                    CustomRowMapper.empleadoRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
             );
@@ -173,7 +173,21 @@ public class CustomRowMapper {
                     null,
                     null,
                     CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
+                    null,
                     0,
+                    0
+            );
+
+    public static final RowMapper<Usuario> usuarioRolEmpleadoRowMapper = (rs, numCol) ->
+            new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("usuario"),
+                    null,
+                    rs.getBoolean("usuario_activo"),
+                    null,
+                    null,
+                    CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
+                    CustomRowMapper.empleadoSimpleowMapper.mapRow(rs, numCol),
                     0,
                     0
             );
@@ -187,7 +201,21 @@ public class CustomRowMapper {
                     null,
                     null,
                     null,
+                    null,
                     0,
+                    0
+            );
+
+    public static final RowMapper<Usuario> usuarioSimpleSinContrasenaRowMapper = (rs, numCol) ->
+            new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("usuario"),
+                    null,
+                    false,
+                    null,
+                    null,
+                    null,
+                    null,
                     0,
                     0
             );
@@ -201,6 +229,17 @@ public class CustomRowMapper {
                     rs.getString("segundo_apellido"),
                     rs.getString("dni"),
                     CustomRowMapper.direccionRowMapper.mapRow(rs, numCol)
+            );
+
+    public static final RowMapper<Persona> personaSinDireccionRowMapper = (rs, numCol) ->
+            new Persona(
+                    rs.getInt("id_persona"),
+                    rs.getString("primer_nombre"),
+                    rs.getString("segundo_nombre"),
+                    rs.getString("primer_apellido"),
+                    rs.getString("segundo_apellido"),
+                    rs.getString("dni"),
+                    null
             );
 
     public static final RowMapper<Medico> medicoRowMapper = (rs, numCol) ->
@@ -384,6 +423,22 @@ public class CustomRowMapper {
                     CustomRowMapper.sucursalRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
+            );
+
+    public static final RowMapper<Empleado> empleadoSimpleowMapper = (rs, numCol) ->
+            new Empleado(
+                    rs.getInt("id_empleado"),
+                    null,
+                    null,
+                    null,
+                    false,
+                    null,
+                    null,
+                    CustomRowMapper.personaSinDireccionRowMapper.mapRow(rs, numCol),
+                    null,
+                    null,
+                    0,
+                    0
             );
 
     public static final RowMapper<MetodoPago> metodoPagoRowMapper = (rs, numCol) ->

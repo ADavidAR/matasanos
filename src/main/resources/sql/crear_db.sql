@@ -378,3 +378,50 @@ CREATE VIEW v_Permiso AS
 
 CREATE VIEW v_Rol AS
     SELECT * FROM Rol;
+
+CREATE VIEW v_Empleado AS
+	SELECT e.*, p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido, p.dni, col.*, ciu.ciudad, d.id_direccion, d.referencia, c.descripcion, s.nombre_sucursal FROM Empleado e
+	INNER JOIN Persona p ON e.id_persona = p.id_persona
+	INNER JOIN Cargo c ON e.id_cargo = c.id_cargo
+	INNER JOIN Sucursal s ON s.id_sucursal = e.id_sucursal
+	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
+	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
+	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad;
+
+CREATE VIEW v_UsuarioEmpleadoRol AS
+	SELECT 
+    u.id_usuario,
+    u.usuario,
+    u.contrasena,
+    u.activo AS usuario_activo,
+    u.fecha_creacion AS usuario_fecha_creacion,
+    u.fecha_modificacion AS usuario_fecha_modificacion,
+    u.id_rol,
+	u.nombre_rol,
+    u.id_empleado,
+    u.id_usuario_creacion AS usuario_creador,
+    u.id_usuario_modificacion AS usuario_modificador,
+    e.salario,
+    e.fecha_contratacion,
+    e.fecha_baja,
+    e.activo AS empleado_activo,
+    e.fecha_creacion AS empleado_fecha_creacion,
+    e.fecha_modificacion AS empleado_fecha_modificacion,
+    e.id_cargo,
+    e.id_sucursal,
+    e.id_usuario_creacion AS empleado_creador,
+    e.id_usuario_modificacion AS empleado_modificador,
+    e.id_persona,
+    e.primer_nombre,
+    e.segundo_nombre,
+    e.primer_apellido,
+    e.segundo_apellido,
+    e.dni,
+    e.id_direccion,
+    e.referencia,
+    e.id_colonia,
+    e.nombre_colonia,
+    e.id_ciudad,
+    e.ciudad
+	FROM v_UsuarioConRol u
+	INNER JOIN v_Empleado e ON u.id_empleado = e.id_empleado;

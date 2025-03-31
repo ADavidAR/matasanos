@@ -24,26 +24,6 @@ public class RolPermiso {
         this.creacion = creacion;
     }
 
-    public RolPermiso(int idRolPermiso, Permiso permiso) {
-        this.idRolPermiso = idRolPermiso;
-        this.rol = null;
-        this.permiso = permiso;
-        this.acceso = false;
-        this.modificacion = false;
-        this.eliminacion = false;
-        this.creacion = false;
-    }
-
-    public RolPermiso(Permiso permiso) {
-        this.idRolPermiso = 0;
-        this.rol = null;
-        this.permiso = permiso;
-        this.acceso = false;
-        this.modificacion = false;
-        this.eliminacion = false;
-        this.creacion = false;
-    }
-
     public int getIdRolPermiso() { return idRolPermiso; }
 
     public void setIdRolPermiso(int idRolPermiso ){

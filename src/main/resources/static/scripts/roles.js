@@ -14,17 +14,20 @@
 
         form.classList.add("was-validated");
         
-        let success = await fetch(`/api/roles/agregar/${encodeURIComponent(input.value)}`, {
+        fetch(`/api/roles/agregar/${encodeURIComponent(input.value)}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"}
         }).then(r => r.json())
+        .then(pl => {
 
-        if(!success) {
-            msg.textContent = "El rol ya existe";
+            if(!pl) {
+                msg.textContent = "El rol ya existe";
+    
+                input.classList.add("is-invalid");
+                return;
+            }
+        })
 
-            input.classList.add("is-invalid");
-            return;
-        }
 
         window.location.reload();
     })
@@ -99,9 +102,9 @@
 window.addEventListener("DOMContentLoaded", async () => {
     const optionsNav = document.querySelector("#nav-options");
     const rolesSection = document.querySelector("#roles-container");
+    const roleH5 = document.querySelector("#role");
     
-    let userData = JSON.parse(localStorage.getItem("userData"));
-
+    roleH5.textContent = userData.rol.nombreRol;
     //Add role form after-hidden reset
     document.querySelector("#add-role-modal").addEventListener("hidden.bs.modal", (event) => {
         const input = document.querySelector("#role-name-add");
@@ -121,12 +124,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     })
 
-    let roles = await fetch("/api/roles", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(r => r.json());
+    let roles = await fetch("/api/roles").then(r => r.json());
 
 
     // roles =  [
@@ -201,7 +199,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             input.value = target.dataset.name;
         })
 
-        btnDel.setAttribute("class","bi bi-trash btn btn-danger del")
+        btnDel.setAttribute("class","bi bi-trash btn btn-danger del modify")
         btnDel.dataset.id = r.idRol
         btnDel.dataset.name = r.nombreRol
 
@@ -268,16 +266,17 @@ window.addEventListener("DOMContentLoaded", async () => {
         window.location.reload();
     })
 
-    document.querySelectorAll(".modify").forEach( (el) => {
-        el.style.display = modifyDisplay;
+    
+    document.querySelectorAll(".del").forEach( (el) => {
+        el.style.display = delDisplay;
     })
-
+    
     document.querySelectorAll(".create").forEach( (el) => {
         el.style.display = createDisplay;
     })
-
-    document.querySelectorAll(".del").forEach( (el) => {
-        el.style.display = delDisplay;
+    
+    document.querySelectorAll(".modify").forEach( (el) => {
+        el.style.display = modifyDisplay;
     })
 
 })

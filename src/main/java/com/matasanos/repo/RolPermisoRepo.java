@@ -36,7 +36,15 @@ public class RolPermisoRepo {
                 continue;
             }
 
-            rolPermisos.add(new RolPermiso(p));
+            rolPermisos.add(new RolPermiso(
+                    0,
+                    null,
+                    p,
+                    false,
+                    false,
+                    false,
+                    false
+            ));
         }
 
         return rolPermisos;

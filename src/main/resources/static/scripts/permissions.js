@@ -16,8 +16,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     const optionsNav = document.querySelector("#nav-options");
     const permissionTable = document.querySelector("#permission-table");
     const permissionTBody = document.querySelector("#permission-tbody");
+    const roleH5 = document.querySelector("#role");
 
-    console.log(userData);
+
+    roleH5.textContent = userData.rol.nombreRol;
     const modifyElems = document.querySelectorAll(".modify");
 
     let modifyDisplay;

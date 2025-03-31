@@ -63,13 +63,13 @@ INSERT INTO Proveedor (razon_social, contacto, RTN_contacto, telefono, correo, d
 ('Importadora Internacional', 'Carlos Martinez', '0801199500789', '22338899', 'info@importadorain.com', 'Residencial Los Pinos, San Pedro Sula'),
 ('Suplementos Nutricionales', 'Ana Rodriguez', '0801199200321', '22330011', 'ventas@suplementoshn.com', 'Colonia Las Colinas, Tegucigalpa');
 
-INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, impuesto, id_categoria, id_proveedor, fecha_creacion) VALUES
-('Paracetamol 500mg', 'Analgesico y antipiretico, caja con 20 tabletas', 50.00, '2025-12-31', 1, 0.15, 1, 1, GETDATE()),
-('Amoxicilina 250mg', 'Antibiotico de amplio espectro, frasco con 12 capsulas', 120.00, '2024-10-15', 0, 0.15, 2, 1, GETDATE()),
-('Jabon Antibacterial', 'Jabon liquido antibacterial 250ml', 35.00, '2026-05-30', 1, 0.15, 3, 2, GETDATE()),
-('Shampoo Anticaspa', 'Shampoo medicado para caspa 400ml', 85.00, '2025-08-20', 1, 0.15, 4, 2, GETDATE()),
-('Vitamina C 1000mg', 'Suplemento de vitamina C, frasco con 30 tabletas', 150.00, '2025-11-30', 1, 0.15, 5, 4, GETDATE()),
-('Termometro Digital', 'Termometro digital con pantalla LCD', 250.00, '2027-01-01', 1, 0.15, 7, 3, GETDATE());
+INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, impuesto, id_categoria, id_proveedor, fecha_creacion, id_usuario_creacion) VALUES
+('Paracetamol 500mg', 'Analgesico y antipiretico, caja con 20 tabletas', 50.00, '2025-12-31', 1, 0.15, 1, 1, GETDATE(), 1),
+('Amoxicilina 250mg', 'Antibiotico de amplio espectro, frasco con 12 capsulas', 120.00, '2024-10-15', 0, 0.15, 2, 1, GETDATE(), 1),
+('Jabon Antibacterial', 'Jabon liquido antibacterial 250ml', 35.00, '2026-05-30', 1, 0.15, 3, 2, GETDATE(), 1),
+('Shampoo Anticaspa', 'Shampoo medicado para caspa 400ml', 85.00, '2025-08-20', 1, 0.15, 4, 2, GETDATE(), 1),
+('Vitamina C 1000mg', 'Suplemento de vitamina C, frasco con 30 tabletas', 150.00, '2025-11-30', 1, 0.15, 5, 4, GETDATE(), 1),
+('Termometro Digital', 'Termometro digital con pantalla LCD', 250.00, '2027-01-01', 1, 0.15, 7, 3, GETDATE(), 1);
 
 INSERT INTO TipoMovimiento (nombre, factor) VALUES
 ('Compra', 1),       -- Aumenta inventario
@@ -199,7 +199,7 @@ INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, activo, id_emp
 ('supervisor1', 'super123', GETDATE(), 3, 1, 3, 1),    -- Supervisor
 ('farmaceutico1', 'farma123', GETDATE(), 4, 1, 4, 1),  -- Farmacéutico
 ('cajero1', 'cajero123', GETDATE(), 4, 1 , 5, 1),       -- Cajero
-('bodega1', 'bodega123', GETDATE(), 4, 1, 6, 1);       -- Bodeguero
+('bodega1', 'bodega123', GETDATE(), 4, 1, NULL, 1);       -- Bodeguero
 
 -- Clientes
 INSERT INTO Cliente (rtn, fecha_creacion, id_persona, id_usuario_creacion) VALUES
