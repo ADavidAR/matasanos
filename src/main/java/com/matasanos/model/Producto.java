@@ -18,12 +18,13 @@ public class Producto {
     private BigDecimal costoVenta;// costo_venta
     private Categoria categoria;
     private Proveedor proveedor;
+    private Integer inventario;
     private Integer idUsuarioCreacion;// id_usuario_creacion
     private Integer idUsuarioModificacion;// id_usuario_modificacion
 
     public Producto() {}
      
-    public Producto (Integer idProducto, String nombreProducto, String descripcion, BigDecimal precioVenta, LocalDate fechaVencimiento, Boolean ventaLibre, BigDecimal precioDescuento, BigDecimal impuesto, LocalDate fechaCreacion, LocalDate fechaModificacion, BigDecimal costoVenta, Categoria categoria, Proveedor proveedor, Integer idUsuarioCreacion, Integer idUsuarioModificacion) {
+    public Producto (Integer idProducto, String nombreProducto, String descripcion, BigDecimal precioVenta, LocalDate fechaVencimiento, Boolean ventaLibre, BigDecimal precioDescuento, BigDecimal impuesto, LocalDate fechaCreacion, LocalDate fechaModificacion, BigDecimal costoVenta, Integer inventario, Categoria categoria, Proveedor proveedor, Integer idUsuarioCreacion, Integer idUsuarioModificacion) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
@@ -35,6 +36,7 @@ public class Producto {
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
         this.costoVenta = costoVenta;
+        this.inventario = inventario;
         this.categoria = categoria;
         this.proveedor = proveedor;
         this.idUsuarioCreacion = idUsuarioCreacion;
@@ -105,6 +107,14 @@ public class Producto {
 
     public void setCostoVenta(BigDecimal costoVenta ){
         this.costoVenta = costoVenta;
+    }
+
+    public Integer getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Integer inventario) {
+        this.inventario = inventario;
     }
 
     public Categoria getCategoria() { return categoria; }

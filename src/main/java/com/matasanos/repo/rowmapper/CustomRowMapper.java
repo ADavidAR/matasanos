@@ -159,7 +159,7 @@ public class CustomRowMapper {
                     rs.getObject("fecha_creacion", LocalDate.class),
                     rs.getObject("fecha_modificacion", LocalDate.class),
                     CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
-                    rs.getInt("id_empleado"),
+                    CustomRowMapper.empleadoRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
             );
@@ -173,7 +173,7 @@ public class CustomRowMapper {
                     null,
                     null,
                     CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
-                    0,
+                    null,
                     0,
                     0
             );
@@ -187,7 +187,7 @@ public class CustomRowMapper {
                     null,
                     null,
                     null,
-                    0,
+                    null,
                     0,
                     0
             );
