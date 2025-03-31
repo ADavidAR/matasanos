@@ -5,22 +5,22 @@ import java.time.LocalDate;
 
 public class Empleado {
 
-    private int idEmpleado;// id_empleado
+    private Integer idEmpleado;// id_empleado
     private BigDecimal salario;// salario
     private LocalDate fechaContratacion;// fecha_contratacion
     private LocalDate fechaBaja;// fecha_baja
-    private boolean activo;// activo
+    private Boolean activo;// activo
     private LocalDate fechaCreacion;// fecha_creacion
     private LocalDate fechaModificacion;// fecha_modificacion
     private Persona persona;
     private Cargo cargo;
     private Sucursal sucursal;
-    private int idUsuarioCreacion;// id_usuario_creacion
-    private int idUsuarioModificacion;// id_usuario_modificacion
+    private Integer idUsuarioCreacion;// id_usuario_creacion
+    private Integer idUsuarioModificacion;// id_usuario_modificacion
 
     public Empleado() {}
      
-    public Empleado (int idEmpleado, BigDecimal salario, LocalDate fechaContratacion, LocalDate fechaBaja, boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Persona persona, Cargo cargo, Sucursal sucursal, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Empleado (Integer idEmpleado, BigDecimal salario, LocalDate fechaContratacion, LocalDate fechaBaja, Boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Persona persona, Cargo cargo, Sucursal sucursal, Integer idUsuarioCreacion, Integer idUsuarioModificacion) {
         this.idEmpleado = idEmpleado;
         this.salario = salario;
         this.fechaContratacion = fechaContratacion;
@@ -35,9 +35,9 @@ public class Empleado {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public int getIdEmpleado() { return idEmpleado; }
+    public Integer getIdEmpleado() { return idEmpleado; }
 
-    public void setIdEmpleado(int idEmpleado ){
+    public void setIdEmpleado(Integer idEmpleado ){
         this.idEmpleado = idEmpleado;
     }
 
@@ -59,9 +59,9 @@ public class Empleado {
         this.fechaBaja = fechaBaja;
     }
 
-    public boolean getActivo() { return activo; }
+    public Boolean getActivo() { return activo; }
 
-    public void setActivo(boolean activo ){
+    public void setActivo(Boolean activo ){
         this.activo = activo;
     }
 
@@ -95,15 +95,15 @@ public class Empleado {
         this.sucursal = sucursal;
     }
 
-    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
+    public Integer getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(Integer idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
+    public Integer getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(Integer idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }

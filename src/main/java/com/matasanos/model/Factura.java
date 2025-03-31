@@ -1,11 +1,11 @@
 package com.matasanos.model;
 
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Factura {
 
-    private int idFactura;// id_factura
+    private Integer idFactura;// id_factura
     private String numeroFactura;// numero_factura
     private LocalDate fechaEmision;// fecha_emision
     private String rtnCliente;// rtn_cliente
@@ -18,7 +18,7 @@ public class Factura {
 
     public Factura() {}
      
-    public Factura (int idFactura, String numeroFactura, LocalDate fechaEmision, String rtnCliente, BigDecimal subtotal, BigDecimal impuesto, FacturacionSAR facturaSar, Usuario usuario, Cliente cliente, Caja caja) {
+    public Factura (Integer idFactura, String numeroFactura, LocalDate fechaEmision, String rtnCliente, BigDecimal subtotal, BigDecimal impuesto, FacturacionSAR facturaSar, Usuario usuario, Cliente cliente, Caja caja) {
         this.idFactura = idFactura;
         this.numeroFactura = numeroFactura;
         this.fechaEmision = fechaEmision;
@@ -31,9 +31,9 @@ public class Factura {
         this.caja = caja;
     }
 
-    public int getIdFactura() { return idFactura; }
+    public Integer getIdFactura() { return idFactura; }
 
-    public void setIdFactura(int idFactura ){
+    public void setIdFactura(Integer idFactura ){
         this.idFactura = idFactura;
     }
 

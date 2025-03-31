@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Rol {
 
-    private int idRol;// id_rol
+    private Integer idRol;// id_rol
     private String nombreRol;// nombre_rol
     private List<RolPermiso> permisos;
     public Rol() {}
      
-    public Rol (int idRol, String nombreRol) {
+    public Rol (Integer idRol, String nombreRol) {
         this.idRol = idRol;
         this.nombreRol = nombreRol;
     }
 
-    public int getIdRol() { return idRol; }
+    public Integer getIdRol() { return idRol; }
 
-    public void setIdRol(int idRol ){
+    public void setIdRol(Integer idRol ){
         this.idRol = idRol;
     }
 
