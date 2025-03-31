@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class TipoMovimiento {
 
-    private int idTipoMovimiento;// id_tipo_movimiento
+    private Integer idTipoMovimiento;// id_tipo_movimiento
     private String nombre;// nombre
-    private int factor;// factor
+    private Integer factor;// factor
 
     public TipoMovimiento() {}
      
-    public TipoMovimiento (int idTipoMovimiento, String nombre, int factor) {
+    public TipoMovimiento (Integer idTipoMovimiento, String nombre, Integer factor) {
         this.idTipoMovimiento = idTipoMovimiento;
         this.nombre = nombre;
         this.factor = factor;
     }
 
-    public int getIdTipoMovimiento() { return idTipoMovimiento; }
+    public Integer getIdTipoMovimiento() { return idTipoMovimiento; }
 
-    public void setIdTipoMovimiento(int idTipoMovimiento ){
+    public void setIdTipoMovimiento(Integer idTipoMovimiento ){
         this.idTipoMovimiento = idTipoMovimiento;
     }
 
@@ -28,9 +28,9 @@ public class TipoMovimiento {
         this.nombre = nombre;
     }
 
-    public int getFactor() { return factor; }
+    public Integer getFactor() { return factor; }
 
-    public void setFactor(int factor ){
+    public void setFactor(Integer factor ){
         this.factor = factor;
     }
 }

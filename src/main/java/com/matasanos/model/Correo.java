@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class Correo {
 
-    private int idCorreo;// id_correo
+    private Integer idCorreo;// id_correo
     private String correo;// correo
     private Persona persona;
 
     public Correo() {}
      
-    public Correo (int idCorreo, String correo, Persona persona) {
+    public Correo (Integer idCorreo, String correo, Persona persona) {
         this.idCorreo = idCorreo;
         this.correo = correo;
         this.persona = persona;
     }
 
-    public int getIdCorreo() { return idCorreo; }
+    public Integer getIdCorreo() { return idCorreo; }
 
-    public void setIdCorreo(int idCorreo ){
+    public void setIdCorreo(Integer idCorreo ){
         this.idCorreo = idCorreo;
     }
 

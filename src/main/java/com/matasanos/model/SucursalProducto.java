@@ -4,29 +4,29 @@ package com.matasanos.model;
 
 public class SucursalProducto {
 
-    private int idSucursalProducto;// id_sucursal_producto
+    private Integer idSucursalProducto;// id_sucursal_producto
     private int inventarioSucursal;// inventario_sucursal
     private Producto producto;
     private Sucursal sucursal;
 
     public SucursalProducto() {}
      
-    public SucursalProducto (int idSucursalProducto, int inventarioSucursal, Producto producto, Sucursal sucursal) {
+    public SucursalProducto (Integer idSucursalProducto, Integer inventarioSucursal, Producto producto, Sucursal sucursal) {
         this.idSucursalProducto = idSucursalProducto;
         this.inventarioSucursal = inventarioSucursal;
         this.producto = producto;
         this.sucursal = sucursal;
     }
 
-    public int getIdSucursalProducto() { return idSucursalProducto; }
+    public Integer getIdSucursalProducto() { return idSucursalProducto; }
 
-    public void setIdSucursalProducto(int idSucursalProducto ){
+    public void setIdSucursalProducto(Integer idSucursalProducto ){
         this.idSucursalProducto = idSucursalProducto;
     }
 
-    public int getInventarioSucursal() { return inventarioSucursal; }
+    public Integer getInventarioSucursal() { return inventarioSucursal; }
 
-    public void setInventarioSucursal(int inventarioSucursal ){
+    public void setInventarioSucursal(Integer inventarioSucursal ){
         this.inventarioSucursal = inventarioSucursal;
     }
 

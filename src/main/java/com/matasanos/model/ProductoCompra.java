@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 
 public class ProductoCompra {
 
-    private int idProductoCompra;// id_producto_compra
-    private int cantidad;// cantidad
+    private Integer idProductoCompra;// id_producto_compra
+    private Integer cantidad;// cantidad
     private BigDecimal costo;// costo
     private Compra compra;
     private Producto producto;
 
     public ProductoCompra() {}
      
-    public ProductoCompra (int idProductoCompra, int cantidad, BigDecimal costo, Compra compra, Producto producto) {
+    public ProductoCompra (Integer idProductoCompra, Integer cantidad, BigDecimal costo, Compra compra, Producto producto) {
         this.idProductoCompra = idProductoCompra;
         this.cantidad = cantidad;
         this.costo = costo;
@@ -20,15 +20,15 @@ public class ProductoCompra {
         this.producto = producto;
     }
 
-    public int getIdProductoCompra() { return idProductoCompra; }
+    public Integer getIdProductoCompra() { return idProductoCompra; }
 
-    public void setIdProductoCompra(int idProductoCompra ){
+    public void setIdProductoCompra(Integer idProductoCompra ){
         this.idProductoCompra = idProductoCompra;
     }
 
-    public int getCantidad() { return cantidad; }
+    public Integer getCantidad() { return cantidad; }
 
-    public void setCantidad(int cantidad ){
+    public void setCantidad(Integer cantidad ){
         this.cantidad = cantidad;
     }
 
