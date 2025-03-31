@@ -4,20 +4,20 @@ import java.time.LocalDate;
 
 public class Usuario {
 
-    private int idUsuario;// id_usuario
+    private Integer idUsuario;// id_usuario
     private String usuario;// usuario
     private String contrasena;// contrasena
-    private boolean activo;// activo
+    private Boolean activo;// activo
     private LocalDate fechaCreacion;// fecha_creacion
     private LocalDate fechaModificacion;// fecha_modificacion
     private Rol rol;
     private Empleado empleado;
-    private int idUsuarioCreacion;// id_usuario_creacion
-    private int idUsuarioModificacion;// id_usuario_modificacion
+    private Integer idUsuarioCreacion;// id_usuario_creacion
+    private Integer idUsuarioModificacion;// id_usuario_modificacion
 
     public Usuario() {}
      
-    public Usuario (int idUsuario, String usuario, String contrasena, boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Rol rol, Empleado empleado, int idUsuarioCreacion, int idUsuarioModificacion) {
+    public Usuario (Integer idUsuario, String usuario, String contrasena, Boolean activo, LocalDate fechaCreacion, LocalDate fechaModificacion, Rol rol, Empleado empleado, Integer idUsuarioCreacion, Integer idUsuarioModificacion) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -30,31 +30,9 @@ public class Usuario {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public Usuario(int idUsuario, String usuario, String contrasena, Rol rol) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.rol = rol;
-        this.fechaCreacion = null;
-        this.fechaModificacion = null;
-        this.idUsuarioCreacion = 0;
-        this.idUsuarioModificacion = 0;
-    }
-
-    public Usuario(int idUsuario, String usuario, String contrasena) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.rol = null;
-        this.fechaCreacion = null;
-        this.fechaModificacion = null;
-        this.idUsuarioCreacion = 0;
-        this.idUsuarioModificacion = 0;
-    }
-
     public int getIdUsuario() { return idUsuario; }
 
-    public void setIdUsuario(int idUsuario ){
+    public void setIdUsuario(Integer idUsuario ){
         this.idUsuario = idUsuario;
     }
 
@@ -70,9 +48,9 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public boolean getActivo() { return activo; }
+    public Boolean getActivo() { return activo; }
 
-    public void setActivo(boolean activo ){
+    public void setActivo(Boolean activo ){
         this.activo = activo;
     }
 
@@ -100,15 +78,15 @@ public class Usuario {
         this.empleado = empleado;
     }
 
-    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
+    public Integer getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(Integer idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
+    public Integer getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(Integer idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }

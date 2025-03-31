@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class Colonia {
 
-    private int idColonia;// id_colonia
+    private Integer idColonia;// id_colonia
     private String nombreColonia;// nombre_colonia
     private Ciudad ciudad;
 
     public Colonia() {}
      
-    public Colonia (int idColonia, String nombreColonia, Ciudad ciudad) {
+    public Colonia (Integer idColonia, String nombreColonia, Ciudad ciudad) {
         this.idColonia = idColonia;
         this.nombreColonia = nombreColonia;
         this.ciudad = ciudad;
     }
 
-    public int getIdColonia() { return idColonia; }
+    public Integer getIdColonia() { return idColonia; }
 
-    public void setIdColonia(int idColonia ){
+    public void setIdColonia(Integer idColonia ){
         this.idColonia = idColonia;
     }
 

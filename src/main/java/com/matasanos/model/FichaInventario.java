@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class FichaInventario {
 
-    private int idFicha;// id_ficha
-    private int cantidad;// cantidad
+    private Integer idFicha;// id_ficha
+    private Integer cantidad;// cantidad
     private String referencia;// referencia
     private LocalDate fecha;// fecha
     private Producto producto;
@@ -14,7 +14,7 @@ public class FichaInventario {
 
     public FichaInventario() {}
      
-    public FichaInventario (int idFicha, int cantidad, String referencia, LocalDate fecha, Producto producto, Sucursal sucursal, TipoMovimiento tipoMovimiento) {
+    public FichaInventario (Integer idFicha, Integer cantidad, String referencia, LocalDate fecha, Producto producto, Sucursal sucursal, TipoMovimiento tipoMovimiento) {
         this.idFicha = idFicha;
         this.cantidad = cantidad;
         this.referencia = referencia;
@@ -24,15 +24,15 @@ public class FichaInventario {
         this.tipoMovimiento = tipoMovimiento;
     }
 
-    public int getIdFicha() { return idFicha; }
+    public Integer getIdFicha() { return idFicha; }
 
-    public void setIdFicha(int idFicha ){
+    public void setIdFicha(Integer idFicha ){
         this.idFicha = idFicha;
     }
 
-    public int getCantidad() { return cantidad; }
+    public Integer getCantidad() { return cantidad; }
 
-    public void setCantidad(int cantidad ){
+    public void setCantidad(Integer cantidad ){
         this.cantidad = cantidad;
     }
 

@@ -4,21 +4,21 @@ package com.matasanos.model;
 
 public class Direccion {
 
-    private int idDireccion;// id_direccion
+    private Integer idDireccion;// id_direccion
     private String referencia;// referencia
     private Colonia colonia;
 
     public Direccion() {}
      
-    public Direccion (int idDireccion, String referencia, Colonia colonia) {
+    public Direccion (Integer idDireccion, String referencia, Colonia colonia) {
         this.idDireccion = idDireccion;
         this.referencia = referencia;
         this.colonia = colonia;
     }
 
-    public int getIdDireccion() { return idDireccion; }
+    public Integer getIdDireccion() { return idDireccion; }
 
-    public void setIdDireccion(int idDireccion ){
+    public void setIdDireccion(Integer idDireccion ){
         this.idDireccion = idDireccion;
     }
 

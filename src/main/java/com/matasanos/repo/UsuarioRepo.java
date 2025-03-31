@@ -27,18 +27,6 @@ public class UsuarioRepo {
         return jdbcTemplate.query(sql, CustomRowMapper.usuarioConRolRowMapper);
     }
 
-    public List<Usuario> listarUsuariosSimples() {
-        String sql = "SELECT id_usuario, usuario FROM v_Usuario";
-
-        return jdbcTemplate.query(sql, CustomRowMapper.usuarioSimpleSinContrasenaRowMapper);
-    }
-
-    public List<String> listarUsuariosConRol(int idRol) {
-        String sql = "SELECT usuario FROM v_Usuario WHERE id_rol = ?";
-
-        return jdbcTemplate.queryForList(sql, String.class, idRol);
-    }
-
     public Usuario obtenerUsuario(String usuario) {
         String sql = "SELECT id_usuario, usuario, contrasena FROM v_Usuario WHERE usuario = ?";
         List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioSimpleRowMapper, usuario);
