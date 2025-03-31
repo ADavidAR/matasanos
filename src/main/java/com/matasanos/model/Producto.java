@@ -5,12 +5,12 @@ import java.time.LocalDate;
 
 public class Producto {
 
-    private int idProducto;// id_producto
+    private Integer idProducto;// id_producto
     private String nombreProducto;// nombre_producto
     private String descripcion;// descripcion
     private BigDecimal precioVenta;// precio_venta
     private LocalDate fechaVencimiento;// fecha_vencimiento
-    private boolean ventaLibre;// venta_libre
+    private Boolean ventaLibre;// venta_libre
     private BigDecimal precioDescuento;// precio_descuento
     private BigDecimal impuesto;// impuesto
     private LocalDate fechaCreacion;// fecha_creacion
@@ -18,29 +18,12 @@ public class Producto {
     private BigDecimal costoVenta;// costo_venta
     private Categoria categoria;
     private Proveedor proveedor;
-    int inventario;
-    private int idUsuarioCreacion;// id_usuario_creacion
-    private int idUsuarioModificacion;// id_usuario_modificacion
+    private Integer idUsuarioCreacion;// id_usuario_creacion
+    private Integer idUsuarioModificacion;// id_usuario_modificacion
 
     public Producto() {}
-
-    public Producto (int idProducto,
-                     String nombreProducto,
-                     String descripcion,
-                     BigDecimal precioVenta,
-                     LocalDate fechaVencimiento,
-                     boolean ventaLibre,
-                     BigDecimal precioDescuento,
-                     BigDecimal impuesto,
-                     LocalDate fechaCreacion,
-                     LocalDate fechaModificacion,
-                     BigDecimal costoVenta,
-                     int inventario,
-                     Categoria categoria,
-                     Proveedor proveedor,
-                     int idUsuarioCreacion,
-                     int idUsuarioModificacion
-    ) {
+     
+    public Producto (Integer idProducto, String nombreProducto, String descripcion, BigDecimal precioVenta, LocalDate fechaVencimiento, Boolean ventaLibre, BigDecimal precioDescuento, BigDecimal impuesto, LocalDate fechaCreacion, LocalDate fechaModificacion, BigDecimal costoVenta, Categoria categoria, Proveedor proveedor, Integer idUsuarioCreacion, Integer idUsuarioModificacion) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
@@ -54,14 +37,13 @@ public class Producto {
         this.costoVenta = costoVenta;
         this.categoria = categoria;
         this.proveedor = proveedor;
-        this.inventario = inventario;
         this.idUsuarioCreacion = idUsuarioCreacion;
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public int getIdProducto() { return idProducto; }
+    public Integer getIdProducto() { return idProducto; }
 
-    public void setIdProducto(int idProducto ){
+    public void setIdProducto(Integer idProducto ){
         this.idProducto = idProducto;
     }
 
@@ -89,9 +71,9 @@ public class Producto {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public boolean getVentaLibre() { return ventaLibre; }
+    public Boolean getVentaLibre() { return ventaLibre; }
 
-    public void setVentaLibre(boolean ventaLibre ){
+    public void setVentaLibre(Boolean ventaLibre ){
         this.ventaLibre = ventaLibre;
     }
 
@@ -137,23 +119,15 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-    public int getInventario() {
-        return inventario;
-    }
+    public Integer getIdUsuarioCreacion() { return idUsuarioCreacion; }
 
-    public void setInventario(int inventario) {
-        this.inventario = inventario;
-    }
-
-    public int getIdUsuarioCreacion() { return idUsuarioCreacion; }
-
-    public void setIdUsuarioCreacion(int idUsuarioCreacion ){
+    public void setIdUsuarioCreacion(Integer idUsuarioCreacion ){
         this.idUsuarioCreacion = idUsuarioCreacion;
     }
 
-    public int getIdUsuarioModificacion() { return idUsuarioModificacion; }
+    public Integer getIdUsuarioModificacion() { return idUsuarioModificacion; }
 
-    public void setIdUsuarioModificacion(int idUsuarioModificacion ){
+    public void setIdUsuarioModificacion(Integer idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 }

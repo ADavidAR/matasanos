@@ -1,11 +1,11 @@
 package com.matasanos.model;
 
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Compra {
 
-    private int idCompra;// id_compra
+    private Integer idCompra;// id_compra
     private String numFacturaCompra;// num_factura_compra
     private LocalDate fechaCompra;// fecha_compra
     private LocalDate fechaEntrega;// fecha_entrega
@@ -14,7 +14,7 @@ public class Compra {
 
     public Compra() {}
      
-    public Compra (int idCompra, String numFacturaCompra, LocalDate fechaCompra, LocalDate fechaEntrega, BigDecimal costoTotal, Proveedor proveedor) {
+    public Compra (Integer idCompra, String numFacturaCompra, LocalDate fechaCompra, LocalDate fechaEntrega, BigDecimal costoTotal, Proveedor proveedor) {
         this.idCompra = idCompra;
         this.numFacturaCompra = numFacturaCompra;
         this.fechaCompra = fechaCompra;
@@ -23,9 +23,9 @@ public class Compra {
         this.proveedor = proveedor;
     }
 
-    public int getIdCompra() { return idCompra; }
+    public Integer getIdCompra() { return idCompra; }
 
-    public void setIdCompra(int idCompra ){
+    public void setIdCompra(Integer idCompra ){
         this.idCompra = idCompra;
     }
 
