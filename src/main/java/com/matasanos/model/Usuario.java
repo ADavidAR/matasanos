@@ -72,9 +72,9 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Empleado getIdEmpleado() { return empleado; }
+    public Empleado getEmpleado() { return empleado; }
 
-    public void setIdEmpleado(Empleado empleado){
+    public void setEmpleado(Empleado empleado){
         this.empleado = empleado;
     }
 
