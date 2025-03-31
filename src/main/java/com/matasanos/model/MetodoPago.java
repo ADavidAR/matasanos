@@ -4,19 +4,19 @@ package com.matasanos.model;
 
 public class MetodoPago {
 
-    private int idMetodo;// id_metodo
+    private Integer idMetodo;// id_metodo
     private String descripcion;// descripcion
 
     public MetodoPago() {}
      
-    public MetodoPago (int idMetodo, String descripcion) {
+    public MetodoPago (Integer idMetodo, String descripcion) {
         this.idMetodo = idMetodo;
         this.descripcion = descripcion;
     }
 
-    public int getIdMetodo() { return idMetodo; }
+    public Integer getIdMetodo() { return idMetodo; }
 
-    public void setIdMetodo(int idMetodo ){
+    public void setIdMetodo(Integer idMetodo ){
         this.idMetodo = idMetodo;
     }
 

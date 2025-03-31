@@ -4,19 +4,19 @@ package com.matasanos.model;
 
 public class Ciudad {
 
-    private int idCiudad;// id_ciudad
+    private Integer idCiudad;// id_ciudad
     private String ciudad;// ciudad
 
     public Ciudad() {}
      
-    public Ciudad (int idCiudad, String ciudad) {
+    public Ciudad (Integer idCiudad, String ciudad) {
         this.idCiudad = idCiudad;
         this.ciudad = ciudad;
     }
 
-    public int getIdCiudad() { return idCiudad; }
+    public Integer getIdCiudad() { return idCiudad; }
 
-    public void setIdCiudad(int idCiudad ){
+    public void setIdCiudad(Integer idCiudad ){
         this.idCiudad = idCiudad;
     }
 
