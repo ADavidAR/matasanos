@@ -59,7 +59,15 @@ public class ProductoController {
 
         return ( productos != null ) ? ResponseEntity.ok(productos) : ResponseEntity.ok(Collections.emptyMap());
     }
-    
+
+    //Eg: /api/productos/1?idCategoria=2
+    @GetMapping("/sucursal/{idSucursal}")
+    public ResponseEntity<?> listarProductosDeSucursalPorCategoria(@PathVariable int idSucursal, @RequestParam(required = false) Integer idCategoria) {
+
+        List<Producto> productos;
+        productos = productoService.listarProductosDeSucursalPorCategoria(idSucursal, idCategoria);
+        return ( productos != null ) ? ResponseEntity.ok(productos) : ResponseEntity.ok(Collections.emptyMap());
+    }
     
 
 }
