@@ -20,6 +20,13 @@ public class CustomRowMapper {
                     CustomRowMapper.ciudadRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Colonia> coloniaSinCiudadRowMapper = (rs, numCol) ->
+            new Colonia(
+                    rs.getInt("id_colonia"),
+                    rs.getString("nombre_colonia"),
+                    null
+            );
+
     public static final RowMapper<Direccion> direccionRowMapper = (rs, numCol) ->
             new Direccion(
                     rs.getInt("id_direccion"),
@@ -31,6 +38,13 @@ public class CustomRowMapper {
             new Sucursal(
                     rs.getInt("id_sucursal"),
                     CustomRowMapper.direccionRowMapper.mapRow(rs, numCol),
+                    rs.getString("nombre_sucursal")
+            );
+
+    public static final RowMapper<Sucursal> sucursalSinDireccionRowMapper = (rs, numCol) ->
+            new Sucursal(
+                    rs.getInt("id_sucursal"),
+                    null,
                     rs.getString("nombre_sucursal")
             );
 
@@ -178,6 +192,20 @@ public class CustomRowMapper {
                     0
             );
 
+    public static final RowMapper<Usuario> usuarioRolEmpleadoRowMapper = (rs, numCol) ->
+            new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("usuario"),
+                    null,
+                    rs.getBoolean("usuario_activo"),
+                    null,
+                    null,
+                    CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
+                    CustomRowMapper.empleadoSimpleowMapper.mapRow(rs, numCol),
+                    0,
+                    0
+            );
+
     public static final RowMapper<Usuario> usuarioSimpleRowMapper = (rs, numCol) ->
             new Usuario(
                     rs.getInt("id_usuario"),
@@ -185,6 +213,20 @@ public class CustomRowMapper {
                     rs.getString("contrasena"),
                     false,
                     null,
+                    null,
+                    null,
+                    null,
+                    0,
+                    0
+
+            );
+
+    public static final RowMapper<Usuario> usuarioSimpleSinContrasenaRowMapper = (rs, numCol) ->
+            new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("usuario"),
+                    null,
+                    false,
                     null,
                     null,
                     null,

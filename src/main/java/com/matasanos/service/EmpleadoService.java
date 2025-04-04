@@ -2,7 +2,6 @@ package com.matasanos.service;
 
 import com.matasanos.model.Empleado;
 import com.matasanos.repo.EmpleadoRepo;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +15,6 @@ public class EmpleadoService {
     }
 
     public List<Empleado> listarEmpleadosSinUsuario() {
-        return empleadoRepo.lstarEmpleadosSinUsuario();
+        return empleadoRepo.listarEmpleadosSinUsuario();
     }
 }

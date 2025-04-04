@@ -26,8 +26,17 @@ public class EmpleadoRepo {
         return !(usuarios.getFirst() == null);
     }
 
-    public List<Empleado> lstarEmpleadosSinUsuario() {
-        String sql = "SELECT id_empleado, id_persona, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni FROM v_UsuarioEmpleadoRol WHERE id_usuario IS NOT NULL";
+    public boolean tieneUsuarioAsignado(int idEmpleado, int idUsuario) {
+        String sql = "SELECT id_usuario FROM v_UsuarioEmpleadoRol WHERE id_empleado = ?";
+        List<Integer> usuarios = jdbcTemplate.queryForList(sql, Integer.class, idEmpleado);
+
+        if(usuarios.isEmpty())
+            return false;
+        return !(usuarios.getFirst() == null) && usuarios.getFirst() != idUsuario;
+    }
+
+    public List<Empleado> listarEmpleadosSinUsuario() {
+        String sql = "SELECT id_empleado, id_persona, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni FROM v_UsuarioEmpleadoRol WHERE id_usuario IS NULL AND id_empleado IS NOT NULL";
 
         return jdbcTemplate.query(sql, CustomRowMapper.empleadoSimpleowMapper);
     }

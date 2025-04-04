@@ -345,9 +345,6 @@ CREATE TABLE Telefono(
 
 --VISTAS
 
-CREATE VIEW v_Usuario AS
-    SELECT * FROM Usuario;
-
 CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
@@ -424,4 +421,13 @@ CREATE VIEW v_UsuarioEmpleadoRol AS
     e.id_ciudad,
     e.ciudad
 	FROM v_UsuarioConRol u
-	INNER JOIN v_Empleado e ON u.id_empleado = e.id_empleado;
+	FULL OUTER JOIN v_Empleado e ON u.id_empleado = e.id_empleado;
+
+	CREATE VIEW v_Sucursal AS
+    	SELECT * FROM Sucursal;
+
+    CREATE VIEW v_SucursalDireccion AS
+    	SELECT s.*, d.referencia, c.*, ciu.ciudad FROM Sucursal s
+    	INNER JOIN Direccion d ON  d.id_direccion = s.id_direccion
+    	INNER JOIN Colonia c ON c.id_colonia = d.id_colonia
+    	INNER JOIN Ciudad ciu ON ciu.id_ciudad = c.id_ciudad;

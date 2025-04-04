@@ -6,6 +6,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const editBtn = document.querySelector("#edit-btn");
     const cancelBtn = document.querySelector("#cancel-btn-modify");
     const delBtn = document.querySelector("#del-btn");
+    //const modalAddUser = document.querySelector("#add-user-modal"); 
     
     // Edit form
     const username = document.querySelector("#username");
@@ -21,13 +22,15 @@ window.addEventListener("DOMContentLoaded", async () => {
     
     const passwordAdd = document.querySelector("#password-add");
     const passwordConfirmAdd = document.querySelector("#password-confirm-add");
-    const feedbackAdd = document.querySelector("#password-feedback-modify");
+    const feedbackAdd = document.querySelector("#password-feedback-add");
     
     roleH5.textContent = userData.rol.nombreRol;
 
     let users = await fetch("/api/usuarios").then(r => r.json());
     let roles = await fetch("/api/roles").then(r => r.json());
     let employees = await fetch("/api/empleados/sinusuario").then(r => r.json())
+
+    console.log(employees);
 
     users.forEach( u => {
         const option = document.createElement("option");
@@ -51,7 +54,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     employees.forEach(e => {
         const optionEdit = document.createElement("option");
         optionEdit.value = e.idEmpleado;
-        optionEdit.textContent = e.nombreEmpleado;
+        optionEdit.textContent = `${e.persona.primerNombre} ${e.persona.segundoNombreNombre ? `${e.persona.segundoNombreNombre} `: ""}${e.persona.primerApellido}${e.persona.segundoApellido ? ` ${ e.persona.segundoApellido}` : ""} - ${e.persona.dni}`
+;
         document.querySelector("#employee-select-modify").appendChild(optionEdit);
         
         const optionAdd = document.createElement("option");
@@ -69,6 +73,14 @@ window.addEventListener("DOMContentLoaded", async () => {
     roleSelect.addEventListener("change", checkChanges);
     employeeSelect.addEventListener("change", checkChanges);
     activeCheckbox.addEventListener("change", checkChanges);
+
+    // modalAddUser.addEventListener("show.bs.modal", () => {
+    //     modalAddUser.removeAttribute("inert");
+    // });
+    
+    // modalAddUser.addEventListener("hidden.bs.modal", () => {
+    //     modalAddUser.setAttribute("inert", "");
+    // });
 
     document.querySelector("#add-user-modal").addEventListener("hidden.bs.modal", clearAddModal);
     document.querySelector("#reset-btn").addEventListener("click", clearAddModal);
@@ -118,7 +130,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     delBtn.addEventListener("click", async (event) => {
         try {
-            const response = await fetch(`/api/usuarios/verficar/eliminar/${userSelect.value}`);
+            const response = await fetch(`/api/usuarios/verificar/eliminar/${userSelect.value}`);
     
             const data = await response.json();
 
@@ -138,7 +150,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             }).then(async (result) => {
                 if (result.isConfirmed) {
 
-                    await fetch(`/api/usurios/eliminar/${userSelect.value}`, {
+                    await fetch(`/api/usuarios/eliminar/${userSelect.value}`, {
                         method:"DELETE"
                     })
 
@@ -151,8 +163,6 @@ window.addEventListener("DOMContentLoaded", async () => {
                     }).then(() => {
                         window.location.reload();
                     });
-                    
-                    Swal.fire('¡Éxito!', 'Usuario eliminado exitosamente.', 'success');
                 }
             });
         } catch (error) {
@@ -175,6 +185,18 @@ window.addEventListener("DOMContentLoaded", async () => {
        
     })
 
+    document.querySelectorAll(".del").forEach( el => {
+        if(!auth.del) el.remove();
+    })
+
+    document.querySelectorAll(".modify, .del").forEach( el => {
+        if(!auth.mod) el.remove();
+    })
+    
+    document.querySelectorAll(".create").forEach( el => {
+        if(!auth.create) el.remove();
+    })
+
     document.querySelector("#user-form").addEventListener("submit", async function(event) {
         event.preventDefault();
         
@@ -189,6 +211,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             
                                                  
             const formData = {
+                idUsuario: userSelect.value,
                 usuario: document.querySelector("#username").value,
                 rol: {
                     idRol: parseInt(document.querySelector("#role-select-edit").value),
@@ -201,7 +224,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 idUsuarioModificacion: userData.idUsuario
             };
 
-            const response = await fetch("/api/usurios/verficar/edicion", {
+            const response = await fetch("/api/usuarios/verificar/edicion", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -225,6 +248,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 icon: 'success',
                 title: 'Éxito',
                 text: 'Usuario modificado correctamente',
+                confirmButtonColor: '#14A44d',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 window.location.reload();
@@ -282,7 +306,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 idUsuarioCreacion: userData.idUsuario
             };
 
-            const response = await fetch("/api/usuarios/verificar/edicion", {
+            const response = await fetch("/api/usuarios/verificar/crear", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -306,6 +330,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 icon: 'success',
                 title: 'Éxito',
                 text: 'Usuario registrado correctamente',
+                confirmButtonColor: '#14A44d',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 window.location.reload();
@@ -367,9 +392,7 @@ function showPassword(btn) {
         input.type = "password";
         btnIcon.classList.remove("fa-eye-slash");
         btnIcon.classList.add("fa-eye");
-    }
-
-    
+    }    
 }
 
 
@@ -377,11 +400,15 @@ async function loadUserData() {
     
     const editBtn = document.querySelector("#edit-btn");
     const delBtn = document.querySelector("#del-btn");
+    const employeeName = document.querySelector("#employee-name");
+    const idEmployee = document.querySelector("#id-number");
+    const selectEmployee =document.querySelector("#employee-select-modify");
     document.querySelector("#submit-btn-modify").disabled = true;
     if(userSelect.value !== "") {
         changesOnUser = false;
         editBtn?.classList.remove("d-none");
         delBtn?.classList.remove("d-none");
+        
         let selectedUserData = await fetch(`/api/usuarios/${userSelect.value}`).then(r => r.json());
         
         console.log(selectedUserData);
@@ -405,31 +432,36 @@ async function loadUserData() {
         const active = document.querySelector("#active-checkbox");
         active.checked = selectedUserData.activo;
         active.dataset.value = selectedUserData.activo;
-        
+
 
         //wmployee data
-
         //check if user is asigned to an employee
         if(selectedUserData.empleado.idEmpleado === 0) {
             document.querySelector("#without-employee").classList.remove("d-none");
+            employeeName.parentElement.classList.add("d-none")
+            idEmployee.parentElement.classList.add("d-none")
+
+            employeeName.value = ""
+            idEmployee.value = "";
+
             return;
         }
 
         document.querySelector("#without-employee").classList.add("d-none")
 
         //name
-        const employeeName = document.querySelector("#employee-name");
-        
+        employeeName.parentElement.classList.remove("d-none")
         employeeName.value = `${selectedUserData.empleado.persona.primerNombre} ${selectedUserData.empleado.persona.segundoNombreNombre ? `${selectedUserData.empleado.persona.segundoNombreNombre} `: ""}${selectedUserData.empleado.persona.primerApellido}${selectedUserData.empleado.persona.segundoApellido ? ` ${ selectedUserData.empleado.persona.segundoApellido}` : ""}`
 
         //id
-        document.querySelector("#id-number").value = selectedUserData.empleado.persona.dni;
+        idEmployee.parentElement.classList.remove("d-none")
+        idEmployee.value = selectedUserData.empleado.persona.dni;
 
-        //select input
-        const selectEmployee =document.querySelector("#employee-select-modify");
+        //select employee
+        selectEmployee.querySelector(`option[value="${selectEmployee.dataset.value}"]`)?.remove();
+        selectEmployee.innerHTML += `<option value="${selectedUserData.empleado.idEmpleado}">${selectedUserData.empleado.persona.primerNombre} ${selectedUserData.empleado.persona.segundoNombreNombre ? `${selectedUserData.empleado.persona.segundoNombreNombre} `: ""}${selectedUserData.empleado.persona.primerApellido}${selectedUserData.empleado.persona.segundoApellido ? ` ${ selectedUserData.empleado.persona.segundoApellido}` : ""} ${selectedUserData.empleado.persona.dni}</option>`
         selectEmployee.value = selectedUserData.empleado.idEmpleado;
         selectEmployee.dataset.value = selectedUserData.empleado.idEmpleado;
-
                         
         return;
     }
@@ -465,13 +497,15 @@ async function loadUserData() {
     document.querySelector("#without-employee").classList.add("d-none")
 
     //name
-    document.querySelector("#employee-name").value = ""
+    employeeName.parentElement.classList.remove("d-none")
+    employeeName.value = ""
 
     //id
-    document.querySelector("#id-number").value = "";
+    idEmployee.parentElement.classList.remove("d-none")
+    idEmployee.value = "";
 
     //select input
-    const selectEmployee =document.querySelector("#employee-select-modify");
+    selectEmployee.querySelector(`option[value="${selectEmployee.dataset.value}"]`).remove();
     selectEmployee.value = "";
     selectEmployee.dataset.value = "";
 }

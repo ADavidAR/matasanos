@@ -41,7 +41,7 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        if(usuarioService.verficarEmpleado(usuario.getEmpleado().getIdEmpleado())) {
+        if(usuarioService.verificarEmpleado(usuario.getEmpleado().getIdEmpleado(), usuario.getIdUsuario())) {
             response.put("msg", "empleado con usuario");
             return ResponseEntity.badRequest().body(response);
         }
@@ -53,12 +53,12 @@ public class UsuarioController {
     public ResponseEntity<?> validarCreacion(@RequestBody Usuario usuario) {
 
         Map<String, Object> response = new HashMap<>();
-        if(usuarioService.verificarCreacionNombre(usuario.getUsuario(), usuario.getIdUsuario())) {
+        if(usuarioService.verificarCreacionNombre(usuario.getUsuario())) {
             response.put("msg", "usuario existente");
             return ResponseEntity.badRequest().body(response);
         }
 
-        if(!usuarioService.verficarEmpleado(usuario.getEmpleado().getIdEmpleado())) {
+        if(usuarioService.verificarEmpleado(usuario.getEmpleado().getIdEmpleado())) {
             response.put("msg", "empleado con usuario");
             return ResponseEntity.badRequest().body(response);
         }
@@ -73,8 +73,8 @@ public class UsuarioController {
         return ( u != null ) ? ResponseEntity.ok(u) : ResponseEntity.ok(Collections.emptyMap());
     }
 
-    @GetMapping("/verficar/eliminar/{idUsuario}")
-    public ResponseEntity<?> verficarEliminar(@PathVariable int idUsuario) {
+    @GetMapping("/verificar/eliminar/{idUsuario}")
+    public ResponseEntity<?> verificarEliminar(@PathVariable int idUsuario) {
         Map<String, Object> response = new HashMap<>();
 
         if(usuarioService.haRealizadoModificaciones(idUsuario)) {
@@ -82,7 +82,7 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        if(usuarioService.existe(idUsuario)) {
+        if(!usuarioService.existe(idUsuario)) {
             response.put("msg", "usuario inexistente");
             return ResponseEntity.badRequest().body(response);
         }

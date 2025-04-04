@@ -131,7 +131,8 @@
                                     <div class="md-6 mb-3 d-none" id="employee-select-container">
                                         <label for="employee-select-edit" class="form-label">Seleccionar Empleado</label>
                                         <select class="form-select" id="employee-select-modify">
-                                            <option value="">Seleccione un empleado</option>
+                                            <option selected disabled >Seleccione un empleado</option>
+                                            <option value="">No asignar empleado</option>
                                         </select>
                                     </div>
                                 </fieldset>
@@ -153,7 +154,7 @@
 
         <!-- Modal Agregar Usuario -->
          
-        <div class="modal fade" id="add-user-modal" tab>
+        <div class="modal fade" id="add-user-modal"  tabindex="-1" aria-labelledby="add-role-modal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-primary text-white">
@@ -189,7 +190,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-3">
+                                        <div class="col-md-6 mb-1">
                                             <label for="password-confirm-add" class="form-label">Confirmar contraseña</label>
                                             <div class="input-group">
                                                 <input type="password" class="form-control" id="password-confirm-add" autocomplete="new-password" required>
@@ -198,7 +199,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="invalid-feedback" id="password-feedback-add">
+                                        <div class="invalid-feedback mb-3" id="password-feedback-add">
                                             Las contraseñas no coinciden
                                           </div>
                                         <div class="md-6 ">
@@ -216,7 +217,8 @@
                                     <div class="md-6 mb-3">
                                         <label for="employee-select-add" class="form-label">Seleccionar Empleado</label>
                                         <select class="form-select" id="employee-select-add" >
-                                            <option value="">Seleccione un empleado</option>
+                                            <option selected disabled>Seleccione un empleado</option>
+                                            <option value="">No asignar empleado</option>
                                         </select>
                                     </div>
                                 </fieldset>
