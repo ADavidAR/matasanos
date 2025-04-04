@@ -1,6 +1,8 @@
 CREATE DATABASE matasanos;
+GO
 
 USE matasanos;
+GO
 
 CREATE TABLE Ciudad(
 	id_ciudad INT IDENTITY(1,1) PRIMARY KEY,
@@ -145,20 +147,12 @@ CREATE TABLE Persona(
 	FOREIGN KEY (id_direccion) REFERENCES Direccion(id_direccion)
 );
 
-CREATE TABLE Medico(
-    id_medico INT IDENTITY (1,1) PRIMARY KEY,
-    num_colegiado VARCHAR (10) NOT NULL,
-	id_persona INT,
-	FOREIGN KEY (id_persona) REFERENCES Persona (id_persona)
-);
-
-
 CREATE TABLE Cliente(
 	id_cliente INT IDENTITY(1,1) PRIMARY KEY,
 	rtn VARCHAR (20),
 	fecha_creacion DATE NOT NULL DEFAULT GETDATE(),
 	fecha_modificacion DATE,
-	id_persona INT,
+	id_persona INT UNIQUE,
 	id_usuario_creacion INT,
 	id_usuario_modificacion INT,
 	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona),
@@ -251,10 +245,9 @@ CREATE TABLE Receta(
 	id_receta INT IDENTITY(1,1) PRIMARY KEY,
 	fecha DATE,
 	descripcion VARCHAR(MAX),
-	id_medico INT ,
+	nombre_medico VARCHAR(),
 	id_cliente INT,
 	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
-	FOREIGN KEY (id_medico) REFERENCES Medico(id_medico)
 );
 
 CREATE TABLE RecetaProducto(
@@ -295,7 +288,7 @@ CREATE TABLE Empleado(
 	activo BIT NOT NULL,
 	fecha_creacion DATE NOT NULL DEFAULT GETDATE(),
 	fecha_modificacion DATE,
-	id_persona INT NOT NULL,
+	id_persona INT UNIQUE NOT NULL,
 	id_cargo INT NOT NULL,
 	id_sucursal INT NOT NULL,
 	id_usuario_creacion INT,
@@ -344,15 +337,16 @@ CREATE TABLE Telefono(
 );
 
 --VISTAS
-
 CREATE VIEW v_UsuarioConRol AS
     SELECT u.*, r.nombre_rol FROM Usuario u
     LEFT JOIN Rol r ON r.id_rol = u.id_rol;
+GO
 
 CREATE VIEW v_RolPermiso AS
     SELECT rp.*, r.nombre_rol, p.descripcion, p.endpoint_url, p.acceso_directo FROM Rol r
     LEFT JOIN RolPermiso rp ON rp.id_rol = r.id_rol
     LEFT JOIN Permiso p ON p.id_permiso = rp.id_permiso;
+GO
 
 CREATE VIEW v_ProductoSucursal AS
 	SELECT p.*, nombre_categoria, d.id_departamento, nombre_departamento, s.id_sucursal, nombre_sucursal, fi.cantidad, fi.fecha, fi.referencia, tm.factor, tm.nombre FROM Producto p
@@ -361,7 +355,7 @@ CREATE VIEW v_ProductoSucursal AS
 	INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
 	INNER JOIN Sucursal s ON s.id_sucursal = fi.id_sucursal
 	INNER JOIN TipoMovimiento tm ON tm.id_tipo_movimiento = fi.id_tipo_movimiento;
-
+GO
 
 CREATE VIEW v_Producto AS
 	SELECT p.*, d.id_departamento, nombre_categoria, nombre_departamento, fi.cantidad, fi.fecha, fi.referencia, tm.factor, tm.nombre FROM Producto p
@@ -369,12 +363,7 @@ CREATE VIEW v_Producto AS
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
 	INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
 	INNER JOIN TipoMovimiento tm ON tm.id_tipo_movimiento = fi.id_tipo_movimiento;
-
-CREATE VIEW v_Permiso AS
-	SELECT * FROM Permiso;
-
-CREATE VIEW v_Rol AS
-    SELECT * FROM Rol;
+GO
 
 CREATE VIEW v_Empleado AS
 	SELECT e.*, p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido, p.dni, col.*, ciu.ciudad, d.id_direccion, d.referencia, c.descripcion, s.nombre_sucursal FROM Empleado e
@@ -384,9 +373,10 @@ CREATE VIEW v_Empleado AS
 	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
 	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
 	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad;
+GO
 
 CREATE VIEW v_UsuarioEmpleadoRol AS
-	SELECT 
+	SELECT
     u.id_usuario,
     u.usuario,
     u.contrasena,
@@ -406,6 +396,7 @@ CREATE VIEW v_UsuarioEmpleadoRol AS
     e.fecha_modificacion AS empleado_fecha_modificacion,
     e.id_cargo,
     e.id_sucursal,
+    e.nombre_sucursal,
     e.id_usuario_creacion AS empleado_creador,
     e.id_usuario_modificacion AS empleado_modificador,
     e.id_persona,
@@ -422,9 +413,23 @@ CREATE VIEW v_UsuarioEmpleadoRol AS
     e.ciudad
 	FROM v_UsuarioConRol u
 	FULL OUTER JOIN v_Empleado e ON u.id_empleado = e.id_empleado;
+GO
 
-	CREATE VIEW v_Sucursal AS
-    	SELECT * FROM Sucursal;
+
+CREATE VIEW v_Permiso AS
+	SELECT * FROM Permiso;
+
+CREATE VIEW v_Rol AS
+    SELECT * FROM Rol;
+
+CREATE VIEW v_Empleado AS
+	SELECT e.*, p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido, p.dni, col.*, ciu.ciudad, d.id_direccion, d.referencia, c.descripcion, s.nombre_sucursal FROM Empleado e
+	INNER JOIN Persona p ON e.id_persona = p.id_persona
+	INNER JOIN Cargo c ON e.id_cargo = c.id_cargo
+	INNER JOIN Sucursal s ON s.id_sucursal = e.id_sucursal
+	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
+	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
+	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad;
 
     CREATE VIEW v_SucursalDireccion AS
     	SELECT s.*, d.referencia, c.*, ciu.ciudad FROM Sucursal s
