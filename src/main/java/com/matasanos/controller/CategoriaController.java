@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,15 @@ public class CategoriaController {
 
     public CategoriaController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> listarCategoriasTodas() {
+
+        List<Categoria> categoria;
+        categoria = categoriaService.listarCategoriasTodas();
+
+        return ( categoria != null ) ? ResponseEntity.ok(categoria) : ResponseEntity.ok(Collections.emptyMap());
     }
 
     @GetMapping("/{idDepartamento}")

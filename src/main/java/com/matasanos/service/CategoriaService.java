@@ -18,4 +18,8 @@ public class CategoriaService {
     public List<Categoria> listarCategorias(int idDepartamento) {
         return categoriaRepo.listarCategorias(idDepartamento);
     }
+
+    public List<Categoria> listarCategoriasTodas() {
+        return categoriaRepo.listarCategoriasTodas();
+    }
 }
