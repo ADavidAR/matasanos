@@ -17,31 +17,48 @@ window.addEventListener("DOMContentLoaded", async () => {
       option.href = p.permiso.endpointUrl;
       optionsNav.appendChild(option);
     }
+
+    
   });
-  console.log(userData)
+
+
+  // Inicializar pestañas
+  const tabEl = document.querySelector('#recepcion-tab');
+  if (tabEl) {
+    tabEl.addEventListener('shown.bs.tab', function (event) {
+      if (event.target.id === 'recepcion-tab') {
+        cargarComprasPendientes();
+      }
+    });
+  }
 });
 
 const combobox = document.querySelector("#suppliers");
 let selectedRow = null;
+let currentPage = 1;
+const itemsPerPage = 5;
+let allProducts = [];
+
 //hace que se puedan selecionar los datos de la tabla
 function seleccionar() {
   // Selecciona todas las filas de la tabla
   const rows = document.querySelectorAll("#myTable tbody tr");
 
   // Recorre las filas y añade un evento de clic para seleccionarlas
-rows.forEach((row) => {
-  row.addEventListener("click", function () {
-    // Elimina la clase "seleccionado" de todas las filas
-    rows.forEach((r) => r.classList.remove("table-active"));
+  rows.forEach((row) => {
+    row.addEventListener("click", function () {
+      // Elimina la clase "seleccionado" de todas las filas
+      rows.forEach((r) => r.classList.remove("table-active"));
 
-    // Añade la clase "seleccionado" a la fila clicada
-    this.classList.add("table-active");
+      // Añade la clase "seleccionado" a la fila clicada
+      this.classList.add("table-active");
 
-    // Guarda la fila seleccionada
-    selectedRow = this;
+      // Guarda la fila seleccionada
+      selectedRow = this;
+    });
   });
-});
 }
+
 function soloNumeros(e) {
   // Permitir teclas de control (backspace, delete, tab, etc.)
   if ([8, 9, 13, 27, 46].includes(e.keyCode) || 
@@ -85,9 +102,6 @@ function soloNumerosYDecimales(e) {
   }
 }
 
-
-
-
 // Función para enviar los datos seleccionados a la tabla de destino
 document.getElementById("sendDataBtn").addEventListener("click", function () {
   const rowstable2 = document.querySelectorAll("#table2 tbody tr");
@@ -105,7 +119,6 @@ document.getElementById("sendDataBtn").addEventListener("click", function () {
       const data = [
         cells[0].innerText, // id
         cells[1].innerText, // Producto
-       
       ];
 
       // Crea una nueva fila en la tabla de destino
@@ -122,8 +135,8 @@ document.getElementById("sendDataBtn").addEventListener("click", function () {
       costo.classList.add = "cost form-control";
       costo.addEventListener('input', calcularTotal);
       costo.type = "number";  // Cambiado de "text" a "number"
-       costo.step = "0.01";    // Para permitir decimales
-       costo.min = "0";        // Valor mínimo 0
+      costo.step = "0.01";    // Para permitir decimales
+      costo.min = "0";        // Valor mínimo 0
       
       costo.addEventListener("keydown", soloNumerosYDecimales);
 
@@ -135,10 +148,11 @@ document.getElementById("sendDataBtn").addEventListener("click", function () {
       cantidad.classList.add="quantity form-control input-number form-control input-number";
       cantidad.addEventListener("keydown", soloNumeros);
       let sacar = document.createElement("button");
+      sacar.textContent = "Eliminar";
+      sacar.className = "btn btn-danger";
       calcularTotal();
       sacar.onclick = function () {
         this.parentNode.parentNode.remove();
-
         verificarTabla();
       };
       inputs.push(costo)
@@ -180,9 +194,9 @@ function verificarTabla() {
 
 async function cargarProveedores() {
   try {
-    let response = await fetch("/api/comprar/cargar");
+    let response = await fetch("/api/comprar/proveedores");
     let data = await response.json();
- 
+    console.log(data);
     const comboBox = document.querySelector("#suppliers");
     data.forEach((d) => {
       const newOPtion = document.createElement("option");
@@ -194,12 +208,13 @@ async function cargarProveedores() {
     console.error("Error al obtener proveedors:", error);
   }
 }
+
 function obtenerSelecion(){
   return combobox.options[combobox.selectedIndex]
 }
+
 //agregar productos a la myTable
 async function cargarProductos() {
-  
   const tabla = document.querySelector("#myTable tbody");
   tabla.innerHTML = "";
   try {
@@ -212,26 +227,48 @@ async function cargarProductos() {
         },
       }
     );
-    let data = await response.json();
-    
-
-    data.forEach((d) => {
-      const newFila = document.createElement("tr");
-      Object.keys(d).forEach((key) => {
-        if (key == "idProducto" || key == "nombreProducto") {
-          const newCell = document.createElement("td");
-          newCell.innerHTML = d[key];
-          newFila.appendChild(newCell);
-        }
-      });
-      tabla.appendChild(newFila);
-    });
-
+    allProducts = await response.json();
+    mostrarPagina(currentPage);
+    actualizarInfoPagina();
     seleccionar();
+    document.getElementById('totalCost').value = "0.00";
   } catch (error) {
     console.error("Error al obtener proveedors:", error);
   }
 }
+
+// Mostrar productos de la página actual
+function mostrarPagina(page) {
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedProducts = allProducts.slice(startIndex, endIndex);
+  
+  const tabla = document.querySelector("#myTable tbody");
+  tabla.innerHTML = "";
+  
+  paginatedProducts.forEach((d) => {
+    const newFila = document.createElement("tr");
+    Object.keys(d).forEach((key) => {
+      if (key == "idProducto" || key == "nombreProducto") {
+        const newCell = document.createElement("td");
+        newCell.innerHTML = d[key];
+        newFila.appendChild(newCell);
+      }
+    });
+    tabla.appendChild(newFila);
+  });
+}
+
+// Actualizar información de paginación
+function actualizarInfoPagina() {
+  const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+  document.getElementById('pageInfo').textContent = `Página ${currentPage} de ${totalPages}`;
+  
+  // Habilitar/deshabilitar botones
+  document.getElementById('prevPage').disabled = currentPage === 1;
+  document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
+}
+
 // convierte las filas a de una tabla a JSON
 function convertirATablaAJson() {
   // Obtener la tabla y sus filas
@@ -258,8 +295,7 @@ async function crearCompra() {
         alert("El costo total debe ser mayor que cero");
         return;
     }
-
-
+console.log(convertirATablaAJson())
 
   try {
     let response = await fetch(`/api/comprar/crearSolicitudCompra/${obtenerSelecion().dataset.supplierId}`, {
@@ -272,10 +308,7 @@ async function crearCompra() {
     if (response.ok) {
       alert("Solicitud creada correctamente");
       // Opcional: limpiar la tabla y reiniciar el formulario
-      document.querySelector("#table2 tbody").innerHTML = "";
-      document.getElementById('totalCost').value = "0.00";
-      combobox.removeAttribute("disabled");
-      combobox.selectedIndex = 0;
+      location.reload();
   } else {
       alert("Error al crear la solicitud");
   }
@@ -303,7 +336,172 @@ function calcularTotal() {
   document.getElementById('totalCost').value = total.toFixed(2);
 }
 
-document.addEventListener("DOMContentLoaded", cargarProveedores);
+// Funciones para recepción de compras
+async function cargarComprasPendientes() {
+  try {
+    const response = await fetch('/api/comprar/comprasPendientes');
+    const Compras = await response.json();
+    console.log(Compras)
+    
+    const select = document.getElementById('solicitudes');
+    select.innerHTML = '<option value="">Seleccione una solicitud...</option>';
+    
+    Compras.forEach(solicitud => {
+      const option = document.createElement('option');
+      option.value = solicitud.idCompra;
+      option.textContent = `Solicitud #${solicitud.idCompra} - ${solicitud.proveedor.razonSocial} - ${new Date(solicitud.fechaCompra).toLocaleDateString()}`;
+      select.appendChild(option);
+    });
+    
+    // Event listener para cargar detalles cuando se selecciona una solicitud
+    select.addEventListener('change', cargarDetalleCompra);
+  } catch (error) {
+    console.error('Error al cargar solicitudes pendientes:', error);
+  }
+}
 
+async function cargarDetalleCompra() {
+  const compraId = document.getElementById('solicitudes').value;
+  if (!compraId) return;
+ 
+  
+  try {
+    const response = await fetch(`/api/comprar/productosCompra/${compraId}`);
+    const detalles = await response.json();
+    console.log(detalles)
+    
+    const tabla = document.querySelector('#recepcionTable tbody');
+    tabla.innerHTML = '';
+    
+    detalles.forEach(detalle => {
+      const row = document.createElement('tr');
+      
+      // ID Producto
+      const idCell = document.createElement('td');
+      idCell.textContent = detalle.producto.idProducto;
+      row.appendChild(idCell);
+      
+      // Nombre Producto
+      const nombreCell = document.createElement('td');
+      nombreCell.textContent = detalle.producto.nombreProducto;
+      row.appendChild(nombreCell);
+      
+      // Costo Unitario
+      const costoCell = document.createElement('td');
+      costoCell.textContent = detalle.costo.toFixed(2);
+      row.appendChild(costoCell);
+      
+      // Cantidad Solicitada
+      const cantidadCell = document.createElement('td');
+      cantidadCell.textContent = detalle.cantidad;
+      row.appendChild(cantidadCell);
+
+      
+    
+      
+      tabla.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error al cargar detalle de solicitud:', error);
+  }
+}
+
+// Confirmar recepción de compra
+document.getElementById('confirmRecepcion').addEventListener('click', async function() {
+  const compraId = document.getElementById('solicitudes').value;
+  const facturaNumber = document.getElementById('facturaNumber').value;
+  
+  if (!compraId) {
+    alert('Por favor seleccione una solicitud');
+    return;
+  }
+  
+  if (!facturaNumber) {
+    alert('Por favor ingrese el número de factura');
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/comprar/confirmarRecepcion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idCompra: compraId,
+        numeroFactura: facturaNumber
+      })
+    });
+    
+    if (response.ok) {
+      alert('Recepción confirmada correctamente');
+      // Limpiar formulario
+      document.getElementById('facturaNumber').value = '';
+      document.querySelector('#recepcionTable tbody').innerHTML = '';
+      // Recargar solicitudes pendientes
+      cargarComprasPendientes();
+    } else {
+      alert('Error al confirmar la recepción');
+    }
+  } catch (error) {
+    console.error('Error al confirmar recepción:', error);
+    alert('Error al confirmar la recepción');
+  }
+});
+
+// Event listeners para paginación
+document.getElementById('prevPage').addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    mostrarPagina(currentPage);
+    actualizarInfoPagina();
+  }
+});
+
+document.getElementById('nextPage').addEventListener('click', () => {
+  const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    mostrarPagina(currentPage);
+    actualizarInfoPagina();
+  }
+});
+
+// Búsqueda de productos
+document.getElementById('searchBtn').addEventListener('click', buscarProductos);
+
+function buscarProductos() {
+  const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+  
+  if (searchTerm === '') {
+    mostrarPagina(currentPage);
+    seleccionar()
+    return;
+  }
+  
+  const filteredProducts = allProducts.filter(product => 
+    product.nombreProducto.toLowerCase().includes(searchTerm) || 
+    product.idProducto.toString().includes(searchTerm)
+  );
+  
+  const tabla = document.querySelector("#myTable tbody");
+  tabla.innerHTML = "";
+  
+  filteredProducts.forEach((d) => {
+    const newFila = document.createElement("tr");
+    Object.keys(d).forEach((key) => {
+      if (key == "idProducto" || key == "nombreProducto") {
+        const newCell = document.createElement("td");
+        newCell.innerHTML = d[key];
+        newFila.appendChild(newCell);
+      }
+    });
+    tabla.appendChild(newFila);
+  });
+  seleccionar()
+}
+
+// Inicialización
+document.addEventListener("DOMContentLoaded", cargarProveedores);
 combobox.addEventListener("change", cargarProductos);
-document.querySelector("#createPurchase").addEventListener("click",crearCompra)
+document.querySelector("#createPurchase").addEventListener("click",crearCompra);

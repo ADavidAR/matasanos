@@ -262,10 +262,7 @@ public class CustomRowMapper {
                     rs.getObject("fecha_creacion", LocalDate.class),
                     rs.getObject("fecha_modificacion", LocalDate.class),
                     rs.getBigDecimal("costo_venta"),
-<<<<<<< HEAD
-=======
                     rs.getInt("inventario_actual"),
->>>>>>> 6ee61af03cb1f614ab3cc30c4f78b0de55a539dc
                     CustomRowMapper.categoriaRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.proveedorRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
@@ -306,6 +303,7 @@ public class CustomRowMapper {
                     rs.getObject("fecha_creacion", LocalDate.class),
                     rs.getObject("fecha_modificacion", LocalDate.class),
                     rs.getBigDecimal("costo_venta"),
+                    rs.getInt("inventario_actual"),
                     CustomRowMapper.categoriaRowMapper.mapRow(rs, numCol),
                     proveedorIdRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"), // retorna 0 si es NULL

@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/solicitudCompra")
-public class SolicitudCompraController {
-
-    
+@RequestMapping("/empleados")
+public class ContratacionController {
     @GetMapping
-    public String compra(){return "PruebaCompra.html";}
+    public String empleado(){return "employees.html";}
+
+
+
 
 }
