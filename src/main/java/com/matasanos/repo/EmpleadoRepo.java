@@ -38,6 +38,6 @@ public class EmpleadoRepo {
     public List<Empleado> listarEmpleadosSinUsuario() {
         String sql = "SELECT id_empleado, id_persona, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni FROM v_UsuarioEmpleadoRol WHERE id_usuario IS NULL AND id_empleado IS NOT NULL";
 
-        return jdbcTemplate.query(sql, CustomRowMapper.empleadoSimpleowMapper);
+        return jdbcTemplate.query(sql, CustomRowMapper.empleadoSimpleRowMapper);
     }
 }

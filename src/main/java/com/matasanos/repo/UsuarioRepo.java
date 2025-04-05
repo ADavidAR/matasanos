@@ -47,7 +47,7 @@ public class UsuarioRepo {
 
     public Usuario obtenerUsuarioEmpleadoRol(String usuario) {
         String sql = "SELECT id_usuario, usuario, usuario_activo, id_rol, nombre_rol, id_empleado, id_persona, segundo_nombre, primer_nombre, primer_apellido, segundo_apellido, id_sucursal, nombre_sucursal FROM v_UsuarioEmpleadoRol WHERE usuario = ?";
-        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioEmpleadoRolRowMapper, usuario);
+        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioRolEmpleadoRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();
     }
@@ -67,7 +67,7 @@ public class UsuarioRepo {
 
     public Usuario obtenerUsuarioEmpleadoRol(int idUsuario) {
         String sql = "SELECT id_usuario, usuario, usuario_activo, id_rol, nombre_rol, id_empleado, id_persona, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni FROM v_UsuarioEmpleadoRol WHERE id_usuario = ?";
-        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioRolEmpleadoRowMapper, idUsuario);
+        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioRolEmpleadoSinSucursalRowMapper, idUsuario);
 
         return usuarios.getFirst();
     }
@@ -114,7 +114,7 @@ public class UsuarioRepo {
     }
 
     public void modificarContrasena(Usuario usuario) {
-        String sql = "UPDATE Usuario SET contrasena = ?";
+        String sql = "UPDATE Usuario SET contrasena = ? WHERE id_usuario = ?";
 
         jdbcTemplate.update(sql,
                 usuario.getContrasena(),

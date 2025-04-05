@@ -18,17 +18,13 @@ public class SucursalService {
     }
 
     public boolean verificarModificacionNombre(String nombreSucursal, int idSucursal) {
-        Sucursal u = sucursalRepo.obtenerSucursal(nombreSucursal);
-        if(u != null && u.getIdSucursal() != idSucursal) return false;
-
-        return false;
+        Sucursal s = sucursalRepo.obtenerSucursal(nombreSucursal);
+        return (s != null && s.getIdSucursal() != idSucursal);
     }
 
     public boolean verificarCreacionNombre(String nombreSucursal) {
-        Sucursal u = sucursalRepo.obtenerSucursal(nombreSucursal);
-        if(u != null) return false;
-
-        return false;
+        Sucursal s = sucursalRepo.obtenerSucursal(nombreSucursal);
+        return s != null;
     }
 
     public Sucursal obtenerSucursalDireccion(int idSucursal) {

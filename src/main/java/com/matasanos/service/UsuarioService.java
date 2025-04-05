@@ -28,16 +28,12 @@ public class UsuarioService {
 
     public boolean verificarModificacionNombre(String usuario, int idUsuario) {
         Usuario u = usuarioRepo.obtenerUsuario(usuario);
-        if(u != null && u.getIdUsuario() != idUsuario) return false;
-
-        return false;
+        return (u != null && u.getIdUsuario() != idUsuario);
     }
 
     public boolean verificarCreacionNombre(String usuario) {
         Usuario u = usuarioRepo.obtenerUsuario(usuario);
-        if(u != null) return false;
-
-        return false;
+        return (u != null);
     }
 
     public boolean verificarEmpleado(int idEmpleado, int idUsuario) {

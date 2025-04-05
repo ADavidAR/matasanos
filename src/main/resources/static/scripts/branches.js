@@ -44,6 +44,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 
     document.querySelector("#branch-name-edit").addEventListener("input", checkChanges);
+    selectCityEdit.addEventListener("change", checkChanges);
     selectCityEdit.addEventListener("change", updateNeighborhoddOptions.bind(null, selectCityEdit,selectNeighborhoodEdit));
     selectNeighborhoodEdit.addEventListener("change", checkChanges);
     selectCityAdd.addEventListener("change", updateNeighborhoddOptions.bind(null, selectCityAdd, selectNeighborhoodAdd));
@@ -178,10 +179,10 @@ window.addEventListener("DOMContentLoaded", async () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Sucursal existente',
-                    text: 'El nombre o código de sucursal ya está en uso.',
+                    text: 'El nombre de sucursal ya está en uso.',
                     confirmButtonText: 'Entendido'
                 });
-                document.getElementById('branch-name').focus();
+                document.querySelector('#branch-name-edit').focus();
             } else {
                 Swal.fire({
                     icon: "error",
@@ -253,10 +254,10 @@ window.addEventListener("DOMContentLoaded", async () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Sucursal existente',
-                    text: 'El nombre o código de sucursal ya está en uso.',
+                    text: 'El nombre de sucursal ya está en uso.',
                     confirmButtonText: 'Entendido'
                 });
-                document.getElementById('branch-name-add').focus();
+                document.querySelector('#branch-name-add').focus();
             } else {
                 Swal.fire({
                     icon: "error",
@@ -437,21 +438,15 @@ function clearAddModal() {
 }
 
 async function updateNeighborhoddOptions(citySelect, neighborhoodSelect) {
-    checkChanges();
     
     if(citySelect.value === "") {
         neighborhoodSelect.disabled = true;
         return
     }
 
-    let k = parseInt(citySelect.value);
-
     let neighborFromCity = await fetch(`/api/colonias/${citySelect.value}`).then(r => r.json());
 
-    
-    neighborhoodSelect.querySelectorAll("option[value='']~option").forEach(el => {el.remove();});
-    neighborhoodSelect.disabled = false;
-    neighborhoodSelect.value = "";
+    neighborhoodSelect.innerHTML = '<option selected disabled value="">Seleccione una colonia</option>';
 
     neighborFromCity.forEach((n) => {
         const option = document.createElement("option");
@@ -460,5 +455,7 @@ async function updateNeighborhoddOptions(citySelect, neighborhoodSelect) {
         option.textContent =n.nombreColonia;
         neighborhoodSelect.appendChild(option);
     });
+
+    neighborhoodSelect.disabled = false;
 
 }
