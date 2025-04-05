@@ -37,3 +37,9 @@
  .list-group-item:hover {
      cursor: default !important;
  }
+
+ #admin-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }

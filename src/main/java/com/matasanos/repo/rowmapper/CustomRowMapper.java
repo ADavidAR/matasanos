@@ -414,4 +414,25 @@ public class CustomRowMapper {
                     rs.getString("telefono"),
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol)
             );
+
+    public static final RowMapper<Producto> productoSucursalSimplificadoRowMapper = (rs, numCol) ->
+            new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+
+            );
 }

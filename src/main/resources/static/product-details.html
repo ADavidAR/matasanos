@@ -45,6 +45,64 @@
     </div>
 </section>
 
+<section id="admin-buttons">
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#productoModal" data-mode="crear">Crear nuevo producto</button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#productoModal" data-mode="actualizar">Actualizar producto</button>
+
+    <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productoModalLabel">Nuevo producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productoForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <textarea class="form-control" id="descripcion" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio:</label>
+                            <input type="number" class="form-control" id="precio" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
+                            <input type="date" class="form-control" id="fechaVencimiento">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="ventaLibre">
+                            <label class="form-check-label" for="ventaLibre">
+                                Venta libre
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="impuesto" class="form-label">Impuesto (%):</label>
+                            <input type="number" class="form-control" id="impuesto" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoría:</label>
+                            <select class="form-select" id="categoria" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="proveedor" class="form-label">Proveedor:</label>
+                            <select class="form-select" id="proveedor" required></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="productoForm">Guardar producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="detail">
     <div id="detail-container">
 

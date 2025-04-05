@@ -68,6 +68,15 @@ public class ProductoController {
         productos = productoService.listarProductosDeSucursalPorCategoria(idSucursal, idCategoria);
         return ( productos != null ) ? ResponseEntity.ok(productos) : ResponseEntity.ok(Collections.emptyMap());
     }
+
+    @GetMapping("/busqueda_simplificada")
+    public ResponseEntity<?> filtrarProductosDeSucursalPorNombreSimplificado(@RequestParam String filtro, @RequestParam(required = false) Integer idSucursal) {
+
+        List<Producto> productos;
+        productos = productoService.filtrarProductosDeSucursalPorNombreSimplificado(idSucursal, filtro);
+
+        return ( productos != null ) ? ResponseEntity.ok(productos) : ResponseEntity.ok(Collections.emptyMap());
+    }
     
 
 }

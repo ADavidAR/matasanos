@@ -372,3 +372,9 @@ CREATE VIEW v_Producto AS
 	INNER JOIN Departamento d ON d.id_departamento = c.id_departamento
 	INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
 	INNER JOIN TipoMovimiento tm ON tm.id_tipo_movimiento = fi.id_tipo_movimiento;
+
+
+CREATE VIEW v_ProductoSucursalSimplificada AS
+SELECT p.id_producto, p.nombre_producto, s.id_sucursal FROM Producto p
+INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
+INNER JOIN Sucursal s ON s.id_sucursal = fi.id_sucursal;

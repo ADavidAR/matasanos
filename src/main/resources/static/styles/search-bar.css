@@ -32,12 +32,12 @@
 }
 
 #results {
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .list-group-item {
     transition: opacity 0.3s ease;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .list-group-item:hover {

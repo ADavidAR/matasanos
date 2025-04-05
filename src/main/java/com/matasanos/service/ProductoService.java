@@ -42,4 +42,8 @@ public class ProductoService {
     public List<Producto> listarProductosDeSucursalPorCategoria(int idSucursal, int idCategoria) {
         return productoRepo.listarProductosDeSucursalPorCategoria(idSucursal, idCategoria);
     }
+
+    public List<Producto> filtrarProductosDeSucursalPorNombreSimplificado(int idSucursal, String filtro) {
+        return productoRepo.filtrarProductosDeSucursalPorNombreSimplificado(idSucursal, filtro);
+    }
 }

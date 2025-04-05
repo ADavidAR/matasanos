@@ -1,64 +1,43 @@
-window.addEventListener("DOMContentLoaded", async () => {
+const searchBar = document.getElementById('search-bar');
+const idSucursal = 1 //que se cargue del localstorage
+const resultsContainer = document.getElementById('results');
+let productos = [];
 
-    //muestra los resultados en
-    const searchBar = document.getElementById("search-bar");
-    const resultsContainer = document.getElementById("results");
-    resultsContainer.innerHTML = "";
+document.addEventListener("DOMContentLoaded", () => {
+    resultsContainer.style.display = "none";
+});
 
-    const displayResults = (products) => {
-        resultsContainer.innerHTML = "";
+searchBar.addEventListener('keyup', async (e) => {
+    const searchString = e.target.value.toLowerCase();
+    if (searchString.length > 2) {
+            const res = await fetch(`/api/productos/busqueda_simplificada?filtro=${searchString}&idSucursal=${idSucursal}`);
+            productos = await res.json();
+            displayProducts(productos);
+            resultsContainer.style.display = "block";
+            console.log(productos);
+    } else {
+        resultsContainer.style.display = "none";
+    }
+});
 
-        if (products.length > 0) {
-            const ul = document.createElement('ul');
-            ul.classList.add('list-group');
-
-            products.forEach(p => {
-                const li = document.createElement('li');
-                li.classList.add('list-group-item');
-                li.textContent = p.nombreProducto;
-
-                //evento click para cuando se selecciona un producto
-                li.addEventListener('click', () => {
-                    console.log(`Producto seleccionado: ${p.nombreProducto}`);
-                    searchBar.value = p.nombreProducto;
-                    resultsContainer.innerHTML = '';
-                });
-
-                ul.appendChild(li);
-            });
-
-            resultsContainer.appendChild(ul);
-        } else {
-            resultsContainer.innerHTML = "<p>No se encontraron productos</p>";
-        }
+const displayProducts = (productos) => {
+    if (!Array.isArray(productos)) {
+        console.error("Respuesta inesperada:", productos);
+        productos = [];
     }
 
-    //obtiene los productos
-    const searchProducts = async (searchString) => {
-        if (searchString.length < 3) {
-            resultsContainer.innerHTML = '';
-            return[];
-        }
+    const ul = resultsContainer.querySelector("ul");
+    ul.innerHTML = '';
 
-        try {
-            const res = await fetch(`/api/sucursal-productos/busqueda?filtro=${searchString}&idSucursal=2`);
-            const products = await res.json();
-            return products;
-        } catch (error) {
-            console.error("Error al obtener producto ", error);
-            return [];
-        }
-    }
+    productos.forEach((p) => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = p.nombreProducto;
 
-    //filtra productos mientras se escribe
-    searchBar.addEventListener("keyup", async (i) => {
-        const searchString = i.target.value.toLowerCase();
+        li.addEventListener("click", () => {
+            window.location.href = `/detalles?idProducto=${p.idProducto}&idSucursal=${idSucursal}`;
+        });
 
-        if (searchString) {
-            const filteredProducts = await searchProducts(searchString);
-            displayResults(filteredProducts);
-        } else {
-            resultsContainer.innerHTML = "";
-        }
-    })
-})
+        ul.appendChild(li);
+    });
+};

@@ -47,7 +47,7 @@ public class ProductoRepo {
         String sql = "SELECT id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, SUM(cantidad * factor) AS inventario_actual, id_proveedor, id_usuario_creacion, id_usuario_creacion FROM v_Producto WHERE LOWER(nombre_producto) LIKE ?";
 
         return  jdbcTemplate.query(sql, CustomRowMapper.productoRowMapper,
-                    String.format("%%%s%%", filtro.toLowerCase())
+                String.format("%%%s%%", filtro.toLowerCase())
         );
     }
 
@@ -65,6 +65,15 @@ public class ProductoRepo {
         String sql = "SELECT id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, id_departamento, nombre_departamento, SUM(cantidad * factor) AS inventario_actual, id_proveedor, id_usuario_creacion, id_usuario_modificacion FROM v_ProductoSucursal WHERE id_sucursal = ? AND id_categoria = ? GROUP BY id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, id_departamento, nombre_departamento, id_proveedor, id_usuario_creacion, id_usuario_modificacion";
 
         return  jdbcTemplate.query(sql, CustomRowMapper.productoDeSucursalRowMapper, idSucursal, idCategoria);
+    }
+
+    public List<Producto> filtrarProductosDeSucursalPorNombreSimplificado(int idSucursal, String filtro) {
+        String sql = "SELECT id_producto, nombre_producto, id_sucursal FROM v_ProductoSucursalSimplificada WHERE id_sucursal = ? AND LOWER(nombre_producto) LIKE ?";
+
+        return  jdbcTemplate.query(sql, CustomRowMapper.productoSucursalSimplificadoRowMapper,
+                idSucursal,
+                String.format("%%%s%%", filtro.toLowerCase())
+        );
     }
 
 }

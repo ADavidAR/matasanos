@@ -41,4 +41,11 @@ window.addEventListener("DOMContentLoaded", async () => {
       } else {
           productRest.textContent = "No es un producto de venta libre";
       }
+
+      const modal = document.getElementById("productoModal");
+      const form = document.getElementById("productoForm");
+      const categoriaSelect = document.getElementById("categoria");
+      const proveedorSelect = document.getElementById("proveedor");
+
+      let productoOriginal = null;
 })
