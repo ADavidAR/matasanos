@@ -25,6 +25,28 @@
         </section>
     </header>
     <section id="main-container">
+        <div class="table-responsive"> <!-- Hace la tabla responsive en dispositivos pequeños -->
+            <table class="table table-bordered table-hover table-striped" id="myTable">
+              <thead class="table-dark"> <!-- Cabecera oscura -->
+                <tr>
+                  <th scope="col" class="text-center"># ID</th> <!-- Centrado y con # -->
+                  <th scope="col">Producto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Ejemplo de filas (puedes borrarlo) -->
+                <tr>
+                  <td class="text-center">1</td>
+                  <td>Laptop HP EliteBook</td>
+                </tr>
+                <tr>
+                  <td class="text-center">2</td>
+                  <td>Teclado Mecánico RGB</td>
+                </tr>
+                <!-- Fin de ejemplo -->
+              </tbody>
+            </table>
+          </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -123,13 +145,13 @@
 
                                             <label for="city" class="form-label">Ciudad*</label>
                                             <select class="form-select" id="city" required>
-                                                <option value="">Seleccione una ciudad</option>
+                                                <option value="0">Seleccione una ciudad</option>
                                                
                                             </select>
                                             
                                             <label for="colonia" class="form-label">Colonia*</label>
                                             <select class="form-select" id="colonia" disabled="true" required>
-                                                <option value="">Seleccione una colonia</option>
+                                                <option value="0">Seleccione una colonia</option>
                                                 
                                             </select>
                                             

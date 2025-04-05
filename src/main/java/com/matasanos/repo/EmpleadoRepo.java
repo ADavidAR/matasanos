@@ -1,13 +1,16 @@
 package com.matasanos.repo;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import  com.matasanos.model.*;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.stereotype.Repository;
 
 import java.awt.*;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -66,37 +69,44 @@ public class EmpleadoRepo {
     }
 
     public int actualizarPersona(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String dni, int idDireccion){
-    String sql = "UPDATE Persona\n" +
-            "SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,dni=?,id_direccion=?\n" +
-            "OUTPUT INSERTED.id_persona WHERE DNI = ?";
-    return jdbcTemplate.queryForObject(sql,int.class,primerNombre,segundoNombre,primerApellido,segundoApellido,dni,idDireccion);
+    String sql = "UPDATE Persona\n " +
+            "SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,dni=?,id_direccion=?\n " +
+            "OUTPUT INSERTED.id_persona WHERE dni = ?";
+    return jdbcTemplate.queryForObject(sql,int.class,primerNombre,segundoNombre,primerApellido,segundoApellido,dni,idDireccion,dni);
+    }
+
+    public void actualizarDireccion(int idDireccion,int idColonia, String referencia) {
+        String sql = "UPDATE Telefono\n " +
+                "SET id_colonia=?,telefono =?\n " +
+                "WHERE id_direccion = ?";
+        jdbcTemplate.update(sql, idColonia, referencia,idDireccion);
     }
     public int actualizarEmpleado(BigDecimal salario, Date fecha_modificacion, int idPersona, int idCargo, int idUsuarioModificacion){
-        String sql = "UPDATE Empleado \n" +
-                "SET salario=?,fecha_contratacion=?,fecha_modificacion=?,id_cargo=?,id_usuario_modificacion=?\n" +
+        String sql = "UPDATE Empleado \n " +
+                "SET salario=?,fecha_contratacion=?,fecha_modificacion=?,id_cargo=?,id_usuario_modificacion=?\n " +
                 "WHERE id_persona = ?";
         return jdbcTemplate.queryForObject(sql,int.class,salario,fecha_modificacion,idCargo,idUsuarioModificacion,idPersona);
     }
     public void actualizarTelefono(int idPersona, String telefono){
-        String sql = "UPDATE Telefono\n" +
-                "SET telefono =?\n" +
+        String sql = "UPDATE Telefono\n " +
+                "SET telefono =?\n " +
                 "WHERE id_persona = ?";
         jdbcTemplate.update(sql,telefono,idPersona);
     }
     public void actualizarCorreo(int idPersona, String correo){
-        String sql = "UPDATE Correo\n" +
-                "SET correo=?\n" +
+        String sql = "UPDATE Correo\n " +
+                "SET correo=?\n " +
                 "WHERE id_persona = ?";
 
         jdbcTemplate.update(sql,correo,idPersona);
     }
     public void BorrarEmpleado( String dni){
         int idEMpleado= obtenerIdEmpleado(dni);
-        String sql1 = "UPDATE Usuario" +
-                "SET id_empleado = NULL" +
+        String sql1 = "UPDATE Usuario " +
+                "SET id_empleado = NULL " +
                 "WHERE id_empleado=?";
 
-        String sql2 = "DELETE Empleado \n" +
+        String sql2 = "DELETE Empleado \n " +
                 "WHERE dni = ?";
 
         jdbcTemplate.update(sql1,idEMpleado);
@@ -115,7 +125,7 @@ public class EmpleadoRepo {
         }
     }
     public int obtenerIdPersona(String dni){
-        String sql = " select id_Persona from Persona  " +
+        String sql = "select id_Persona from Persona\n " +
                 "WHERE dni = ?";
         try {
             return jdbcTemplate.queryForObject(sql, Integer.class, dni);
@@ -123,34 +133,74 @@ public class EmpleadoRepo {
             return 0;
         }
     }
+    public int obtenerIdDireccion(String dni){
+        String sql = "select id_direccion from Persona " +
+                "WHERE dni = ?";
+        Integer i=jdbcTemplate.queryForObject(sql, Integer.class, dni);
+       if (i==null)
+            return 0;
+       else{return i;}
+
+    }
 
 
     public List<Empleado> listarEmpleados() {
-        String sql = "SELECT * FROM Empleado E \n" +
-                "INNER JOIN Persona P ON p.id_persona=E.id_persona \n" +
-                "INNER JOIN Sucursal S ON s.id_sucursal= E.id_sucursal \n" +
+        String sql = "SELECT * FROM Empleado E \n " +
+                "INNER JOIN Persona P ON p.id_persona=E.id_persona \n " +
+                "INNER JOIN Sucursal S ON s.id_sucursal= E.id_sucursal \n " +
                 "INNER JOIN Cargo C ON C.id_cargo= E.id_cargo\n" +
-                "INNER JOIN Direccion D ON D.id_direccion=P.id_direccion\n" +
-                "INNER JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n" +
-                "INNER JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad";
+                "INNER JOIN Direccion D ON D.id_direccion=P.id_direccion\n " +
+                "INNER JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n " +
+                "INNER JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad ";
         return jdbcTemplate.query(sql,empleadoRowMapper);
     }
+
+    public boolean tieneTelefono(int idPersona){
+        String sql = "SELECT CASE WHEN EXISTS(SELECT 1 FROM Telefono WHERE id_persona = ?) THEN 1 ELSE 0 END";
+        return jdbcTemplate.queryForObject(sql,int.class,idPersona)==1;
+    }
+    public boolean tieneCorreo(int idPersona){
+        String sql = "SELECT CASE WHEN EXISTS(SELECT 1 FROM Correo WHERE id_persona = ?) THEN 1 ELSE 0 END";
+        return jdbcTemplate.queryForObject(sql,int.class,idPersona)==1;
+    }
+
     public Empleado optenerEMpleado(String dni){
-        String sql = "SELECT * FROM Empleado E \n" +
-                "INNER JOIN Persona P ON p.id_persona=E.id_persona \n" +
-                "INNER JOIN Sucursal S ON s.id_sucursal= E.id_sucursal \n" +
+        String sql = "SELECT * FROM Empleado E \n " +
+                "INNER JOIN Persona P ON p.id_persona=E.id_persona \n " +
+                "INNER JOIN Sucursal S ON s.id_sucursal= E.id_sucursal \n " +
                 "INNER JOIN Cargo C ON C.id_cargo= E.id_cargo\n" +
-                "INNER JOIN Direccion D ON D.id_direccion=P.id_direccion\n" +
-                "INNER JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n" +
+                "INNER JOIN Direccion D ON D.id_direccion=P.id_direccion\n " +
+                "INNER JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n " +
                 "INNER JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad WHERE E.dni = ?";
         return jdbcTemplate.queryForObject(sql,empleadoRowMapper,dni);
     }
-    public Persona optenerPersona(String dni){
-        String sql = "SELECT * FROM Persona P \n" +
-                "INNER JOIN Direccion D ON D.id_direccion=P.id_direccion\n" +
-                "INNER JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n" +
-                "INNER JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad WHERE E.dni = ?";
+    public Persona obtenerPersona(String dni){
+        String sql = "SELECT * FROM Persona P\n " +
+                "LEFT JOIN Direccion D ON D.id_direccion=P.id_direccion\n " +
+                "LEFT JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n " +
+                "LEFT JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad WHERE P.dni = ?";
+        try {
         return jdbcTemplate.queryForObject(sql,CustomRowMapper.personaRowMapper,dni);
+        } catch (Exception e) {
+            return  jdbcTemplate.queryForObject(sql,personaSinDireccionRowMapper,dni);
+        }
+    }
+    public Telefono obtenerTelefono(int idPersona){
+        String sql ="SELECT * FROM Telefono WHERE id_persona=? ";
+        try {
+            return jdbcTemplate.queryForObject(sql, telefonoRowMapper, idPersona);
+        } catch (Exception e) {
+           return  new Telefono();
+        }
+
+    }
+    public Correo obtenerCorreo(int idPersona){
+        String sql ="SELECT * FROM Correo WHERE id_persona=? ";
+        try {
+            return jdbcTemplate.queryForObject(sql, correoRowMapper, idPersona);
+        } catch (Exception e) {
+            return  new Correo();
+        }
     }
 
 
@@ -184,9 +234,29 @@ public class EmpleadoRepo {
                     0,
                     0
             );
+    public static final RowMapper<Correo> correoRowMapper = (rs, numCol) ->
+            new Correo(
+                    rs.getInt("id_correo"),
+                    rs.getString("correo"),
+                    null
+            );
+    public static final RowMapper<Telefono> telefonoRowMapper = (rs, numCol) ->
+            new Telefono(
+                    rs.getInt("id_telefono"),
+                    rs.getString("telefono"),
+                    null
+            );
 
-
-
+    public static final RowMapper<Persona> personaSinDireccionRowMapper = (rs, numCol) ->
+            new Persona(
+                    rs.getInt("id_persona"),
+                    rs.getString("primer_nombre"),
+                    rs.getString("segundo_nombre"),
+                    rs.getString("primer_apellido"),
+                    rs.getString("segundo_apellido"),
+                    rs.getString("dni"),
+                    new Direccion()
+            );
 }
 
 

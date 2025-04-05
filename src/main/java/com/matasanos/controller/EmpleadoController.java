@@ -45,7 +45,8 @@ public class EmpleadoController {
         empleadoService.crearEmpleado(empleado);
     }
     @GetMapping("/cargarDatosPersona/{dni}")
-    public  Persona datosPersona(@PathVariable String dni){
-     return new Persona();
+    @ResponseBody
+    public  List<Object> datosPersona(@PathVariable String dni){
+     return empleadoService.datosPersona(dni);
     }
 }

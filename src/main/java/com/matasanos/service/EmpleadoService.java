@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,21 +40,34 @@ public class EmpleadoService {
         int idEmpleado=empleadoRepo.obtenerIdEmpleado((String) empleado.get("dni") );
         System.out.println(idEmpleado);
         if(idEmpleado==0) {
+        int idDireccion;
             int idPersona = empleadoRepo.obtenerIdPersona((String) empleado.get("dni"));
             if (idPersona == 0) {
-                int idDireccion = empleadoRepo.crearDireccion((String) empleado.get("referencia"), (int) empleado.get("idColonia"));
-                idPersona = empleadoRepo.crearPersona((String) empleado.get("primerNombre"), (String) empleado.get("segundoNombre"), (String) empleado.get("primerApellido"), (String) empleado.get(" segundoApellido"), (String) empleado.get("dni"), idDireccion);
-                empleadoRepo.crearCorreo(idPersona, (String) empleado.get("correo"));
-                empleadoRepo.crearTelefono(idPersona, (String) empleado.get("telefono"));
+                 idDireccion = empleadoRepo.crearDireccion((String) empleado.get("referencia"), (int) empleado.get("idColonia"));
+                idPersona = empleadoRepo.crearPersona((String) empleado.get("primerNombre"), (String) empleado.get("segundoNombre"), (String) empleado.get("primerApellido"), (String) empleado.get("segundoApellido"), (String) empleado.get("dni"), idDireccion);
             }
+             idDireccion=empleadoRepo.obtenerIdDireccion((String) empleado.get("dni"));
+            if (idDireccion==0) {
+                idDireccion = empleadoRepo.crearDireccion((String) empleado.get("referencia"), (int) empleado.get("idColonia"));
+                empleadoRepo.actualizarPersona((String) empleado.get("primerNombre"), (String) empleado.get("segundoNombre"), (String) empleado.get("primerApellido"), (String) empleado.get("segundoApellido"), (String) empleado.get("dni"), idDireccion);
+            }
+            if (!empleadoRepo.tieneCorreo(idPersona)) empleadoRepo.crearCorreo(idPersona, (String) empleado.get("correo"));
+            if(!empleadoRepo.tieneTelefono(idPersona)) empleadoRepo.crearTelefono(idPersona, (String) empleado.get("telefono"));
 
             empleadoRepo.crearEmpleado(new BigDecimal(empleado.get("salario").toString()), LocalDate.parse(empleado.get("fechaContratacion").toString()), (int) empleado.get("idSucursal"), idPersona, (int) empleado.get("idCargo"), (int) empleado.get("idUsuario"));
         }else{
             throw new IllegalArgumentException("el empleado ya esta agregado");
         }
     }
-    public Persona datosPersona(String dni){
+    public List<Object> datosPersona(String dni){
+        List<Object> datos = new ArrayList<>();
+        datos.add(empleadoRepo.obtenerPersona(dni));
+        int idPersona= empleadoRepo.obtenerIdPersona(dni);
+        System.out.println(idPersona);
 
+        datos.add(empleadoRepo.obtenerCorreo(idPersona));
+        datos.add(empleadoRepo.obtenerTelefono(idPersona));
+        return datos;
     }
 }
 

@@ -45,9 +45,10 @@ const ciudades = document.querySelector("#city")
   async function cargarColonias() {
 
     const idCiudad= document.querySelector("#city").value
+    console.log(idCiudad)
 
     const ciudades = document.querySelector("#colonia")
-    ciudades.innerHTML=`<option value="">Seleccione una ciudad</option>`
+    ciudades.innerHTML=`<option value="0">Seleccione una colonia</option>`
     ciudades.disabled=false
         try {
           let response = await fetch(`/api/empleados/cargarColonias/${idCiudad}`);
@@ -103,6 +104,7 @@ const ciudades = document.querySelector("#city")
                   dni:datosForm[0].value,
                   primerNombre:datosForm[1].value,
                   segundoNombre:datosForm[2].value,
+                  
                   primerApellido:datosForm[3].value,
                   segundoApellido:datosForm[4].value,
                   fechaNacimiento:datosForm[5].value,
@@ -136,11 +138,11 @@ const ciudades = document.querySelector("#city")
                 body: JSON.stringify(convertirDatosAJason())
               });
               if (response.ok) {
-                alert("Solicitud creada correctamente");
+                alert("Empleado Creado Correctamente");
                 
                 location.reload();
               } else {
-                alert("Error al crear la solicitud");
+                alert("Error al guardar al empleado");
             }
           
             
@@ -149,22 +151,31 @@ const ciudades = document.querySelector("#city")
             }
           }
           async function cargarDatosPersona(){
+            if(document.querySelector("#idNumber").value.length==13){
             try {
-              let response = await fetch(`/api/empleados/cargarDatosPersona`);
+              let response = await fetch(`/api/empleados/cargarDatosPersona/${document.querySelector("#idNumber").value}`);
               let data = await response.json();
               console.log(data)
-             /* const inputPersona = document.querySelectorAll('.personData input:not([type="date"]) , .contactDetails input:not([type="date"]), .contactDetails .form-select, .contactDetails textarea')
-              inputPersona[1].value=data.primerNombre
-              inputPersona[2].value=data.segundoNombre
-              inputPersona[3].value=data.primerApellido
-              inputPersona[4].value=data.segundoApellido
-              inputPersona[5].value=data.telefono
-              inputPersona[6].value=data.correo
-              inputPersona[6].value=data.idCiudad
-              inputPersona[7].value=data.idColonia
-              inputPersona[8].value=data.referencia*/
-      } catch (error) {
-        console.error("no se encontraron datos");
+              if (response.ok) {
+                const inputPersona = document.querySelectorAll('.personData input:not([type="date"]) , .contactDetails input:not([type="date"]), .contactDetails .form-select, .contactDetails textarea')
+                inputPersona[1].value=data[0].primerNombre
+                inputPersona[2].value=data[0].segundoNombre
+                inputPersona[3].value=data[0].primerApellido
+                inputPersona[4].value=data[0].segundoApellido
+                inputPersona[5].value=data[2].telefono
+                inputPersona[6].value=data[1].correo
+                
+                inputPersona[7].value=data[0].direccion.colonia.ciudad.idCiudad
+                console.log(inputPersona[8])
+                if(data[0].direccion.colonia.ciudad.idCiudad>0) {await cargarColonias()}
+                
+                console.log(data[0].direccion.colonia.idColonia)
+                inputPersona[9].value=data[0].direccion.referencia
+                inputPersona[8].value=data[0].direccion.colonia.idColonia
+              } else {
+                console.log("Error al cargar los datos");}
+              } catch (error) {
+        console.error("no se encontraron datos");}
         }
           }
           
