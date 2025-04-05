@@ -7,16 +7,16 @@ public class Receta {
     private int idReceta;// id_receta
     private LocalDate fecha;// fecha
     private String descripcion;// descripcion
-    private Medico medico;
+    private String nombreMedico;// nombre_medico
     private Cliente cliente;
 
     public Receta() {}
      
-    public Receta (int idReceta, LocalDate fecha, String descripcion, Medico medico, Cliente cliente) {
+    public Receta (int idReceta, LocalDate fecha, String descripcion, String nombreMedico, Cliente cliente) {
         this.idReceta = idReceta;
         this.fecha = fecha;
         this.descripcion = descripcion;
-        this.medico = medico;
+        this.nombreMedico = nombreMedico;
         this.cliente = cliente;
     }
 
@@ -38,10 +38,10 @@ public class Receta {
         this.descripcion = descripcion;
     }
 
-    public Medico getMedico() { return medico; }
+    public String getNombreMedico() { return nombreMedico; }
 
-    public void setMedico(Medico medico ){
-        this.medico = medico;
+    public void setNombreMedico(String nombreMedico ){
+        this.nombreMedico = nombreMedico;
     }
 
     public Cliente getCliente() { return cliente; }

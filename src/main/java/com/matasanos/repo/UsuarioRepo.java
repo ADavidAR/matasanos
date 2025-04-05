@@ -23,26 +23,26 @@ public class UsuarioRepo {
     public List<Usuario> listarUsuarios() {
         String sql = "SELECT * FROM v_UsuarioConRol";
 
-        return jdbcTemplate.query(sql, CustomRowMapper.usuarioRowMapper);
+        return jdbcTemplate.query(sql, CustomRowMapper.usuarioConRolRowMapper);
     }
 
     public Usuario obtenerUsuario(String usuario) {
-        String sql = "SELECT id_usuario, usuario, contrasena FROM v_Usuario WHERE usuario = ?";
+        String sql = "SELECT id_usuario, usuario, contrasena FROM Usuario WHERE usuario = ?";
         List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioSimpleRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();
     }
 
-    public Usuario obtenerUsuarioConRol(String usuario) {
-        String sql = "SELECT id_usuario, usuario, contrasena, activo,  id_rol, nombre_rol FROM v_UsuarioConRol WHERE usuario = ?";
-        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioConRolRowMapper, usuario);
+    public Usuario obtenerUsuarioEmpleadoRol(String usuario) {
+        String sql = "SELECT id_usuario, usuario, usuario_activo, id_rol, nombre_rol, id_empleado, id_persona, segundo_nombre, primer_nombre, primer_apellido, segundo_apellido, id_sucursal, nombre_sucursal FROM v_UsuarioEmpleadoRol WHERE usuario = ?";
+        List<Usuario> usuarios = jdbcTemplate.query(sql, CustomRowMapper.usuarioEmpleadoRolRowMapper, usuario);
 
         return (usuarios.isEmpty()) ? null : usuarios.getFirst();
     }
 
 
     public Usuario obtenerUsuarioConPermisos(String usuario) {
-        Usuario u = obtenerUsuarioConRol(usuario);
+        Usuario u = obtenerUsuarioEmpleadoRol(usuario);
         if(u == null)
             return null;
 

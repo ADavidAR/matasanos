@@ -4,7 +4,7 @@ package com.matasanos.model;
 
 public class Proveedor {
 
-    private int idProveedor;// id_proveedor
+    private Integer idProveedor;// id_proveedor
     private String razonSocial;// razon_social
     private String contacto;// contacto
     private String rtnContacto;// RTN_contacto
@@ -14,7 +14,7 @@ public class Proveedor {
 
     public Proveedor() {}
      
-    public Proveedor (int idProveedor, String razonSocial, String contacto, String rtnContacto, String telefono, String correo, String direccion) {
+    public Proveedor (Integer idProveedor, String razonSocial, String contacto, String rtnContacto, String telefono, String correo, String direccion) {
         this.idProveedor = idProveedor;
         this.razonSocial = razonSocial;
         this.contacto = contacto;
@@ -24,9 +24,9 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
-    public int getIdProveedor() { return idProveedor; }
+    public Integer getIdProveedor() { return idProveedor; }
 
-    public void setIdProveedor(int idProveedor ){
+    public void setIdProveedor(Integer idProveedor ){
         this.idProveedor = idProveedor;
     }
 
