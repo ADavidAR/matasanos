@@ -55,8 +55,30 @@ window.addEventListener("DOMContentLoaded", async () => {
           const mode = button.getAttribute("data-mode");
           const modalTitle = modal.querySelector(".modal-title");
 
-          await loadCategories();
-          await loadProviders();
+          //carga a los proveedores en el select
+          const res = await fetch("/api/proveedores");
+                const providers = await res.json();
+                console.log(providers);
+                providerSelect.innerHTML = '<option value="">Seleccione un proveedor</option>';
+                providers.forEach(p => {
+                    const option = document.createElement("option");
+                    option.value = p.idProveedor;
+                    option.textContent = p.razonSocial;
+                    providerSelect.appendChild(option);
+          });
+
+          //carga a las categorias en el select
+          const res2 = await fetch("/api/categorias");
+                const category = await res2.json();
+                console.log(category);
+                categorySelect.innerHTML = '<option value="">Seleccione una categoría</option>';
+                category.forEach(c => {
+                    const option = document.createElement("option");
+                    option.value = c.idCategoria;
+                    option.textContent = c.nombreCategoria;
+                    categorySelect.appendChild(option);
+          });
+
 
           if (mode === "crear") {
               modalTitle.textContent = "Crear nuevo producto";
@@ -121,29 +143,34 @@ window.addEventListener("DOMContentLoaded", async () => {
           location.reload();
       });
 
-      async function loadCategories() {
-              const res = await fetch("/api/categorias");
-              const categorias = await res.json();
-              console.log(categorias);
-              categorySelect.innerHTML = '<option value="">Seleccione una categoría</option>';
-              categorias.forEach(c => {
-                  const option = document.createElement("option");
-                  option.value = c.idCategoria;
-                  option.textContent = c.nombreCategoria;
-                  categorySelect.appendChild(option);
-              });
-      }
 
-      async function loadProviders() {
-              const res = await fetch("/api/proveedores");
-              const proveedores = await res.json();
-              console.log(proveedores);
-              providerSelect.innerHTML = '<option value="">Seleccione un proveedor</option>';
-              proveedores.forEach(p => {
-                  const option = document.createElement("option");
-                  option.value = p.idProveedor;
-                  option.textContent = p.razonSocial;
-                  providerSelect.appendChild(option);
-              });
-      }
+      const reportsModal = document.getElementById("reportesModal");
+      const tableBody = document.getElementById("table-body")
+
+      //llenado del modal que muestra los movimientos del producto
+      reportsModal.addEventListener("show.bs.modal", async function (event) {
+          const res = await fetch(`/api/productos/reportes/${idProduct}/${idSucursal}`);
+          const reports = await res.json();
+          console.log(reports);
+
+          tableBody.innerHTML = "";
+          let i = 0;
+
+          reports.forEach(p => {
+                const tr = document.createElement("tr");
+                i++;
+                tr.innerHTML = `
+                        <tr>
+                            <th scope="row">${i}</th>
+                            <td>${p.fecha}</td>
+                            <td>${p.tipoMovimiento.nombre}</td>
+                            <td>${p.cantidad}</td>
+                            <td>cantidad total</td>
+                            <td>${p.referencia}</td>
+                        </tr>
+                `;
+                tableBody.appendChild(tr);
+          });
+      });
+
 })

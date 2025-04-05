@@ -103,6 +103,41 @@
     </div>
 </section>
 
+<!--Modal para mostar reportes, proveedor-->
+<section id="reports-section">
+    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#reportesModal" data-mode="reportes">Ver reportes del producto</button>
+
+    <div class="modal fade modal-xl" id="reportesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reportes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="reports-modal" class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tipo de movimiento</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Cantidad total</th>
+                            <th scope="col">Referencia</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-body">
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="detail">
     <div id="detail-container">
 

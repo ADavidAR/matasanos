@@ -1,5 +1,6 @@
 package com.matasanos.controller;
 
+import com.matasanos.model.FichaInventario;
 import com.matasanos.model.Producto;
 import com.matasanos.service.ProductoService;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +78,15 @@ public class ProductoController {
 
         return ( productos != null ) ? ResponseEntity.ok(productos) : ResponseEntity.ok(Collections.emptyMap());
     }
-    
+
+    @GetMapping("/reportes/{idProducto}/{idSucursal}")
+    public ResponseEntity<?> listarReportesProductoSucursal(@PathVariable int idProducto, @PathVariable int idSucursal) {
+
+        List<FichaInventario> productosFicha;
+        productosFicha = productoService.listarReportesProductoSucursal(idProducto, idSucursal);
+
+        return ( productosFicha != null ) ? ResponseEntity.ok(productosFicha) : ResponseEntity.ok(Collections.emptyMap());
+    }
+
 
 }

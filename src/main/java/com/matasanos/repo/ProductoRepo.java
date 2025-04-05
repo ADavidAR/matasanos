@@ -1,5 +1,6 @@
 package com.matasanos.repo;
 
+import com.matasanos.model.FichaInventario;
 import com.matasanos.model.Producto;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -74,6 +75,12 @@ public class ProductoRepo {
                 idSucursal,
                 String.format("%%%s%%", filtro.toLowerCase())
         );
+    }
+
+    public List<FichaInventario> listarReportesProductoSucursal(int idProducto, int idSucursal) {
+        String sql = "SELECT * FROM v_ReportesProductoSucursal WHERE id_producto = ? AND id_sucursal = ? ORDER BY fecha DESC";
+
+        return jdbcTemplate.query(sql, CustomRowMapper.productoSucursalFichaReportesRowMapper, idProducto, idSucursal);
     }
 
 }
