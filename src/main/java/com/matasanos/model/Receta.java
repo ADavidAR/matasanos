@@ -1,6 +1,7 @@
 package com.matasanos.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Receta {
 
@@ -9,6 +10,7 @@ public class Receta {
     private String descripcion;// descripcion
     private String nombreMedico;// nombre_medico
     private Cliente cliente;
+    List<RecetaProducto> productos;
 
     public Receta() {}
      
@@ -48,5 +50,13 @@ public class Receta {
 
     public void setCliente(Cliente cliente ){
         this.cliente = cliente;
+    }
+
+    public List<RecetaProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<RecetaProducto> productos) {
+        this.productos = productos;
     }
 }
