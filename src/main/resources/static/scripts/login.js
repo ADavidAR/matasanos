@@ -61,31 +61,37 @@ async function validateUser() {
     let user = document.querySelector("#user");
     let pass = document.querySelector("#password");
 
-    let data = {
+    let loginData = {
         user: user.value,
         pass: pass.value
     } 
 
-    let userData = await fetch("/api/usuarios/verificar", {
+    const response = await fetch("/api/usuarios/verificar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
-    })
-    .then( response => response.json())
+        body: JSON.stringify(loginData)
+    });
 
-    if(Object.keys(userData).length === 0 || userData.status !== undefined) {
+    const data  = await response.json();
+
+
+    if(!response.ok) {
+        debugger;
         
         msgUser.textContent = "";
-        msgPass.textContent = "Usuario o contraseña incorrecto";
+        msgPass.textContent = data.msg;
 
         pass.classList.add("is-invalid");
         return;
 
     }
+    
+    console.log(data.userData)
 
-    localStorage.setItem("userData", JSON.stringify(userData));
+    debugger;
+    localStorage.setItem("userData", JSON.stringify(data.userData));
 
     window.location.href = "/home"
 }
