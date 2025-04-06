@@ -415,3 +415,20 @@ CREATE VIEW v_UsuarioEmpleadoRol AS
 	FULL OUTER JOIN v_Empleado e ON u.id_empleado = e.id_empleado;
 GO
 
+CREATE VIEW v_ClientePersona AS
+	SELECT
+	c.*,
+	p.primer_nombre,
+	p.segundo_nombre,
+	p.primer_apellido,
+	p.segundo_apellido,
+	p.dni,
+	d.*,
+	col.nombre_colonia,
+	ciu.*
+	FROM Cliente c
+	INNER JOIN Persona p ON p.id_persona = c.id_persona
+	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
+	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
+	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad
+GO

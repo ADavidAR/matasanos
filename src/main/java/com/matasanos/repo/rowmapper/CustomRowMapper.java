@@ -20,6 +20,13 @@ public class CustomRowMapper {
                     CustomRowMapper.ciudadRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Colonia> coloniaSinCiudadRowMapper = (rs, numCol) ->
+            new Colonia(
+                    rs.getInt("id_colonia"),
+                    rs.getString("nombre_colonia"),
+                    null
+            );
+
     public static final RowMapper<Direccion> direccionRowMapper = (rs, numCol) ->
             new Direccion(
                     rs.getInt("id_direccion"),
@@ -224,6 +231,17 @@ public class CustomRowMapper {
                     CustomRowMapper.direccionRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Persona> personaSinDireccionRowMapper = (rs, numCol) ->
+            new Persona(
+                    rs.getInt("id_persona"),
+                    rs.getString("primer_nombre"),
+                    rs.getString("segundo_nombre"),
+                    rs.getString("primer_apellido"),
+                    rs.getString("segundo_apellido"),
+                    rs.getString("dni"),
+                    null
+            );
+
     public static final RowMapper<Persona> personaSinDireccionDNIRowMapper = (rs, numCol) ->
             new Persona(
                     rs.getInt("id_persona"),
@@ -244,6 +262,28 @@ public class CustomRowMapper {
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
+            );
+
+    public static final RowMapper<Cliente> clienteSinDireccionRowMapper = (rs, numCol) ->
+            new Cliente(
+                    rs.getInt("id_cliente"),
+                    rs.getString("rtn"),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    null,
+                    CustomRowMapper.personaSinDireccionRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
+            );
+
+    public static final RowMapper<Cliente> clienteConDireccionRowMapper = (rs, numCol) ->
+            new Cliente(
+                    rs.getInt("id_cliente"),
+                    rs.getString("rtn"),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    null,
+                    CustomRowMapper.personaRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
             );
 
     public static final RowMapper<Caja> cajaRowMapper = (rs, numCol) ->
