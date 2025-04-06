@@ -245,7 +245,7 @@ CREATE TABLE Receta(
 	id_receta INT IDENTITY(1,1) PRIMARY KEY,
 	fecha DATE,
 	descripcion VARCHAR(MAX),
-	nombre_medico VARCHAR(),
+	nombre_medico VARCHAR(200),
 	id_cliente INT,
 	FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
 );
