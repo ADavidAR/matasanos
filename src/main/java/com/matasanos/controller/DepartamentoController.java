@@ -4,10 +4,7 @@ import com.matasanos.model.Departamento;
 
 import com.matasanos.service.DepartamentoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,4 +25,11 @@ public class DepartamentoController {
 
         return ( departamentos != null ) ? ResponseEntity.ok(departamentos) : ResponseEntity.ok(Collections.emptyMap());
     }
+
+    @PostMapping
+    public ResponseEntity<String> guardarDepartamento(@RequestBody Departamento departamento) {
+        departamentoService.guardarNuevoDepartamento(departamento);
+        return ResponseEntity.ok("Departamento guardado correctamente");
+    }
+
 }

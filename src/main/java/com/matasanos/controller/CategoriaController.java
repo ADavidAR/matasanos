@@ -39,5 +39,11 @@ public class CategoriaController {
                 : ResponseEntity.noContent().build();
     }
 
+    @PostMapping
+    public ResponseEntity<String> guardarCategoria(@RequestBody Categoria categoria) {
+        categoriaService.guardarNuevaCategoria(categoria);
+        return ResponseEntity.ok("Categoria guardado correctamente");
+    }
+
 }
 

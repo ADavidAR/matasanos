@@ -29,4 +29,11 @@ public class CategoriaRepo {
         return jdbcTemplate.query(sql, CustomRowMapper.categoriaRowMapper);
     }
 
+    public void guardarNuevaCategoria(Categoria categoria) {
+        String sql = "INSERT INTO Categoria (nombre_categoria, id_departamento) VALUES (?,?)";
+
+        int rows = jdbcTemplate.update(sql, categoria.getNombreCategoria(), categoria.getDepartamento().getIdDepartamento());
+        System.out.println(rows + " lineas afectadas");
+    }
+
 }

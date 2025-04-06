@@ -1,10 +1,14 @@
 package com.matasanos.repo;
 
+import ch.qos.logback.core.testUtil.AbstractMultiThreadedHarness;
 import com.matasanos.model.FichaInventario;
 import com.matasanos.model.Producto;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -68,11 +72,10 @@ public class ProductoRepo {
         return  jdbcTemplate.query(sql, CustomRowMapper.productoDeSucursalRowMapper, idSucursal, idCategoria);
     }
 
-    public List<Producto> filtrarProductosDeSucursalPorNombreSimplificado(int idSucursal, String filtro) {
-        String sql = "SELECT id_producto, nombre_producto, id_sucursal FROM v_ProductoSucursalSimplificada WHERE id_sucursal = ? AND LOWER(nombre_producto) LIKE ?";
+    public List<Producto> filtrarProductosDeSucursalPorNombreSimplificado(String filtro) {
+        String sql = "SELECT id_producto, nombre_producto FROM Producto where LOWER(nombre_producto) LIKE ?";
 
         return  jdbcTemplate.query(sql, CustomRowMapper.productoSucursalSimplificadoRowMapper,
-                idSucursal,
                 String.format("%%%s%%", filtro.toLowerCase())
         );
     }
@@ -81,6 +84,13 @@ public class ProductoRepo {
         String sql = "SELECT * FROM v_ReportesProductoSucursal WHERE id_producto = ? AND id_sucursal = ? ORDER BY fecha DESC";
 
         return jdbcTemplate.query(sql, CustomRowMapper.productoSucursalFichaReportesRowMapper, idProducto, idSucursal);
+    }
+
+    public void guardarNuevoProducto(Producto producto) {
+        String sql = "INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, id_proveedor, id_usuario_creacion,id_usuario_modificacion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        int rows = jdbcTemplate.update(sql, producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getVentaLibre(), producto.getPrecioDescuento(), producto.getImpuesto(), producto.getFechaCreacion(), producto.getFechaModificacion(), producto.getCostoVenta(), producto.getCategoria().getIdCategoria(), producto.getProveedor().getIdProveedor(), producto.getIdUsuarioCreacion(), producto.getIdUsuarioModificacion());
+        System.out.println(rows + " lineas afectadas");
     }
 
 }

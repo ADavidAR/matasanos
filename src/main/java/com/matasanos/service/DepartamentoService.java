@@ -18,4 +18,8 @@ public class DepartamentoService {
     public List<Departamento> listarDepartamentos() {
         return departamentoRepo.listarDepartamentos();
     }
+
+    public void guardarNuevoDepartamento(Departamento departamento) {
+        departamentoRepo.guardarNuevoDepartamento(departamento);
+    }
 }

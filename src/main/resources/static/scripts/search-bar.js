@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 searchBar.addEventListener('keyup', async (e) => {
     const searchString = e.target.value.toLowerCase();
     if (searchString.length > 2) {
-            const res = await fetch(`/api/productos/busqueda_simplificada?filtro=${searchString}&idSucursal=${idSucursal}`);
+            const res = await fetch(`/api/productos/busqueda_simplificada?filtro=${searchString}`);
             productos = await res.json();
             displayProducts(productos);
             resultsContainer.style.display = "block";

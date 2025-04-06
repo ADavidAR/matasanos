@@ -4,6 +4,7 @@ import com.matasanos.model.FichaInventario;
 import com.matasanos.model.Producto;
 import com.matasanos.repo.ProductoRepo;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 
 import java.util.List;
 
@@ -44,11 +45,16 @@ public class ProductoService {
         return productoRepo.listarProductosDeSucursalPorCategoria(idSucursal, idCategoria);
     }
 
-    public List<Producto> filtrarProductosDeSucursalPorNombreSimplificado(int idSucursal, String filtro) {
-        return productoRepo.filtrarProductosDeSucursalPorNombreSimplificado(idSucursal, filtro);
+    public List<Producto> filtrarProductosDeSucursalPorNombreSimplificado(String filtro) {
+        return productoRepo.filtrarProductosDeSucursalPorNombreSimplificado(filtro);
     }
 
     public List<FichaInventario> listarReportesProductoSucursal(int idProducto, int idSucursal) {
         return productoRepo.listarReportesProductoSucursal(idProducto, idSucursal);
     }
+
+    public void guardarNuevoProducto(Producto producto) {
+        productoRepo.guardarNuevoProducto(producto);
+    }
+
 }

@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             </div>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Inventario: ${details.inventario}</li>
+            <li class="list-group-item" id="li-inventario">Inventario: ${details.inventario}</li>
             <li class="list-group-item">Producto ID: ${details.idProducto}</li>
             <li class="list-group-item">Descripción: ${details.descripcion}</li>
             <li class="list-group-item">Precio de venta: ${details.precioVenta}</li>
@@ -44,6 +44,13 @@ window.addEventListener("DOMContentLoaded", async () => {
           productRest.textContent = "Producto de venta libre";
       } else {
           productRest.textContent = "No es un producto de venta libre";
+      }
+
+      const liInventory = document.getElementById("li-inventario");
+      if (details.inventario > 0) {
+          liInventory.classList.add("list-group-item-success");
+      } else {
+          liInventory.classList.add("list-group-item-danger");
       }
 
 
@@ -196,5 +203,58 @@ window.addEventListener("DOMContentLoaded", async () => {
                 tableBody.appendChild(tr);
           });
       });
+
+
+      //llenado del modal que muestra los proveedores
+            reportsModal.addEventListener("show.bs.modal", async function (event) {
+                const res = await fetch(`/api/productos/reportes/${idProduct}/${idSucursal}`);
+                const reports = await res.json();
+                //reports.reverse();
+                console.log(reports);
+
+                document.getElementById("reports-modal-title").textContent = `${details.nombreProducto}`;
+
+                tableBody.innerHTML = "";
+                let i = 0;
+                let qty = 0;
+                let qtyAr = [];
+
+                reports.reverse().forEach((p, index) => {
+                      if (index === 0) {
+                            qty = p.cantidad;
+                       } else {
+                            qty += (p.cantidad * p.tipoMovimiento.factor);
+                       }
+                      qtyAr.push(qty);
+                });
+                qtyAr.reverse();
+
+
+                reports.reverse().forEach((p, index) => {
+                    const tr = document.createElement("tr");
+                    i++;
+                    let sign;
+
+                    if(p.tipoMovimiento.factor === -1) {
+                      tr.classList.add("table-warning");
+                      sign = "-";
+                    } else {
+                      tr.classList.add("table-success");
+                      sign = "+";
+                    }
+
+                      tr.innerHTML = `
+                              <tr>
+                                  <th scope="row">${i}</th>
+                                  <td>${p.fecha}</td>
+                                  <td>${p.tipoMovimiento.nombre}</td>
+                                  <td>${sign}${p.cantidad}</td>
+                                  <td>${qtyAr[index]}</td>
+                                  <td>${p.referencia}</td>
+                              </tr>
+                      `;
+                      tableBody.appendChild(tr);
+                });
+            });
 
 })

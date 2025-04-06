@@ -23,4 +23,11 @@ public class DepartamentoRepo {
         return jdbcTemplate.query(sql, CustomRowMapper.departamentoRowMapper);
     }
 
+    public void guardarNuevoDepartamento(Departamento departamento) {
+        String sql = "INSERT INTO Departamento (nombre_departamento) VALUES (?)";
+
+        int rows = jdbcTemplate.update(sql, departamento.getNombreDepartamento());
+        System.out.println(rows + " lineas afectadas");
+    }
+
 }

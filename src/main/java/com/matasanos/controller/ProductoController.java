@@ -3,6 +3,7 @@ package com.matasanos.controller;
 import com.matasanos.model.FichaInventario;
 import com.matasanos.model.Producto;
 import com.matasanos.service.ProductoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,10 +72,10 @@ public class ProductoController {
     }
 
     @GetMapping("/busqueda_simplificada")
-    public ResponseEntity<?> filtrarProductosDeSucursalPorNombreSimplificado(@RequestParam String filtro, @RequestParam(required = false) Integer idSucursal) {
+    public ResponseEntity<?> filtrarProductosDeSucursalPorNombreSimplificado(@RequestParam String filtro) {
 
         List<Producto> productos;
-        productos = productoService.filtrarProductosDeSucursalPorNombreSimplificado(idSucursal, filtro);
+        productos = productoService.filtrarProductosDeSucursalPorNombreSimplificado(filtro);
 
         return ( productos != null ) ? ResponseEntity.ok(productos) : ResponseEntity.ok(Collections.emptyMap());
     }
@@ -87,6 +88,27 @@ public class ProductoController {
 
         return ( productosFicha != null ) ? ResponseEntity.ok(productosFicha) : ResponseEntity.ok(Collections.emptyMap());
     }
+
+    /*
+    @PostMapping("/crear")
+    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
+        Producto nuevoProducto = productoService.crearNuevoProducto(producto);
+        return new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED);
+    }*/
+
+    /*@PutMapping("/{id}")
+    public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @RequestBody Producto producto) {
+        producto.setIdProducto(id);
+        Producto actualizado = productoService.actualizarProducto(producto);
+        return new ResponseEntity<>(actualizado, HttpStatus.OK);
+    }*/
+
+
+    /*@DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarProducto(@PathVariable int id) {
+        boolean eliminado = productoService.eliminarProducto(id);
+        return eliminado ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }*/
 
 
 }

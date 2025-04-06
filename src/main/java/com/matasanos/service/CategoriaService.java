@@ -22,4 +22,8 @@ public class CategoriaService {
     public List<Categoria> listarCategoriasTodas() {
         return categoriaRepo.listarCategoriasTodas();
     }
+
+    public void guardarNuevaCategoria(Categoria categoria) {
+        categoriaRepo.guardarNuevaCategoria(categoria);
+    }
 }

@@ -45,9 +45,14 @@
     </div>
 </section>
 
+<!--seccion para los botones de modificacion-->
 <section id="admin-buttons">
-    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#productoModal" data-mode="crear">Crear nuevo producto</button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#productoModal">Crear nuevo producto</button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#categoriaModal">Crear nueva categoría</button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#departamentoModal">Crear nuevo departamento</button>
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#proveedorModal">Crear nuevo proveedor</button>
 
+    <!--crear nuevo producto modal-->
     <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -68,6 +73,14 @@
                         <div class="mb-3">
                             <label for="precio" class="form-label">Precio:</label>
                             <input type="number" class="form-control" id="precio" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio-descuento" class="form-label">Precio con descuento:</label>
+                            <input type="number" class="form-control" id="precio-descuento" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="costo" class="form-label">Costo de venta:</label>
+                            <input type="number" class="form-control" id="costo" step="0.01" required>
                         </div>
                         <div class="mb-3">
                             <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
@@ -100,12 +113,110 @@
             </div>
         </div>
     </div>
+
+    <!--crear nueva categoria modal-->
+    <div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="categoriaModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoriaModalLabel">Crear nueva categoría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="categoriaForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre-categoria" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Departamento:</label>
+                            <select class="form-select" id="departamento" required></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="categoriaForm">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--crear nuevo departamento modal-->
+    <div class="modal fade" id="departamentoModal" tabindex="-1" aria-labelledby="departamentoModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="departamentoModalLabel">Crear nuevo departamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="departamentoForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre-departamento" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="departamentoForm">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--crear nuevo proveedor modal-->
+    <div class="modal fade" id="proveedorModal" tabindex="-1" aria-labelledby="proveedormentoModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="proveedormentoModalLabel">Crear nuevo producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="proveedorForm">
+                        <div class="mb-3">
+                            <label class="form-label">Razon social:</label>
+                            <input type="text" class="form-control" id="razon-proveedor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contacto:</label>
+                            <input type="text" class="form-control" id="contacto-proveedor" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">RTN del contacto:</label>
+                            <input type="text" class="form-control" id="RTN-proveedor" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telefono:</label>
+                            <input type="text" class="form-control" id="telefono-proveedor">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo:</label>
+                            <input type="text" class="form-control" id="corrreo-proveedor">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Direccion:</label>
+                            <textarea class="form-control" id="direccion-proveedor" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="proveedorForm">Guardar producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<!--Modal para mostar reportes, proveedor-->
+
 <section id="reports-section">
     <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#reportesModal" data-mode="reportes">Ver reportes del producto</button>
+    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#reportesModal" data-mode="reportes">Ver proveedores</button>
 
+    <!--modal para mostar reportes-->
     <div class="modal fade modal-xl" id="reportesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -135,6 +246,38 @@
             </div>
         </div>
     </div>
+
+    <!--modal para mostar proveedores-->
+    <div class="modal fade modal-xl" id="proveedoresModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Proveedores</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="proveedores-modal" class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Proveedor ID</th>
+                            <th scope="col">Razón social</th>
+                            <th scope="col">Contacto</th>
+                            <th scope="col">RTN del contacto</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Direccion</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-body-proveedores">
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="detail">
@@ -142,6 +285,7 @@
 
     </div>
 
+    <!--modal para actualizar producto-->
     <div class="modal fade" id="actualizarModal" tabindex="-1" aria-labelledby="actualizarModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -189,7 +333,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="productoForm">Guardar producto</button>
+                    <button type="submit" class="btn btn-primary" form="actualizarForm">Guardar producto</button>
                 </div>
             </div>
         </div>

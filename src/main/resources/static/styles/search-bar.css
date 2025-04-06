@@ -44,3 +44,9 @@
     opacity: 1;
     cursor: pointer;
 }
+
+#admin-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
