@@ -87,10 +87,14 @@ public class ProductoRepo {
     }
 
     public void guardarNuevoProducto(Producto producto) {
-        String sql = "INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, id_proveedor, id_usuario_creacion,id_usuario_modificacion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, id_proveedor, id_usuario_creacion,id_usuario_modificacion) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+
+        String sqlFicha = "INSERT INTO FichaInventario (cantidad, referencia, fecha, id_producto, id_sucursal, id_tipo_movimiento) SELECT 0, 'Creacion de producto', GETDATE(), p.id_producto, s.id_sucursal, 1 FROM Sucursal s JOIN Producto p ON p.nombre_producto = ? WHERE s.id_sucursal IS NOT NULL ";
 
         int rows = jdbcTemplate.update(sql, producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getVentaLibre(), producto.getPrecioDescuento(), producto.getImpuesto(), producto.getFechaCreacion(), producto.getFechaModificacion(), producto.getCostoVenta(), producto.getCategoria().getIdCategoria(), producto.getProveedor().getIdProveedor(), producto.getIdUsuarioCreacion(), producto.getIdUsuarioModificacion());
-        System.out.println(rows + " lineas afectadas");
+        //System.out.println(rows + " lineas afectadas");
+
+        int rowsFicha = jdbcTemplate.update(sqlFicha, producto.getNombreProducto());
     }
 
 }

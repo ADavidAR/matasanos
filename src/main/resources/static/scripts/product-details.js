@@ -150,9 +150,9 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 
       const reportsModal = document.getElementById("reportesModal");
-      const tableBody = document.getElementById("table-body")
+      const tableBody = document.getElementById("table-body");
 
-      //llenado del modal que muestra los movimientos del producto
+      //llenado del modal que muestra los reportes/movimientos del producto
       reportsModal.addEventListener("show.bs.modal", async function (event) {
           const res = await fetch(`/api/productos/reportes/${idProduct}/${idSucursal}`);
           const reports = await res.json();
@@ -205,56 +205,36 @@ window.addEventListener("DOMContentLoaded", async () => {
       });
 
 
+        const providersTableModal = document.getElementById("proveedoresModal");
+        const tableBodyP = document.getElementById("table-body-proveedores")
+
       //llenado del modal que muestra los proveedores
-            reportsModal.addEventListener("show.bs.modal", async function (event) {
-                const res = await fetch(`/api/productos/reportes/${idProduct}/${idSucursal}`);
-                const reports = await res.json();
-                //reports.reverse();
-                console.log(reports);
+            providersTableModal.addEventListener("show.bs.modal", async function (event) {
+                const res = await fetch("/api/proveedores");
+                const providers = await res.json();
+                console.log(providers);
 
-                document.getElementById("reports-modal-title").textContent = `${details.nombreProducto}`;
+                document.getElementById("reports-modal-title").textContent = "Proveedores";
 
-                tableBody.innerHTML = "";
-                let i = 0;
-                let qty = 0;
-                let qtyAr = [];
+                tableBodyP.innerHTML = "";
 
-                reports.reverse().forEach((p, index) => {
-                      if (index === 0) {
-                            qty = p.cantidad;
-                       } else {
-                            qty += (p.cantidad * p.tipoMovimiento.factor);
-                       }
-                      qtyAr.push(qty);
-                });
-                qtyAr.reverse();
-
-
-                reports.reverse().forEach((p, index) => {
+                providers.forEach((p) => {
                     const tr = document.createElement("tr");
-                    i++;
-                    let sign;
-
-                    if(p.tipoMovimiento.factor === -1) {
-                      tr.classList.add("table-warning");
-                      sign = "-";
-                    } else {
-                      tr.classList.add("table-success");
-                      sign = "+";
-                    }
 
                       tr.innerHTML = `
                               <tr>
-                                  <th scope="row">${i}</th>
-                                  <td>${p.fecha}</td>
-                                  <td>${p.tipoMovimiento.nombre}</td>
-                                  <td>${sign}${p.cantidad}</td>
-                                  <td>${qtyAr[index]}</td>
-                                  <td>${p.referencia}</td>
+                                  <th scope="row">${p.idProveedor}</th>
+                                  <td>${p.razonSocial}</td>
+                                  <td>${p.contacto}</td>
+                                  <td>${p.rtnContacto}</td>
+                                  <td>${p.telefono}</td>
+                                  <td>${p.correo}</td>
+                                  <td>${p.direccion}</td>
                               </tr>
                       `;
-                      tableBody.appendChild(tr);
+                      tableBodyP.appendChild(tr);
                 });
             });
 
 })
+
