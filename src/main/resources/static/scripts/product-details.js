@@ -20,6 +20,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 
           <div class="card-header">
             <h2 id="productName">${details.nombreProducto}</h2>
+            <div>
+                <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#actualizarModal" data-mode="actualizar">Actualizar</button>
+                <button type="button" class="btn btn-danger m-2">Eliminar</button>
+            </div>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Inventario: ${details.inventario}</li>
@@ -43,10 +47,9 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
 
 
-      const modal = document.getElementById("productoModal");
-      const form = document.getElementById("productoForm");
-      const categorySelect = document.getElementById("categoria");
-      const providerSelect = document.getElementById("proveedor");
+      const modal = document.getElementById("actualizarModal");
+      const categorySelect = document.getElementById("categoria-actualizar");
+      const providerSelect = document.getElementById("proveedor-actualizar");
 
       let productoOriginal = null;
 
@@ -79,12 +82,6 @@ window.addEventListener("DOMContentLoaded", async () => {
                     categorySelect.appendChild(option);
           });
 
-
-          if (mode === "crear") {
-              modalTitle.textContent = "Crear nuevo producto";
-              form.reset();
-              productoOriginal = null;
-          } else if (mode === "actualizar") {
               modalTitle.textContent = "Actualizar producto";
 
               productoOriginal = {
@@ -98,27 +95,29 @@ window.addEventListener("DOMContentLoaded", async () => {
                   idProveedor: details.proveedor.idProveedor,
               };
 
-              document.getElementById("nombre").value = productoOriginal.nombre;
-              document.getElementById("descripcion").value = productoOriginal.descripcion;
-              document.getElementById("precio").value = productoOriginal.precio;
-              document.getElementById("fechaVencimiento").value = productoOriginal.fechaVencimiento;
-              document.getElementById("ventaLibre").checked = productoOriginal.ventaLibre;
-              document.getElementById("impuesto").value = productoOriginal.impuesto;
+              document.getElementById("nombre-actualizar").value = productoOriginal.nombre;
+              document.getElementById("descripcion-actualizar").value = productoOriginal.descripcion;
+              document.getElementById("precio-actualizar").value = productoOriginal.precio;
+              document.getElementById("fechaVencimiento-actualizar").value = productoOriginal.fechaVencimiento;
+              document.getElementById("ventaLibre-actualizar").checked = productoOriginal.ventaLibre;
+              document.getElementById("impuesto-actualizar").value = productoOriginal.impuesto;
               categorySelect.value = productoOriginal.idCategoria;
               providerSelect.value = productoOriginal.idProveedor;
-          }
+
       });
 
-      form.addEventListener("submit", async function (e) {
+      const updateForm = document.getElementById("actualizarForm");
+
+      updateForm.addEventListener("submit", async function (e) {
           e.preventDefault();
 
           const nuevoProducto = {
-              nombre: document.getElementById("nombre").value,
-              descripcion: document.getElementById("descripcion").value,
-              precio: parseFloat(document.getElementById("precio").value),
-              fechaVencimiento: document.getElementById("fechaVencimiento").value,
-              ventaLibre: document.getElementById("ventaLibre").checked,
-              impuesto: parseFloat(document.getElementById("impuesto").value),
+              nombre: document.getElementById("nombre-actualizar").value,
+              descripcion: document.getElementById("descripcion-actualizar").value,
+              precio: parseFloat(document.getElementById("precio-actualizar").value),
+              fechaVencimiento: document.getElementById("fechaVencimiento-actualizar").value,
+              ventaLibre: document.getElementById("ventaLibre-actualizar").checked,
+              impuesto: parseFloat(document.getElementById("impuesto-actualizar").value),
               idCategoria: parseInt(categorySelect.value),
               idProveedor: parseInt(providerSelect.value),
               idSucursal: parseInt(idSucursal)
@@ -135,7 +134,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
           } else {
               console.log("Creando nuevo producto:", nuevoProducto);
-
           }
 
           bootstrap.Modal.getInstance(modal).hide();
@@ -151,21 +149,47 @@ window.addEventListener("DOMContentLoaded", async () => {
       reportsModal.addEventListener("show.bs.modal", async function (event) {
           const res = await fetch(`/api/productos/reportes/${idProduct}/${idSucursal}`);
           const reports = await res.json();
+          //reports.reverse();
           console.log(reports);
+
+          document.getElementById("reports-modal-title").textContent = `${details.nombreProducto}`;
 
           tableBody.innerHTML = "";
           let i = 0;
+          let qty = 0;
+          let qtyAr = [];
 
-          reports.forEach(p => {
-                const tr = document.createElement("tr");
-                i++;
+          reports.reverse().forEach((p, index) => {
+                if (index === 0) {
+                      qty = p.cantidad;
+                 } else {
+                      qty += (p.cantidad * p.tipoMovimiento.factor);
+                 }
+                qtyAr.push(qty);
+          });
+          qtyAr.reverse();
+
+
+          reports.reverse().forEach((p, index) => {
+              const tr = document.createElement("tr");
+              i++;
+              let sign;
+
+              if(p.tipoMovimiento.factor === -1) {
+                tr.classList.add("table-warning");
+                sign = "-";
+              } else {
+                tr.classList.add("table-success");
+                sign = "+";
+              }
+
                 tr.innerHTML = `
                         <tr>
                             <th scope="row">${i}</th>
                             <td>${p.fecha}</td>
                             <td>${p.tipoMovimiento.nombre}</td>
-                            <td>${p.cantidad}</td>
-                            <td>cantidad total</td>
+                            <td>${sign}${p.cantidad}</td>
+                            <td>${qtyAr[index]}</td>
                             <td>${p.referencia}</td>
                         </tr>
                 `;

@@ -12,6 +12,12 @@
     margin: 2px;
 }
 
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 #detail-container {
     margin-top: 2%;
     display: flex;

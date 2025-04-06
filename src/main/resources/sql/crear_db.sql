@@ -423,8 +423,8 @@ GO
 
 CREATE VIEW v_ReportesProductoSucursal AS
 SELECT p.id_producto, p.nombre_producto, fi.cantidad, fi.id_ficha, fi.referencia, fi.fecha, tm.id_tipo_movimiento, tm.nombre, tm.factor, s.id_sucursal, s.nombre_sucursal, pv.* FROM Producto p
-LEFT JOIN Proveedor pv ON pv.id_proveedor = p.id_producto
+LEFT JOIN Proveedor pv ON pv.id_proveedor = p.id_proveedor
 LEFT JOIN FichaInventario fi ON p.id_producto = fi.id_producto
 LEFT JOIN Sucursal s ON s.id_sucursal = fi.id_sucursal
-LEFT JOIN TipoMovimiento tm ON fi.id_tipo_movimiento = tm.factor
+LEFT JOIN TipoMovimiento tm ON fi.id_tipo_movimiento = tm.id_tipo_movimiento;
 GO

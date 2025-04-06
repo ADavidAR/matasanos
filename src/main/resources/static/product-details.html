@@ -47,13 +47,12 @@
 
 <section id="admin-buttons">
     <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#productoModal" data-mode="crear">Crear nuevo producto</button>
-    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#productoModal" data-mode="actualizar">Actualizar producto</button>
 
     <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="productoModalLabel">Nuevo producto</h5>
+                    <h5 class="modal-title" id="productoModalLabel">Crear nuevo producto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
@@ -111,7 +110,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reportes</h5>
+                    <h5 class="modal-title" id="reports-modal-title">Reportes</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="reports-modal" class="modal-body">
@@ -142,11 +141,65 @@
     <div id="detail-container">
 
     </div>
+
+    <div class="modal fade" id="actualizarModal" tabindex="-1" aria-labelledby="actualizarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="actualizarModalLabel">Nuevo producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="actualizarForm">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre-actualizar" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <textarea class="form-control" id="descripcion-actualizar" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio:</label>
+                            <input type="number" class="form-control" id="precio-actualizar" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
+                            <input type="date" class="form-control" id="fechaVencimiento-actualizar">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="ventaLibre-actualizar">
+                            <label class="form-check-label" for="ventaLibre">
+                                Venta libre
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="impuesto" class="form-label">Impuesto (%):</label>
+                            <input type="number" class="form-control" id="impuesto-actualizar" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoría:</label>
+                            <select class="form-select" id="categoria-actualizar" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="proveedor" class="form-label">Proveedor:</label>
+                            <select class="form-select" id="proveedor-actualizar" required></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="productoForm">Guardar producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="/scripts/template.js"></script>
 <script src="/scripts/product-details.js"></script>
 <script src="/scripts/search-bar.js"></script>
+<script src="/scripts/admin-inventory-buttons.js"></script>
 </body>
 </html>
