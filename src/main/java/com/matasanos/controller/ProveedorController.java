@@ -3,9 +3,7 @@ package com.matasanos.controller;
 import com.matasanos.model.Proveedor;
 import com.matasanos.service.ProveedorService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,5 +23,11 @@ public class ProveedorController {
         proveedores = proveedorService.listarProveedores();
 
         return ( proveedores != null ) ? ResponseEntity.ok(proveedores) : ResponseEntity.ok(Collections.emptyMap());
+    }
+
+    @PostMapping
+    public ResponseEntity<String> guardarProveedor(@RequestBody Proveedor proveedor) {
+        proveedorService.guardarNuevoProveedor(proveedor);
+        return ResponseEntity.ok("Proveedor guardado correctamente");
     }
 }

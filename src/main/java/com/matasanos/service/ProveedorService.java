@@ -16,4 +16,8 @@ public class ProveedorService {
     public List<Proveedor> listarProveedores() {
         return proveedorRepo.listarProveedores();
     }
+
+    public void guardarNuevoProveedor(Proveedor proveedor) {
+        proveedorRepo.guardarNuevoProveedor(proveedor);
+    }
 }

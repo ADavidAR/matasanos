@@ -23,4 +23,11 @@ public class ProveedorRepo {
         return jdbcTemplate.query(sql, CustomRowMapper.proveedorRowMapper);
     }
 
+    public void guardarNuevoProveedor (Proveedor proveedor) {
+        String sql = "INSERT INTO Proveedor (razon_social, contacto, RTN_contacto, telefono, correo, direccion) VALUES (?,?,?,?,?,?)";
+
+        int rows = jdbcTemplate.update(sql, proveedor.getRazonSocial(), proveedor.getContacto(), proveedor.getRtnContacto(), proveedor.getTelefono(), proveedor.getCorreo(), proveedor.getDireccion());
+        System.out.println(rows + " lineas afectadas");
+    }
+
 }

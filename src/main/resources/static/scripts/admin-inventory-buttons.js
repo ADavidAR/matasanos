@@ -1,12 +1,12 @@
 const modal = document.getElementById("productoModal");
 const modalCategory = document.getElementById("categoriaModal");
 const modalDepartment = document.getElementById("departamentoModal");
-const modalProveedor = document.getElementById("proveedorModal");
+const modalProvider = document.getElementById("proveedorModal");
 
 const form = document.getElementById("productoForm");
 const formCategory = document.getElementById("categoriaForm");
 const formDepartment = document.getElementById("departamentoForm");
-const formProveedor = document.getElementById("proveedorForm");
+const formProvider = document.getElementById("proveedorForm");
 
 const categorySelect = document.getElementById("categoria");
 const providerSelect = document.getElementById("proveedor");
@@ -87,13 +87,14 @@ async function handleFormSubmit(formId, dataObj, apiUrl) {
 
     bootstrap.Modal.getInstance(document.getElementById(`${formId}Modal`)).hide();
 
-    location.reload();
+    window.location = window.location.href;
 
   } catch (error) {
     console.error("Hubo un error:", error);
     alert("No se pudo guardar la información");
   }
 }
+
 
 //departamento submit
 formDepartment.addEventListener("submit", function (e) {
@@ -106,6 +107,7 @@ formDepartment.addEventListener("submit", function (e) {
   handleFormSubmit("departamento", newDpto, "/api/departamentos");
 });
 
+
 //categoria submit
 formCategory.addEventListener("submit", function (e) {
   const nameCat = document.getElementById("nombre-categoria").value;
@@ -119,40 +121,70 @@ formCategory.addEventListener("submit", function (e) {
   handleFormSubmit("categoria", newCat, "/api/categorias");
 });
 
-form.addEventListener("submit", function (e) {
-  const nameCat = document.getElementById("nombre-categoria").value;
-  const idDepartamento = document.getElementById("departamento").value;
 
-  const newCat = {
-    nombreCategoria: nameCat,
-    departamento: { idDepartamento: idDepartamento }
+const idUsuario = 1; //que lo obtenga del localstorage
+
+//producto submit
+form.addEventListener("submit", function (e) {
+  const nameProd = document.getElementById("nombre").value;
+  const desc = document.getElementById("descripcion").value;
+  const price = document.getElementById("precio").value;
+  const expDate = document.getElementById("fechaVencimiento").value;
+  const freeS = document.getElementById("ventaLibre").checked;
+  const priceDesc = document.getElementById("precio-descuento").value;
+  const tax = document.getElementById("impuesto").value;
+  //fechacreacion
+  const currentDateL = new Date();
+  const currentDate = currentDateL.toISOString().split('T')[0];
+  //fechamodificacion
+  const mCurrentDateL = new Date();
+  const mCurrentDate = mCurrentDateL.toISOString().split('T')[0];
+  const cost = document.getElementById("costo").value;
+  const idCat = document.getElementById("categoria").value;
+  const idProv = document.getElementById("proveedor").value;
+  //inventario null
+  //idcreacion
+  //idmodificaion
+
+  const newProd = {
+    nombreProducto: nameProd,
+    descripcion: desc,
+    precioVenta: price,
+    fechaVencimiento: expDate,
+    ventaLibre: freeS,
+    precioDescuento: priceDesc,
+    impuesto: tax,
+    fechaCreacion: currentDate,
+    fechaModificacion: mCurrentDate,
+    costoVenta: cost,
+    categoria: { idCategoria: idCat },
+    proveedor: { idProveedor: idProv },
+    inventario: null,
+    idUsuarioCreacion: idUsuario,
+    idUsuarioModificacion: idUsuario
   };
 
-  handleFormSubmit("producto", newCat, "/api/categorias");
+  handleFormSubmit("producto", newProd, "/api/productos");
 });
 
-/*
-//categoria submit
-formCategory.addEventListener("submit", function (e) {
-  const nameCat = document.getElementById("nombre-categoria").value;
-  const idDepartamento = document.getElementById("departamento").value;
 
-  const newCat = {
-    nombreCategoria: nameCat,
-    departamento: { idDepartamento: idDepartamento }
+//proveedor submit
+formProvider.addEventListener("submit", function (e) {
+  const nameProv = document.getElementById("razon-proveedor").value;
+  const contact = document.getElementById("contacto-proveedor").value;
+  const contactRTN = document.getElementById("RTN-proveedor").value;
+  const tel = document.getElementById("telefono-proveedor").value;
+  const email = document.getElementById("correo-proveedor").value;
+  const address = document.getElementById("direccion-proveedor").value;
+
+  const newProv = {
+    razonSocial: nameProv,
+    contacto: contact,
+    rtnContacto: contactRTN,
+    telefono: tel,
+    correo: email,
+    direccion: address
   };
 
-  handleFormSubmit("categoria", newCat, "/api/categorias");
+  handleFormSubmit("proveedor", newProv, "/api/proveedores");
 });
-
-form.addEventListener("submit", function (e) {
-  const nameCat = document.getElementById("nombre-categoria").value;
-  const idDepartamento = document.getElementById("departamento").value;
-
-  const newCat = {
-    nombreCategoria: nameCat,
-    departamento: { idDepartamento: idDepartamento }
-  };
-
-  handleFormSubmit("producto", newCat, "/api/categorias");
-});*/
