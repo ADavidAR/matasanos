@@ -27,9 +27,21 @@ public class UsuarioController {
         String usuario = requestBody.get("user");
         String pass = requestBody.get("pass");
 
+        Map<String, Object> response = new HashMap<>();
         Usuario u = usuarioService.autenticarUsuario(usuario, pass);
+        if( u == null ) {
+            response.put("msg", "Usuario o contraseña incorrecto");
+            return ResponseEntity.badRequest().body(response);
+        }
 
-        return ( u != null ) ? ResponseEntity.ok(u) : ResponseEntity.ok(Collections.emptyMap());
+        if(!u.getActivo()) {
+            response.put("msg", "Usuario desactivado. Pongase en contacto con el administrador");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        response.put("userData", u);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/verificar/edicion")
