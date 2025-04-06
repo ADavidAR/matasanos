@@ -17,4 +17,9 @@ window.addEventListener("DOMContentLoaded", async () => {
             optionsNav.appendChild(option);
         }
     })
+
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
 })
