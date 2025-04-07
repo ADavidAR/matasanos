@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es-hn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recetas Médicas</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/styles/head.css">
+    <link rel="stylesheet" href="/styles/prescriptions.css">
+</head>
+<body>
+    <script src="/scripts/AuthenticationAuthorization.js"></script>
+    <script>
+        if(!AuthenticationAuthorization.checkAuthentication()) window.location.href = "/login";
+        const auth = AuthenticationAuthorization.checkAuthorization("/recetas");
+        if(!auth.access) window.location.href = "/home";
+    </script>
+
+        <header>
+        <section id="title-section">
+            <h5 id="role"></h5>
+            <h1 id="title">Recetas Medicas</h1>
+            <button id="logout-btn" class="btn btn-outline-danger">Crerrar Sesión</button>
+        </section>
+        <section id="options">
+            <nav id="nav-options"></nav>
+        </section>
+    </header>
+
+    <section id="main-container">
+        <div class="container pt-5 mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <button type="button" class="btn btn-primary create" data-bs-toggle="modal" data-bs-target="#prescription-modal">
+                    <i class="fas fa-file-prescription me-2"></i> Nueva Receta
+                </button>
+                
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" id="search-prescription" placeholder="Buscar...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="filter-customer">
+                            <option value="">Todos los clientes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="card shadow">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="120">Fecha</th>
+                                    <th>Cliente</th>
+                                    <th>Médico</th>
+                                    <th>Productos</th>
+                                    <th width="120">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prescriptions-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Prescription Modal  -->
+    <div class="modal fade" id="prescription-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="prescription-modal-label">Nueva Receta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="prescription-form">
+                    <div class="modal-body">
+                        <input type="hidden" id="prescription-id">
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="prescription-date" class="form-label">Fecha*</label>
+                                <input type="date" class="form-control" id="prescription-date" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="customer-select" class="form-label">Cliente*</label>
+                                <select class="form-select" id="customer-select" required>
+                                    <option value="" selected disabled>Seleccione un cliente</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="doctor-name" class="form-label">Médico*</label>
+                                <input type="text" class="form-control" id="doctor-name" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="prescription-description" class="form-label">Indicaciones Generales</label>
+                                <textarea class="form-control" id="prescription-description" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Productos Recetados</h5>
+                                <button type="button" class="btn btn-sm btn-primary" id="add-product-btn">
+                                    <i class="fas fa-plus me-1"></i> Agregar
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th width="40%">Producto</th>
+                                                <th width="15%">Cantidad</th>
+                                                <th width="35%">Indicaciones</th>
+                                                <th width="10%">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="prescription-products-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="reset-btn">
+                            <i class="fas fa-broom me-1"></i> Limpiar
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
+                            <i class="fas fa-save me-1"></i> Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Selection Modal -->
+    <div class="modal fade" id="product-selection-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Seleccionar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="search-product" placeholder="Buscar producto...">
+                        <button class="btn btn-outline-primary" type="button" id="search-product-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th width="100">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="available-products-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/scripts/prescriptions.js"></script>
+</body>
+</html>
