@@ -16,9 +16,13 @@ import java.util.List;
 public class PersonaRepo {
 
     JdbcTemplate jdbcTemplate;
+    TelefonoRepo telefonoRepo;
+    CorreoRepo correoRepo;
 
-    public PersonaRepo(JdbcTemplate jdbcTemplate) {
+    public PersonaRepo(JdbcTemplate jdbcTemplate, TelefonoRepo telefonoRepo, CorreoRepo correoRepo) {
         this.jdbcTemplate = jdbcTemplate;
+        this.telefonoRepo = telefonoRepo;
+        this.correoRepo = correoRepo;
     }
 
     public void modificar(Persona persona) {
@@ -33,6 +37,12 @@ public class PersonaRepo {
                 persona.getDni(),
                 persona.getIdPersona()
         );
+
+        correoRepo.eliminar(persona.getIdPersona());
+        correoRepo.agregar(persona.getCorreos() ,persona.getIdPersona());
+
+        telefonoRepo.eliminar(persona.getIdPersona());
+        telefonoRepo.agregar(persona.getTelefonos() ,persona.getIdPersona());
 
         String sqlDireccion = "UPDATE  Direccion SET referencia = ?, id_colonia = ? WHERE id_direccion = ?";
 
@@ -76,7 +86,12 @@ public class PersonaRepo {
             return ps;
         }, keyHolderPersona);
 
-        return  keyHolderPersona.getKey().intValue();
+        int idPersona = keyHolderPersona.getKey().intValue();
+
+        correoRepo.agregar(persona.getCorreos() , idPersona);
+        telefonoRepo.agregar(persona.getTelefonos() ,idPersona);
+
+        return  idPersona;
     }
 
     public Persona obtenerPersonaPorDni(String dni) {

@@ -539,10 +539,24 @@ public class CustomRowMapper {
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Correo> correoSinPersonaRowMapper = (rs, numCol) ->
+            new Correo(
+                    rs.getInt("id_correo"),
+                    rs.getString("correo"),
+                    null
+            );
+
     public static final RowMapper<Telefono> telefonoRowMapper = (rs, numCol) ->
             new Telefono(
                     rs.getInt("id_telefono"),
                     rs.getString("telefono"),
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol)
+            );
+
+    public static final RowMapper<Telefono> telefonoSinPersonaRowMapper = (rs, numCol) ->
+            new Telefono(
+                    rs.getInt("id_telefono"),
+                    rs.getString("telefono"),
+                    null
             );
 }

@@ -13,10 +13,14 @@ public class ClienteRepo {
 
     JdbcTemplate jdbcTemplate;
     PersonaRepo personaRepo;
+    CorreoRepo correoRepo;
+    TelefonoRepo telefonoRepo;
 
-    public ClienteRepo(JdbcTemplate jdbcTemplate, PersonaRepo personaRepo) {
+    public ClienteRepo(JdbcTemplate jdbcTemplate, PersonaRepo personaRepo, CorreoRepo correoRepo, TelefonoRepo telefonoRepo) {
         this.jdbcTemplate = jdbcTemplate;
         this.personaRepo = personaRepo;
+        this.correoRepo = correoRepo;
+        this.telefonoRepo = telefonoRepo;
     }
 
     public List<Cliente> listarClientes() {
@@ -105,9 +109,16 @@ public class ClienteRepo {
     public Cliente obtenerClientePorId(int idCliente) {
         String sql = "SELECT id_persona, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, dni, id_cliente, rtn, fecha_creacion, id_direccion, referencia, id_colonia, nombre_colonia, id_ciudad, ciudad FROM v_ClientePersona WHERE id_cliente = ?";
 
+
         List<Cliente> cliente = jdbcTemplate.query(sql, CustomRowMapper.clienteConDireccionRowMapper, idCliente);
 
-        return cliente.isEmpty() ? null : cliente.getFirst();
+        if(cliente.isEmpty()) return null;
+        Cliente c = cliente.getFirst();
+
+        c.getPersona().setCorreos(correoRepo.listarPorId(c.getPersona().getIdPersona()));
+        c.getPersona().setTelefonos(telefonoRepo.listarPorId(c.getPersona().getIdPersona()));
+
+        return c;
     }
 
     public Cliente obtenerClientePorDni(String dni) {

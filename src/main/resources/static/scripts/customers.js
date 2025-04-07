@@ -1,5 +1,3 @@
-let auth = {create: true};
-
 let emailCount = document.querySelector("#email-count");
 let phoneCount = document.querySelector("#phone-count");
 const phoneCol =  document.querySelector("#phones-col");
@@ -30,10 +28,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const addEmailBtn =  document.querySelector("#add-email-btn");
 
     
-    // roleH5.textContent = userData.rol.nombreRol;
+    roleH5.textContent = userData.rol.nombreRol;
 
 
-    const cities = []//await fetch("/api/ciudades").then(r => r.json());
+    const cities = await fetch("/api/ciudades").then(r => r.json());
     cities.forEach(city => {
         const option = document.createElement("option");
         option.value = city.idCiudad;
@@ -44,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     addPhoneBtn.addEventListener("click", addContactInput.bind(null, phoneCol, "Ingrese un telefono", "phone-input", "tel", validateTel, ""));
     addEmailBtn.addEventListener("click", addContactInput.bind(null, emailCol, "Ingrese un correo", "email-input", "email", noSpaces, ""));
 
-    //await loadCustomers();
+    await loadCustomers();
 
     
     document.querySelector("#search-btn").addEventListener("click", searchCustomers);
@@ -102,6 +100,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         neighborhoodSelect.innerHTML = '<option selected disabled value="">Seleccione una colonia</option>';
         neighborhoodSelect.disabled = true;
         document.querySelector("#submit-btn").disabled = false;
+
+        phoneCol.innerHTML =    `<input type="hidden" id="phone-count" value="0">
+                <label for="phone" class="form-label">Teléfono *</label>
+                <button type="button" id="add-phone-btn" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Agregar
+                </button>`;
+
+        emailCol.innerHTML =    `<input type="hidden" id="email-count" value="0">
+                <label for="email" class="form-label">Correo Electrónico *</label>
+                <button type="button" id="add-email-btn" class="me-1 btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Agregar
+                </button> `;
+
+
+        document.querySelector("#add-phone-btn").addEventListener("click", addContactInput.bind(null, phoneCol, "Ingrese un telefono", "phone-input", "tel", validateTel, ""));
+        document.querySelector("#add-email-btn").addEventListener("click", addContactInput.bind(null, emailCol, "Ingrese un correo", "email-input", "email", noSpaces, ""));
+
     });
 
     //reset button
@@ -125,21 +140,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             let emails = [];
             let phones = [];
 
-            for(let email of document.querySelectorAll(".email-input")) {
+            for(let email of document.querySelectorAll(".email-input input")) {
                 if(email.validity.invalid)  {
                     badInput = email;
                     throw new Error("email invalido");
                 }
 
-                emails.push(email.value);
+                emails.push({
+                    correo: email.value
+                });
             }
 
-            for(let phone of document.querySelectorAll(".phone-input")) {
+            for(let phone of document.querySelectorAll(".phone-input input")) {
                 if(phone.validity.invalid )  {
                     badInput = phone;
                     throw new Error("tel invalido");
                 }
-                phones.push(phone.value);
+                phones.push({
+                    telefono: phone.value
+                });
             }
 
             const customerData = {
@@ -152,6 +171,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     primerApellido: firstLastNameInput.value,
                     segundoApellido: secondLastNameInput.value || null,
                     dni: dniInput.value,
+                    correos: emails,
+                    telefonos: phones,
                     direccion: {
                         idDireccion: addressIdInput.value,
                         referencia: addressRefInput.value,
@@ -174,8 +195,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 body: JSON.stringify(customerData)
             });
 
-            console.log(customerData)
-
             const data = await response.json();
             
             if (!response.ok) {
@@ -186,7 +205,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let fullName = `${customerData.persona.primerNombre} ${customerData.persona.segundoNombre} ${customerData.persona.primerApellido} ${customerData.persona.segundoApellido}`;
                 
                 if(data.fullName.toLowerCase() !== fullName.toLowerCase()) {
-                    console.log("conflicto")
                     Swal.fire({
                         title: "Nombres distintos",
                         text: `El DNI pertenece a una persona registrada con otro nombre. ¿Desea combiar los datos de esa persona?`,
@@ -268,16 +286,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // userData.rol.permisos.forEach((p) => {
-    //     if(p.acceso && p.permiso.accesoDirecto) {
-    //         const option = document.createElement("a");
-    //         option.classList.add("nav");
-    //         option.textContent = p.permiso.descripcion;
-    //         option.dataset.id = p.permiso.idPermiso;
-    //         option.href = p.permiso.endpointUrl;
-    //         optionsNav.appendChild(option);
-    //     }
-    // });
+    userData.rol.permisos.forEach((p) => {
+        if(p.acceso && p.permiso.accesoDirecto) {
+            const option = document.createElement("a");
+            option.classList.add("nav");
+            option.textContent = p.permiso.descripcion;
+            option.dataset.id = p.permiso.idPermiso;
+            option.href = p.permiso.endpointUrl;
+            optionsNav.appendChild(option);
+        }
+    });
 
     document.querySelectorAll(".del").forEach(el => {
         if(!auth.del) el.remove();
@@ -350,10 +368,10 @@ async function viewCustomer(id) {
     
     
     const customer = await fetch(`/api/clientes/${id}`).then(r => r.json());
-    
-    // TO DO add contact
 
-    let html =  
+    const emails = customer.persona.correos.map(item => item.correo);
+    const phones = customer.persona.telefonos.map(item => item.telefono);
+    console.log(customer.persona.telefonos)
     Swal.fire({
         title: `${customer.persona.primerNombre} ${customer.persona.primerApellido}`,
         html: `
@@ -364,8 +382,8 @@ async function viewCustomer(id) {
                 <p><strong>Fecha registro:</strong> ${new Date(customer.fechaCreacion).toLocaleDateString()}</p>
                 <p><strong>Dirección:</strong> ${customer.persona.direccion.colonia.nombreColonia}, ${customer.persona.direccion.colonia.ciudad.ciudad}</p>
                 <p><strong>Referencia:</strong> ${customer.persona.direccion.referencia}</p>
-                <p><strong>Correos:</strong> ${(customer.persona.correos || []).join(", ") || "N/A"}</p>
-                <p><strong>Teléfonos:</strong> ${(customer.persona.telefonos || []).join(", ") || "N/A"}</p>
+                <p><strong>Correos:</strong> ${(emails || []).join(", ") || "N/A"}</p>
+                <p><strong>Teléfonos:</strong> ${(phones || []).join(", ") || "N/A"}</p>
             </div>`,
         confirmButtonText: "Cerrar"
     });
@@ -422,6 +440,10 @@ async function editCustomer(id) {
                             <button type="button" id="add-email-btn" class="me-1 btn btn-primary">
                                 <i class="fa-solid fa-plus"></i> Agregar
                             </button> `;
+
+
+    document.querySelector("#add-phone-btn").addEventListener("click", addContactInput.bind(null, phoneCol, "Ingrese un telefono", "phone-input", "tel", validateTel, ""));
+    document.querySelector("#add-email-btn").addEventListener("click", addContactInput.bind(null, emailCol, "Ingrese un correo", "email-input", "email", noSpaces, ""));
 
     emailCount.value = customer.persona.correos.length;
     phoneCount.value = customer.persona.telefonos.length;
@@ -519,8 +541,7 @@ function addContactInput(col, placeholder, className, type, listenerFunc, value 
     const input = document.createElement("input");
     input.type = type;
     if(type == "tel")
-        input.pattern = /\d{4}-\d{4}/
-    input.pattern =
+        input.pattern = /\d{4}\-\d{4}/
     input.placeholder = placeholder;
     input.classList.add("form-control");
     input.addEventListener("input", listenerFunc.bind(input));
@@ -644,6 +665,5 @@ function checkChanges() {
         }
     }
 
-    console.log("no changes")
     submitBtn.disabled = true;
 }
