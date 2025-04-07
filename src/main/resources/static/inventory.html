@@ -72,19 +72,19 @@
                             </div>
                             <div class="mb-3">
                                 <label for="precio" class="form-label">Precio:</label>
-                                <input type="number" class="form-control" id="precio" step="0.01" required>
+                                <input type="number" class="form-control" id="precio" step="0.01" min="1" required>
                             </div>
                             <div class="mb-3">
                                 <label for="precio-descuento" class="form-label">Precio con descuento:</label>
-                                <input type="number" class="form-control" id="precio-descuento" step="0.01" required>
+                                <input type="number" class="form-control" id="precio-descuento" step="0.01" min="1" required>
                             </div>
                             <div class="mb-3">
                                 <label for="costo" class="form-label">Costo de venta:</label>
-                                <input type="number" class="form-control" id="costo" step="0.01" required>
+                                <input type="number" class="form-control" id="costo" step="0.01" min="1" required>
                             </div>
                             <div class="mb-3">
                                 <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
-                                <input type="date" class="form-control" id="fechaVencimiento">
+                                <input type="date" class="form-control" id="fechaVencimiento" required>
                             </div>
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" id="ventaLibre">
@@ -94,7 +94,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="impuesto" class="form-label">Impuesto (%):</label>
-                                <input type="number" class="form-control" id="impuesto" step="0.01" required>
+                                <input type="number" class="form-control" id="impuesto" step="0.01" min="1" required>
                             </div>
                             <div class="mb-3">
                                 <label for="categoria" class="form-label">Categoría:</label>
@@ -171,7 +171,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="proveedormentoModalLabel">Crear nuevo proveedor</h5>
+                        <h5 class="modal-title" id="proveedormentoModalLabel">Crear nuevo producto</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
                     <div class="modal-body">
@@ -204,7 +204,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" form="proveedorForm">Guardar</button>
+                        <button type="submit" class="btn btn-primary" form="proveedorForm">Guardar producto</button>
                     </div>
                 </div>
             </div>
