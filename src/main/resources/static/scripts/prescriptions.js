@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadPrescriptions();
         
     document.querySelector("#search-prescription").addEventListener("input", searchPrescriptions);
-    document.querySelector("#filter-customer").addEventListener("change", filterByCustomer);
+    document.querySelector("#filter-customer").addEventListener("change", searchPrescriptions);
     document.querySelector("#search-product-btn").addEventListener("click", searchAvailableProducts);
     document.querySelector("#search-product").addEventListener("keypress", (e) => {
         if (e.key === "Enter") searchAvailableProducts();
@@ -104,7 +104,7 @@ async function loadPrescriptions() {
         
         for (const prescription of prescriptions) {
             const customer = prescription.cliente;
-            const customerName = customer ? `${customer.persona.primerNombre} ${customer.persona.primerApellido}` : "Cliente no encontrado";
+            const customerName = customer ? `${customer.persona.primerNombre ?? ""} ${customer.persona.primerApellido ?? ""} ${customer.persona.dni || ""}` : "Cliente no encontrado";
             
             const prescriptionProducts = prescription.productos;
             const productsList = prescriptionProducts.map(p => `${p.producto.nombreProducto} (${p.cantidad})`).join(", ");
@@ -198,15 +198,13 @@ async function viewPrescription(id) {
 
 async function editPrescription(id) {
     try {
-
-
         const prescription = await fetch(`/api/recetas/${id}`).then(r => r.json());
         const prescriptionProducts = prescription.productos;
         
         document.querySelector("#prescription-modal-label").textContent = "Editar Receta";
         document.querySelector("#prescription-id").value = prescription.idReceta;
         document.querySelector("#prescription-date").value = prescription.fecha.split("T")[0];
-        document.querySelector("#customer-select").value = prescription.idCliente;
+        document.querySelector("#customer-select").value = prescription.cliente.idCliente;
         document.querySelector("#doctor-name").value = prescription.nombreMedico;
         document.querySelector("#prescription-description").value = prescription.descripcion || "";
 
@@ -267,8 +265,6 @@ async function deletePrescription(id) {
 
 async function handleFormSubmit(e) {
     e.preventDefault();
-
-    console.trace("submit=======")
     
     const submitBtn = document.querySelector("#submit-btn");
     submitBtn.disabled = true;
@@ -322,7 +318,6 @@ async function handleFormSubmit(e) {
     }
 }
 
-// Funciones auxiliares para productos
 function loadAvailableProducts(products) {
     const tbody = document.querySelector("#available-products-body");
     tbody.innerHTML = "";
@@ -352,7 +347,7 @@ function selectProduct(product) {
         productsInPrescription[currentEditingProductIndex].product = product;
     } else {
 
-        if( productsInPrescription.some( p => p.producto.idProducto === product.producto.idProducto))
+        if(!productsInPrescription.some( p => p.producto.idProducto === product.idProducto))
         productsInPrescription.push({
             producto: product,
             cantidad: 1,
@@ -373,7 +368,6 @@ function renderPrescriptionProducts() {
 
         const tr = document.createElement("tr");
         tr.innerHTML = `<td>${item.producto.nombreProducto}</td>`;
-        console.log(productsInPrescription)
 
         const quantityTd = document.createElement("td");
             const quantityInput = document.createElement("input");
@@ -395,7 +389,6 @@ function renderPrescriptionProducts() {
             instructionsTextarea.value = item.indicaciones || "";
             instructionsTextarea.addEventListener("input", (e) => {
                 productsInPrescription[index].indicaciones = e.target.value;
-                console.log(productsInPrescription);
             });
         
         instructionsTd.appendChild(instructionsTextarea);
@@ -466,10 +459,6 @@ function searchAvailableProducts() {
     );
     
     loadAvailableProducts(filteredProducts);
-}
-
-function filterByCustomer() {
-    searchPrescriptions();
 }
 
 function resetForm() {

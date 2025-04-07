@@ -34,13 +34,13 @@ public class RecetaController {
     @PostMapping("/agregar")
     public ResponseEntity<?> agregarReceta(@RequestBody Receta receta) {
         recetaService.agregar(receta);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(Collections.emptyMap());
     }
 
     @PostMapping("/modificar")
     public ResponseEntity<?> modificarReceta(@RequestBody Receta receta) {
         recetaService.modificar(receta);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(Collections.emptyMap());
     }
 
     @GetMapping("/verificar/eliminar/{idReceta}")

@@ -83,7 +83,7 @@ public class RecetaRepo {
 
 
     public void modificar(Receta receta) {
-        String sqlReceta = "UPDATE Receta fecha = ?, descripcion = ?, nombre_medico = ?, id_cliente = ? WHERE id_receta = ?";
+        String sqlReceta = "UPDATE Receta SET fecha = ?, descripcion = ?, nombre_medico = ?, id_cliente = ? WHERE id_receta = ?";
 
         jdbcTemplate.update(
                 sqlReceta,

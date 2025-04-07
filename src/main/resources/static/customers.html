@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="/styles/head.css">
   </head>
   <body>
-    <script src="/scripts/AuthenticationAuthorization.js"></script>
+    <!-- <script src="/scripts/AuthenticationAuthorization.js"></script>
     <script>
       if(!AuthenticationAuthorization.checkAuthentication()) window.location.href = "/login";
       const auth = AuthenticationAuthorization.checkAuthorization("/clientes");
       if(!auth.access) window.location.href = "/home";
-    </script>
+    </script> -->
     <header>
         <section id="title-section">
             <h5 id="role"></h5>
@@ -29,7 +29,7 @@
         </section>
     </header>
     <section id="main-container">
-        <div class="container mb-5">
+        <div class="container pt-5 mb-5">
             <button type="button" data-bs-toggle="modal"  class="btn btn-primary mb-3 create" data-bs-target="#customer-modal">
                 <i class="fa-solid fa-user-plus"></i> Nuevo Cliente
             </button>
@@ -100,6 +100,26 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="rtn" class="form-label">RTN</label>
                                         <input type="text" class="form-control" id="rtn">
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="mb-4">
+                                <legend class="fw-bold text-primary"><i class="fas fa-address-book me-2"></i>Información de Contacto</legend>
+                                <div class="row">
+                                    <div id="phones-col" class="col-md-6 mb-3">
+                                        <input type="hidden" id="phone-count" value="0">
+                                        <label for="phone" class="form-label">Teléfono *</label>
+                                        <button type="button" id="add-phone-btn" class="btn btn-primary">
+                                            <i class="fa-solid fa-plus"></i> Agregar
+                                        </button>
+                                    </div>
+                                    <div id="email-col" class="col-md-6 my-3">
+                                        <input type="hidden" id="email-count" value="0">
+                                        <label for="email" class="form-label">Correo Electrónico *</label>
+                                        <button type="button" id="add-email-btn" class="me-1 btn btn-primary">
+                                            <i class="fa-solid fa-plus"></i> Agregar
+                                        </button>
                                     </div>
                                 </div>
                             </fieldset>

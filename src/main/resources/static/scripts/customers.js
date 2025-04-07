@@ -1,3 +1,9 @@
+let auth = {create: true};
+
+let emailCount = document.querySelector("#email-count");
+let phoneCount = document.querySelector("#phone-count");
+const phoneCol =  document.querySelector("#phones-col");
+const emailCol =  document.querySelector("#email-col");
 document.addEventListener("DOMContentLoaded", async () => {
     const roleH5 = document.querySelector("#role");
     const optionsNav = document.querySelector("#nav-options");
@@ -18,11 +24,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const customerIdInput = document.querySelector("#customer-id");
     const personIdInput = document.querySelector("#person-id");
     const addressIdInput = document.querySelector("#address-id");
+
+
+    const addPhoneBtn =  document.querySelector("#add-phone-btn");
+    const addEmailBtn =  document.querySelector("#add-email-btn");
+
     
-    roleH5.textContent = userData.rol.nombreRol;
+    // roleH5.textContent = userData.rol.nombreRol;
 
 
-    const cities = await fetch("/api/ciudades").then(r => r.json());
+    const cities = []//await fetch("/api/ciudades").then(r => r.json());
     cities.forEach(city => {
         const option = document.createElement("option");
         option.value = city.idCiudad;
@@ -30,7 +41,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         citySelect.appendChild(option);
     });
 
-    await loadCustomers();
+    addPhoneBtn.addEventListener("click", addContactInput.bind(null, phoneCol, "Ingrese un telefono", "phone-input", "tel", validateTel, ""));
+    addEmailBtn.addEventListener("click", addContactInput.bind(null, emailCol, "Ingrese un correo", "email-input", "email", noSpaces, ""));
+
+    //await loadCustomers();
 
     
     document.querySelector("#search-btn").addEventListener("click", searchCustomers);
@@ -105,7 +119,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         submitBtn.disabled = true;
         submitBtn.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Procesando...";
         
+        let badInput;
         try {
+
+            let emails = [];
+            let phones = [];
+
+            for(let email of document.querySelectorAll(".email-input")) {
+                if(email.validity.invalid)  {
+                    badInput = email;
+                    throw new Error("email invalido");
+                }
+
+                emails.push(email.value);
+            }
+
+            for(let phone of document.querySelectorAll(".phone-input")) {
+                if(phone.validity.invalid )  {
+                    badInput = phone;
+                    throw new Error("tel invalido");
+                }
+                phones.push(phone.value);
+            }
+
             const customerData = {
                 idCliente: customerIdInput.value || 0,
                 rtn: rtnInput.value || null,
@@ -114,7 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     primerNombre: firstNameInput.value,
                     segundoNombre: secondNameInput.value || null,
                     primerApellido: firstLastNameInput.value,
-                    segundoApellido: secondLastNameInput.valu || null,
+                    segundoApellido: secondLastNameInput.value || null,
                     dni: dniInput.value,
                     direccion: {
                         idDireccion: addressIdInput.value,
@@ -210,6 +246,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             } else if (error.message.includes("rtn existente")) {
                 errorMessage = "El RTN ya está registrado para otro cliente";
                 rtnInput.focus();
+            } else if(error.message.includes("email invalido")) {
+                errorMessage = "Hay un correo invalido";
+                badInput.focus();
+            } else if(error.message.includes("tel invalido")) {
+                errorMessage = "Hay un telefono invalido";
+                badInput.focus();
             } else {
                 errorMessage = error.message || errorMessage;
             }
@@ -226,16 +268,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    userData.rol.permisos.forEach((p) => {
-        if(p.acceso && p.permiso.accesoDirecto) {
-            const option = document.createElement("a");
-            option.classList.add("nav");
-            option.textContent = p.permiso.descripcion;
-            option.dataset.id = p.permiso.idPermiso;
-            option.href = p.permiso.endpointUrl;
-            optionsNav.appendChild(option);
-        }
-    });
+    // userData.rol.permisos.forEach((p) => {
+    //     if(p.acceso && p.permiso.accesoDirecto) {
+    //         const option = document.createElement("a");
+    //         option.classList.add("nav");
+    //         option.textContent = p.permiso.descripcion;
+    //         option.dataset.id = p.permiso.idPermiso;
+    //         option.href = p.permiso.endpointUrl;
+    //         optionsNav.appendChild(option);
+    //     }
+    // });
 
     document.querySelectorAll(".del").forEach(el => {
         if(!auth.del) el.remove();
@@ -309,6 +351,9 @@ async function viewCustomer(id) {
     
     const customer = await fetch(`/api/clientes/${id}`).then(r => r.json());
     
+    // TO DO add contact
+
+    let html =  
     Swal.fire({
         title: `${customer.persona.primerNombre} ${customer.persona.primerApellido}`,
         html: `
@@ -319,8 +364,9 @@ async function viewCustomer(id) {
                 <p><strong>Fecha registro:</strong> ${new Date(customer.fechaCreacion).toLocaleDateString()}</p>
                 <p><strong>Dirección:</strong> ${customer.persona.direccion.colonia.nombreColonia}, ${customer.persona.direccion.colonia.ciudad.ciudad}</p>
                 <p><strong>Referencia:</strong> ${customer.persona.direccion.referencia}</p>
-            </div>
-        `,
+                <p><strong>Correos:</strong> ${(customer.persona.correos || []).join(", ") || "N/A"}</p>
+                <p><strong>Teléfonos:</strong> ${(customer.persona.telefonos || []).join(", ") || "N/A"}</p>
+            </div>`,
         confirmButtonText: "Cerrar"
     });
 }
@@ -332,7 +378,7 @@ async function editCustomer(id) {
     const customer = await fetch(`/api/clientes/${id}`).then(r => r.json());
     
     customerModalLabel.textContent = "Editar Cliente";
-
+    
     //setup customer data
     const customerIdInput = document.querySelector("#customer-id");
     const personIdInput = document.querySelector("#person-id");
@@ -346,15 +392,14 @@ async function editCustomer(id) {
     const citySelect = document.querySelector("#city-select");
     const neighborhoodSelect = document.querySelector("#neighborhood-select");
     const ref = document.querySelector("#address-ref");
-
-    console.log(customer)
+    
     customerIdInput.value = customer.idCliente;
     personIdInput.value = customer.persona.idPersona;
     addressIdInput.value = customer.persona.direccion.idDireccion;
     
     firstNameInput.value = customer.persona.primerNombre;
     firstNameInput.dataset.value = customer.persona.primerNombre;
-
+    
     secondNameInput.value = customer.persona.segundoNombre || "";
     secondNameInput.dataset.value = customer.persona.segundoNombre || "";
     firstLastnameInput.value = customer.persona.primerApellido;
@@ -365,7 +410,28 @@ async function editCustomer(id) {
     dniInput.dataset.value = customer.persona.dni;
     rtnInput.value = customer.rtn || "";
     rtnInput.dataset.value = customer.rtn || "";
+    
+    phoneCol.innerHTML =    `<input type="hidden" id="phone-count" value="0">
+                            <label for="phone" class="form-label">Teléfono *</label>
+                            <button type="button" id="add-phone-btn" class="btn btn-primary">
+                                <i class="fa-solid fa-plus"></i> Agregar
+                            </button>`;
 
+    emailCol.innerHTML =    `<input type="hidden" id="email-count" value="0">
+                            <label for="email" class="form-label">Correo Electrónico *</label>
+                            <button type="button" id="add-email-btn" class="me-1 btn btn-primary">
+                                <i class="fa-solid fa-plus"></i> Agregar
+                            </button> `;
+
+    emailCount.value = customer.persona.correos.length;
+    phoneCount.value = customer.persona.telefonos.length;
+    
+    customer.persona.telefonos.forEach(tel => {
+        addContactInput(phoneCol, "Ingrese un telefono", "phone-input", "tel", validateTel, tel.telefono);
+    });
+    customer.persona.correos.forEach(c => {
+        addContactInput(emailCol, "ingrese un correo", "email-input", "email", noSpaces, c.correo) 
+    });
     
     citySelect.value = customer.persona.direccion.colonia.ciudad.idCiudad;
     citySelect.dataset.value = customer.persona.direccion.colonia.ciudad.idCiudad; 
@@ -446,6 +512,51 @@ async function deleteCustomer(id) {
     }
 }
 
+function addContactInput(col, placeholder, className, type, listenerFunc, value = "") {
+    const inputContainer = document.createElement("div");
+
+    inputContainer.className = `input-group my-2 ${className}`;
+    const input = document.createElement("input");
+    input.type = type;
+    if(type == "tel")
+        input.pattern = /\d{4}-\d{4}/
+    input.pattern =
+    input.placeholder = placeholder;
+    input.classList.add("form-control");
+    input.addEventListener("input", listenerFunc.bind(input));
+    input.value = value;
+    input.dataset.value = value || " ";
+
+    const button = document.createElement("button");
+    button.className = "btn btn-outline-danger";
+    button.type = "button"
+    button.innerHTML = '<i class="fas fa-trash"></i>';
+    button.addEventListener("click", (e) => {
+        e.target.closest("div.input-group").remove();
+    });
+
+    inputContainer.appendChild(input);
+    inputContainer.appendChild(button);
+    col.appendChild(inputContainer);
+}
+
+function validateTel () {
+    let value = this.value.replace(/\D/g, '');
+    if (value.length <= 4) {
+        this.value = value;
+    } else if (value.length <= 8) {
+        this.value = value.slice(0, 4) + '-' + value.slice(4);
+    } else {
+        this.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+    }
+    checkChanges()
+}
+
+function noSpaces() {
+    this.value = this.value.replace(/\s/g, "");
+    checkChanges
+}
+
 async function searchCustomers() {
     const searchTerm = document.querySelector("#search-customer").value.trim().toLowerCase();
     
@@ -514,8 +625,18 @@ function checkChanges() {
         return;
     }
 
-    const inputs = document.querySelectorAll("#first-name, #second-name, #first-lastname, #second-lastname, #dni, #rtn, #neighborhood-select, #city-select, #address-ref");
+    const phoneInputs = document.querySelectorAll(".phone-input");
+    const emailInput = document.querySelectorAll(".email-input");
+
+    if(phoneInputs.length !== parseInt(phoneCount.value) && parseInt(emailCount) !==  emailInput) {
+        submitBtn.disabled = false;
+        return;
+    }
     
+    const otherInputs = document.querySelectorAll("#first-name, #second-name, #first-lastname, #second-lastname, #dni, #rtn, #neighborhood-select, #city-select, #address-ref");
+
+    const inputs =[...otherInputs, ...phoneInputs, ...emailInput];
+
     for(const input of inputs) {
         if(input.value !== input.dataset.value) {
             submitBtn.disabled = false;
