@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es-hn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Empleados</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles/head.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    
+    <!--<script src="/scripts/AuthenticationAuthorization.js">
+      if(!AuthenticationAuthorization.checkAuthorization()) window.location.href = "/login";
+      const auth = AuthenticationAuthorization.checkAuthorization("/permisos");
+      if(!auth.access) window.location.href = "/home";
+    </script>-->
+    <header>
+      <section id="title-section">
+        <h1 id="title">Empleados</h1>
+        <button id="logout-btn" class="btn btn-outline-danger">CrerrarSesión</button>
+      </section>
+      <section id="options">
+        <nav id="nav-options"></nav>
+      </section>
+    </header>
+    <section id="main-container" class="container-fluid mt-4">
+      <div class="row">
+        <!-- Columna para la tabla (izquierda) -->
+        <div class="col-lg-5 col-xl-4 mb-4">
+          <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+              <h3 class="card-title">
+                <i class="fas fa-users me-2"></i>Lista de Empleados
+              </h3>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                <table
+                  class="table table-hover table-striped mb-0"
+                  id="employeesTable"
+                >
+                  <thead class="table-dark" style="position: sticky;
+                  top: 0;
+                  background: white;
+                  z-index: 10;">
+                    <tr>
+                      <th scope="col" class="text-center">DNI</th>
+                      <th scope="col">Nombre Completo</th>
+                      <th scope="col" class="text-center">Cargo</th>
+                      <th scope="col" class="text-center">VerDatos</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Ejemplo de datos -->
+                   
+                  </tbody>
+                </table>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna para el formulario (derecha) -->
+        <div class="col-lg-7 ">
+          <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+              <h3 class="card-title">
+                <i class="fas fa-user-tie me-2"></i>Datos del Empleado
+              </h3>
+            </div>
+            <div class="card-body">
+              <form id="employeeForm">
+                <div class="d-flex gap-2">
+                    <!-- Botón Editar - Amarillo -->
+                    <button disabled="true" id="update" type="button" class="btn btn-warning btn-sm text-white" data-accion="">
+                      <i class="bi bi-pencil"></i> Editar
+                    </button>
+                    
+                    <!-- Botón Eliminar - Rojo -->
+                    <button disabled="true" id="openDelete" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarEliminacionModal">
+                      <i class="bi  bi-trash"></i> Eliminar
+                    </button>
+                  </div>
+                <!-- Sección de Información Personal -->
+                <fieldset class="mb-4 personData">
+                  <legend class="fw-bold text-primary">
+                    <i class="fas fa-id-card me-2"></i>Información Personal
+                    
+                  </legend>
+                  
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="idNumber" class="form-label">DNI *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="idNumber"
+                        pattern="[0-9]{13}"
+                        title="Ingrese 13 dígitos"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName" class="form-label"
+                        >Primer Nombre *</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="firstName"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="middleName" class="form-label"
+                        >Segundo Nombre</label
+                      >
+                      <input type="text" class="form-control" id="middleName" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="lastName" class="form-label"
+                        >Primer Apellido *</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="lastName"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="secondLastName" class="form-label"
+                        >Segundo Apellido</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="secondLastName"
+                      />
+                    </div>
+                    
+                  </div>
+                </fieldset>
+
+                <!-- Sección de Datos Laborales -->
+                <fieldset class="mb-4 employmentData">
+                  <legend class="fw-bold text-primary">
+                    <i class="fas fa-briefcase me-2"></i>Datos Laborales
+                  </legend>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="position" class="form-label">Cargo *</label>
+                      <select class="form-select" id="position" required>
+                        <option value="">Seleccione un cargo</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="branch" class="form-label">Sucursal *</label>
+                      <select class="form-select" id="branch" required>
+                        <option value="">Seleccione una sucursal</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="salary" class="form-label">Salario *</label>
+                      <div class="input-group">
+                        <span class="input-group-text">L</span>
+                        <input
+                          type="number"
+                          step="0.01"
+                          class="form-control"
+                          id="salary"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="hireDate" class="form-label"
+                        >Fecha de Contratación *</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="hireDate"
+                        required
+                      />
+                    </div>
+                  </div>
+                </fieldset>
+
+                <!-- Sección de Contacto -->
+                <fieldset class="mb-4 contactDetails">
+                  <legend class="fw-bold text-primary">
+                    <i class="fas fa-address-book me-2"></i>Información de
+                    Contacto
+                  </legend>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="phone" class="form-label">Teléfono *</label>
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="phone"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="email" class="form-label"
+                        >Correo Electrónico *</label
+                      >
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="address" class="form-label">Dirección *</label>
+                    <div id="direccion">
+                      <label for="city" class="form-label">Ciudad*</label>
+                      <select class="form-select" id="city" required>
+                        <option value="0">Seleccione una ciudad</option>
+                      </select>
+
+                      <label for="colonia" class="form-label">Colonia*</label>
+                      <select
+                        class="form-select"
+                        id="colonia"
+                        disabled="true"
+                        required
+                      >
+                        <option value="0">Seleccione una colonia</option>
+                      </select>
+
+                      <label for="references" class="form-label"
+                        >Referencia *</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="references"
+                        rows="2"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button
+                    type="button"
+                    class="btn btn-secondary me-md-2"
+                    id="resetBtn"
+                  >
+                    <i class="fas fa-broom me-1"></i> Limpiar
+                  </button>
+                  <button type="submit" disabled="true" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-save me-1"></i> Guardar Empleado
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="confirmarEliminacionModal" tabindex="-1" aria-labelledby="confirmarEliminacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title" id="confirmarEliminacionModalLabel">
+                <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>¿Estás seguro que deseas eliminar este elemento?</p>
+              <p class="fw-bold">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <i class="bi bi-x-circle"></i> Cancelar
+              </button>
+              <button type="button" id="delete" class="btn btn-danger" id="confirmarEliminarBtn">
+                <i class="bi bi-trash"></i> Sí, Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/employees.js"></script>
+  </body>
+</html>
