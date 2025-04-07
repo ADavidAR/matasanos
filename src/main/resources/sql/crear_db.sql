@@ -261,14 +261,16 @@ CREATE TABLE RecetaProducto(
 );
 
 CREATE TABLE Compra(
-	id_compra INT IDENTITY(1,1) PRIMARY KEY,
-	num_factura_compra VARCHAR(19) NOT NULL,
-	fecha_compra DATE,
-	fecha_entrega DATE,
-	costo_total DECIMAL NOT NULL,
-	id_proveedor INT NOT NULL,
-	FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id_proveedor)
-);
+  	id_compra INT IDENTITY(1,1) PRIMARY KEY,
+  	id_sucursal INT NOT NULL,
+  	num_factura_compra VARCHAR(19) NOT NULL,
+  	fecha_compra DATE,
+  	fecha_entrega DATE,
+  	costo_total DECIMAL NOT NULL,
+  	id_proveedor INT NOT NULL,
+  	FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id_proveedor),
+  	FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal)
+  );
 
 CREATE TABLE ProductoCompra(
 	id_producto_compra INT IDENTITY(1,1) PRIMARY KEY,
