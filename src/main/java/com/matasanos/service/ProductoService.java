@@ -57,4 +57,13 @@ public class ProductoService {
         productoRepo.guardarNuevoProducto(producto);
     }
 
+    public void eliminarProductoPorId(int idProducto) {
+        productoRepo.eliminarProductoPorId(idProducto);
+    }
+
+    public void actualizarProducto(int idProducto, Producto producto) {
+        System.out.println(idProducto);
+        productoRepo.actualizarProducto(idProducto, producto);
+    }
+
 }

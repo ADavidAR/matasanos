@@ -8,6 +8,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     const products = await response.json();
     console.log(products);
 
+    if(products.length === 0) {
+        alert("No hay productos para esta categoria");
+        window.history.back();
+    }
+
     document.getElementById("view-title").textContent = `${products[0].categoria.nombreCategoria}`;
 
     const section = document.querySelector("#products-container");

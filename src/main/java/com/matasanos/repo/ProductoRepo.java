@@ -23,7 +23,7 @@ public class ProductoRepo {
     }
 
     public Producto obtenerProductoDeSucursal(int idProducto, int idSucursal) {
-        String sql = "SELECT id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, id_departamento, nombre_departamento, SUM(cantidad * factor) AS inventario_actual, id_proveedor, id_usuario_creacion, id_usuario_modificacion FROM v_ProductoSucursal WHERE id_producto = ? AND id_sucursal = ? GROUP BY id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, id_departamento, nombre_departamento, id_proveedor, id_usuario_creacion, id_usuario_modificacion";
+        String sql = "SELECT id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, id_departamento, nombre_departamento, SUM(cantidad * factor) AS inventario_actual, id_proveedor, id_usuario_creacion, id_usuario_modificacion, costo_venta, fecha_modificacion, precio_descuento FROM v_ProductoSucursal WHERE id_producto = ? AND id_sucursal = ? GROUP BY id_producto, nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, precio_descuento, impuesto, fecha_creacion, fecha_modificacion, costo_venta, id_categoria, nombre_categoria, id_departamento, nombre_departamento, id_proveedor, id_usuario_creacion, id_usuario_modificacion, costo_venta, fecha_modificacion, precio_descuento";
         List<Producto> productos = jdbcTemplate.query(sql, CustomRowMapper.productoDeSucursalRowMapper, idProducto, idSucursal);
 
         return (productos.isEmpty()) ? null : productos.getFirst();
@@ -95,6 +95,21 @@ public class ProductoRepo {
         //System.out.println(rows + " lineas afectadas");
 
         int rowsFicha = jdbcTemplate.update(sqlFicha, producto.getNombreProducto());
+    }
+
+    public void eliminarProductoPorId(int idProducto) {
+        String sqlF = "DELETE FROM FichaInventario WHERE id_producto = ?";
+        int registrosEliminadosFicha = jdbcTemplate.update(sqlF, idProducto);
+
+        String sql = "DELETE FROM Producto WHERE id_producto = ?";
+        int registrosEliminadosProducto = jdbcTemplate.update(sql, idProducto);
+
+    }
+
+    public void actualizarProducto(int idProducto, Producto producto) {
+        String sql = "UPDATE Producto SET nombre_producto = ?, descripcion = ?, precio_venta = ?, fecha_vencimiento = ?, venta_libre = ?, precio_descuento = ?, impuesto = ?, fecha_modificacion = GETDATE(), costo_venta = ?, id_categoria = ?, id_proveedor = ?, id_usuario_modificacion = ?  WHERE id_producto = ?";
+
+        jdbcTemplate.update(sql, producto.getNombreProducto(), producto.getDescripcion(), producto.getPrecioVenta(), producto.getFechaVencimiento(), producto.getVentaLibre(), producto.getPrecioDescuento(), producto.getImpuesto(), producto.getCostoVenta(), producto.getCategoria().getIdCategoria(), producto.getProveedor().getIdProveedor(), producto.getIdUsuarioModificacion(), idProducto);
     }
 
 }

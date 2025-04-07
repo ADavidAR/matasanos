@@ -1,5 +1,6 @@
 window.addEventListener("DOMContentLoaded", async () => {
     let idSucursal = 1; //que lo obbtenga de localstorage
+    const idUsuario = 1;
     const params = new URLSearchParams(window.location.search);
     const idProduct = params.get("idProducto");
 
@@ -20,9 +21,9 @@ window.addEventListener("DOMContentLoaded", async () => {
 
           <div class="card-header">
             <h2 id="productName">${details.nombreProducto}</h2>
-            <div>
+            <div id="admin-del-upd-buttons">
                 <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#actualizarModal" data-mode="actualizar">Actualizar</button>
-                <button type="button" class="btn btn-danger m-2">Eliminar</button>
+                <button type="button" class="btn btn-danger m-2" id="eliminarProductoBtn">Eliminar</button>
             </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -30,10 +31,15 @@ window.addEventListener("DOMContentLoaded", async () => {
             <li class="list-group-item">Producto ID: ${details.idProducto}</li>
             <li class="list-group-item">Descripción: ${details.descripcion}</li>
             <li class="list-group-item">Precio de venta: ${details.precioVenta}</li>
+            <li class="list-group-item">Precio con descuento: ${details.precioDescuento}</li>
+            <li class="list-group-item">Costo de venta: ${details.costoVenta}</li>
             <li class="list-group-item">Fecha de Vencimiento: ${details.fechaVencimiento}</li>
             <li class="list-group-item" id="productRestriction"></li>
             <li class="list-group-item">Categoria: ${details.categoria.nombreCategoria}</li>
             <li class="list-group-item">Departamento: ${details.categoria.departamento.nombreDepartamento}</li>
+            <li class="list-group-item">Fecha de creacion: ${details.fechaCreacion}</li>
+            <li class="list-group-item">Fecha de modificacion: ${details.fechaModificacion}</li>
+            <li class="list-group-item" type="hidden">Usuario ID creacion: ${details.idUsuarioCreacion}</li>
           </ul>
       `;
       section.appendChild(column);
@@ -58,7 +64,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       const categorySelect = document.getElementById("categoria-actualizar");
       const providerSelect = document.getElementById("proveedor-actualizar");
 
-      let productoOriginal = null;
 
       modal.addEventListener("show.bs.modal", async function (event) {
           const button = event.relatedTarget;
@@ -89,63 +94,101 @@ window.addEventListener("DOMContentLoaded", async () => {
                     categorySelect.appendChild(option);
           });
 
+
+
+
               modalTitle.textContent = "Actualizar producto";
 
               productoOriginal = {
                   nombre: details.nombreProducto,
                   descripcion: details.descripcion,
                   precio: details.precioVenta,
+                  precioDescuento: details.precioDescuento,
+                  costoVenta: details.costoVenta,
                   fechaVencimiento: details.fechaVencimiento,
                   ventaLibre: details.ventaLibre,
                   impuesto: details.impuesto,
                   idCategoria: details.categoria.idCategoria,
                   idProveedor: details.proveedor.idProveedor,
+                  fechaCreacion: details.fechaCreacion,
+                  fechaModificacion: details.fechaModificacion,
               };
 
               document.getElementById("nombre-actualizar").value = productoOriginal.nombre;
               document.getElementById("descripcion-actualizar").value = productoOriginal.descripcion;
               document.getElementById("precio-actualizar").value = productoOriginal.precio;
+              document.getElementById("precio-desc-actualizar").value = productoOriginal.precioDescuento;
+              document.getElementById("costo-actualizar").value = productoOriginal.costoVenta;
               document.getElementById("fechaVencimiento-actualizar").value = productoOriginal.fechaVencimiento;
               document.getElementById("ventaLibre-actualizar").checked = productoOriginal.ventaLibre;
               document.getElementById("impuesto-actualizar").value = productoOriginal.impuesto;
               categorySelect.value = productoOriginal.idCategoria;
               providerSelect.value = productoOriginal.idProveedor;
+              document.getElementById("fecha-cre-actualizar").value = productoOriginal.fechaCreacion;
+              document.getElementById("fecha-mod-actualizar").value = productoOriginal.fechaModificacion;
 
       });
 
       const updateForm = document.getElementById("actualizarForm");
+      let productoOriginal = null;
 
       updateForm.addEventListener("submit", async function (e) {
           e.preventDefault();
 
-          const nuevoProducto = {
-              nombre: document.getElementById("nombre-actualizar").value,
+          const mCurrentDateL = new Date();
+          const mCurrentDate = mCurrentDateL.toISOString().split('T')[0];
+
+          const newProd = {
+              nombreProducto: document.getElementById("nombre-actualizar").value,
               descripcion: document.getElementById("descripcion-actualizar").value,
-              precio: parseFloat(document.getElementById("precio-actualizar").value),
+              precioVenta: parseInt(document.getElementById("precio-actualizar").value),
               fechaVencimiento: document.getElementById("fechaVencimiento-actualizar").value,
               ventaLibre: document.getElementById("ventaLibre-actualizar").checked,
-              impuesto: parseFloat(document.getElementById("impuesto-actualizar").value),
-              idCategoria: parseInt(categorySelect.value),
-              idProveedor: parseInt(providerSelect.value),
-              idSucursal: parseInt(idSucursal)
+              precioDescuento: parseInt(document.getElementById("precio-desc-actualizar").value),
+              impuesto: parseInt(document.getElementById("impuesto-actualizar").value),
+              fechaCreacion: document.getElementById("fecha-cre-actualizar").value,
+              fechaModificacion: mCurrentDate,
+              costoVenta: parseInt(document.getElementById("costo-actualizar").value),
+              categoria: { idCategoria: details.categoria.idCategoria },
+              proveedor: { idProveedor: details.proveedor.idProveedor },
+              inventario: null,
+              idUsuarioCreacion: parseInt(document.getElementById("usu-cre-actualizar").value),
+              idUsuarioModificacion: idUsuario
+
           };
 
           if (productoOriginal) {
-              const sinCambios = Object.keys(nuevoProducto).every(key => nuevoProducto[key] === productoOriginal[key]);
+              const sinCambios = Object.keys(newProd).every(key => newProd[key] === productoOriginal[key]);
               if (sinCambios) {
                   alert("No se detectaron cambios en el formulario.");
                   return;
               }
-
-              console.log("Producto actualizado:", nuevoProducto);
-
-          } else {
-              console.log("Creando nuevo producto:", nuevoProducto);
+              console.log("Producto actualizado:", newProd);
           }
 
-          bootstrap.Modal.getInstance(modal).hide();
+          try {
+              const response = await fetch(`/api/productos/${idProduct}`, {
+                  method: "PUT",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(newProd)
+              });
 
-          location.reload();
+              if (response.ok) {
+                  alert("Producto actualizado exitosamente");
+                  bootstrap.Modal.getInstance(modal).hide();
+                  location.reload();
+              } else if (response.status === 404) {
+                  alert("Producto no encontrado");
+              } else {
+                  alert("Error al actualizar el producto");
+              }
+          } catch (error) {
+              console.error("Error en la solicitud:", error);
+              alert("Hubo un problema al actualizar el producto.");
+          }
+
       });
 
 
@@ -209,31 +252,49 @@ window.addEventListener("DOMContentLoaded", async () => {
         const tableBodyP = document.getElementById("table-body-proveedores")
 
       //llenado del modal que muestra los proveedores
-            providersTableModal.addEventListener("show.bs.modal", async function (event) {
-                const res = await fetch("/api/proveedores");
-                const providers = await res.json();
-                console.log(providers);
+        providersTableModal.addEventListener("show.bs.modal", async function (event) {
+            const res = await fetch("/api/proveedores");
+            const providers = await res.json();
+            console.log(providers);
 
-                document.getElementById("reports-modal-title").textContent = "Proveedores";
+            document.getElementById("reports-modal-title").textContent = "Proveedores";
 
-                tableBodyP.innerHTML = "";
+            tableBodyP.innerHTML = "";
 
-                providers.forEach((p) => {
-                    const tr = document.createElement("tr");
+            providers.forEach((p) => {
+                const tr = document.createElement("tr");
 
-                      tr.innerHTML = `
-                              <tr>
-                                  <th scope="row">${p.idProveedor}</th>
-                                  <td>${p.razonSocial}</td>
-                                  <td>${p.contacto}</td>
-                                  <td>${p.rtnContacto}</td>
-                                  <td>${p.telefono}</td>
-                                  <td>${p.correo}</td>
-                                  <td>${p.direccion}</td>
-                              </tr>
-                      `;
-                      tableBodyP.appendChild(tr);
-                });
+                  tr.innerHTML = `
+                          <tr>
+                              <th scope="row">${p.idProveedor}</th>
+                              <td>${p.razonSocial}</td>
+                              <td>${p.contacto}</td>
+                              <td>${p.rtnContacto}</td>
+                              <td>${p.telefono}</td>
+                              <td>${p.correo}</td>
+                              <td>${p.direccion}</td>
+                          </tr>
+                  `;
+                  tableBodyP.appendChild(tr);
+            });
+        });
+
+
+        //eliminacion de producto
+        eliminarProductoBtn.addEventListener("click", async () => {
+                if (confirm("¿Está seguro de que deseas eliminar este producto?")) {
+                        const eliminarResponse = await fetch(`/api/productos/${idProduct}`, {
+                            method: 'DELETE',
+                        });
+                        if (eliminarResponse.ok) {
+                            alert("Producto eliminado con éxito.");
+                            window.location.href = "/inventory";
+                        } else {
+                            alert("Hubo un problema al eliminar el producto.");
+                        }
+                        console.error("Error al eliminar el producto:", error);
+                        alert("Error al eliminar el producto.");
+                }
             });
 
 })

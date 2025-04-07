@@ -95,5 +95,16 @@ public class ProductoController {
         return ResponseEntity.ok("Categoria guardado correctamente");
     }
 
+    @DeleteMapping("/{idProducto}")
+    public ResponseEntity<String> eliminarProductoPorId(@PathVariable int idProducto) {
+            productoService.eliminarProductoPorId(idProducto);
+            return ResponseEntity.ok("Producto eliminado correctamente");
+    }
+
+    @PutMapping("/{idProducto}")
+    public ResponseEntity<String> actualizarProducto(@PathVariable int idProducto, @RequestBody Producto producto) {
+            productoService.actualizarProducto(idProducto, producto);
+            return ResponseEntity.ok("Producto actualizado correctamente");
+    }
 
 }

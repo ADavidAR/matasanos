@@ -14,7 +14,7 @@
 <body>
 <header>
     <section id="title-section">
-        <h1 id="title">Inventario</h1>
+        <h1 id="title" onclick="window.location.href='/inventory';">Inventario</h1>
     </section>
     <section id="options">
         <nav id="nav-options"></nav>
@@ -309,6 +309,14 @@
                             <input type="number" class="form-control" id="precio-actualizar" step="0.01" required>
                         </div>
                         <div class="mb-3">
+                            <label for="precio" class="form-label">Precio con descuento:</label>
+                            <input type="number" class="form-control" id="precio-desc-actualizar" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Costo de venta:</label>
+                            <input type="number" class="form-control" id="costo-actualizar" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
                             <input type="date" class="form-control" id="fechaVencimiento-actualizar">
                         </div>
@@ -329,6 +337,18 @@
                         <div class="mb-3">
                             <label for="proveedor" class="form-label">Proveedor:</label>
                             <select class="form-select" id="proveedor-actualizar" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Fecha de creacion:</label>
+                            <input type="date" class="form-control" id="fecha-cre-actualizar" step="0.01" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Fecha de modificacion:</label>
+                            <input type="date" class="form-control" id="fecha-mod-actualizar" step="0.01" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Usuario ID creacion:</label>
+                            <input type="date" class="form-control" id="usu-cre-actualizar" step="0.01" readonly type="hidden">
                         </div>
                     </form>
                 </div>
