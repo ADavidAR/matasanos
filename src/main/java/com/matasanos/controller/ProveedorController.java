@@ -25,6 +25,15 @@ public class ProveedorController {
         return ( proveedores != null ) ? ResponseEntity.ok(proveedores) : ResponseEntity.ok(Collections.emptyMap());
     }
 
+    @GetMapping("/{idProveedor}")
+    public ResponseEntity<?> obtenerProveedorPorId( @PathVariable int idProveedor) {
+
+        Proveedor proveedor;
+        proveedor = proveedorService.obtenerProveedorPorId(idProveedor);
+
+        return ( proveedor != null ) ? ResponseEntity.ok(proveedor) : ResponseEntity.ok(Collections.emptyMap());
+    }
+
     @PostMapping
     public ResponseEntity<String> guardarProveedor(@RequestBody Proveedor proveedor) {
         proveedorService.guardarNuevoProveedor(proveedor);

@@ -23,6 +23,12 @@ public class ProveedorRepo {
         return jdbcTemplate.query(sql, CustomRowMapper.proveedorRowMapper);
     }
 
+    public Proveedor obtenerProveedorPorId(int idProveedor) {
+        String sql = "SELECT * FROM Proveedor WHERE id_proveedor = ?";
+        List<Proveedor> proveedor = jdbcTemplate.query(sql, CustomRowMapper.proveedorRowMapper, idProveedor);
+        return (proveedor.isEmpty()) ? null : proveedor.getFirst();
+    }
+
     public void guardarNuevoProveedor (Proveedor proveedor) {
         String sql = "INSERT INTO Proveedor (razon_social, contacto, RTN_contacto, telefono, correo, direccion) VALUES (?,?,?,?,?,?)";
 

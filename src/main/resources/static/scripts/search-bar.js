@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const providersTableModal = document.getElementById("proveedoresModal");
     const tableBodyP = document.getElementById("table-body-proveedores")
 
+    //ver proveedores
     providersTableModal.addEventListener("show.bs.modal", async function (event) {
         const res = await fetch("/api/proveedores");
         const providers = await res.json();
@@ -69,6 +70,4 @@ const displayProducts = (productos) => {
         ul.appendChild(li);
     });
 };
-
-//ver proveedores
 

@@ -17,6 +17,10 @@ public class ProveedorService {
         return proveedorRepo.listarProveedores();
     }
 
+    public Proveedor obtenerProveedorPorId(int idProveedor) {
+        return proveedorRepo.obtenerProveedorPorId(idProveedor);
+    }
+
     public void guardarNuevoProveedor(Proveedor proveedor) {
         proveedorRepo.guardarNuevoProveedor(proveedor);
     }
