@@ -25,6 +25,7 @@ window.addEventListener("DOMContentLoaded", async () => {
    
   });
 
+console.log(userData)
 
   
  
@@ -303,7 +304,8 @@ function convertirDatosAJson() {
   const fechaCompra= document.querySelector("#datePurchase")
   datosJson.push({
     numFactura:numFactura.value,
-    fechaCompra:fechaCompra.value
+    fechaCompra:fechaCompra.value,
+    idSucursal:parseInt( userData.empleado.sucursal.idSucursal)
   })
   return datosJson;
 }
@@ -529,48 +531,7 @@ async function cargarDetalleCompra() {
   }
 }
 
-// Confirmar recepción de compra
-/*document.getElementById('confirmRecepcion').addEventListener('click', async function() {
-  const compraId = document.getElementById('comprasList').value;
-  const facturaNumber = document.getElementById('facturaNumber').value;
-  
-  if (!compraId) {
-    alert('Por favor seleccione una solicitud');
-    return;
-  }
-  
-  if (!facturaNumber) {
-    alert('Por favor ingrese el número de factura');
-    return;
-  }
-  
-  try {
-    const response = await fetch('/api/comprar/confirmarRecepcion', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        idCompra: compraId,
-        numeroFactura: facturaNumber
-      })
-    });
-    
-    if (response.ok) {
-      alert('Recepción confirmada correctamente');
-      // Limpiar formulario
-      document.getElementById('facturaNumber').value = '';
-      document.querySelector('#recepcionTable tbody').innerHTML = '';
-      // Recargar solicitudes pendientes
-      cargarComprasPendientes();
-    } else {
-      alert('Error al confirmar la recepción');
-    }
-  } catch (error) {
-    console.error('Error al confirmar recepción:', error);
-    alert('Error al confirmar la recepción');
-  }
-});*/
+
 
 // Event listeners para paginación
 document.getElementById('prevPage').addEventListener('click', () => {

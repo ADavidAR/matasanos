@@ -45,6 +45,8 @@ public class CompraService {
             int cant=  (int) d.get("cantidad") ;
 
             compraRepo.creaProdcutoCompra(cant,costo,idCompra,idPro);
+            compraRepo.crearFichaCompra(cant,idCompra,idPro,(int) datosCompra.get("idSucursal"));
+
         }
 
 
