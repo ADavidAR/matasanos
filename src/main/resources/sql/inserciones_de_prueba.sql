@@ -99,7 +99,15 @@ INSERT INTO Permiso (descripcion, endpoint_url, acceso_directo) VALUES
     ('Sucursales', '/sucursales', 1),  -- Permiso 5
     ('Cajas', '/cajas', 1),            -- Permiso 6
 	('Clientes', '/clientes', 1),      -- Permiso 7
-	('Recetas Medicas', '/recetas', 1);-- Permiso 8
+	('Recetas Medicas', '/recetas', 1),-- Permiso 8
+
+	('Categorias de Producto', '/categorias', 1),-- Permiso 9
+	('Compras', '/compras', 1),-- Permiso 10
+	('Inventario', '/inventory', 1),-- Permiso 11
+	('Ventas', '/ventas', 1),-- Permiso 12
+	('Carrito', '/carrito', 0),-- Permiso 13
+	('Factura', '/factura', 0);-- Permiso 14
+
 
 -- Luego insertamos los roles básicos
 INSERT INTO Rol (nombre_rol) VALUES
@@ -119,6 +127,12 @@ INSERT INTO RolPermiso (id_rol, id_permiso, acceso, modificacion, eliminacion, c
     (1, 6, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Cajas
 	(1, 7, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Clientes
 	(1, 8, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Recetas Medicas
+	(1, 9, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Categorias de Producto
+	(1, 10, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Compras
+	(1, 11, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Inventario
+	(1, 12, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Ventas
+	(1, 13, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Carrito
+	(1, 14, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Factura
     
     -- Permisos para Gerente (acceso casi completo excepto para Permisos)
     (2, 2, 1, 1, 0, 1),  -- Rol 2 (Gerente) puede ver, modificar y crear Usuarios (no eliminar)
@@ -146,16 +160,15 @@ INSERT INTO Persona (
     dni, 
     id_direccion
 ) VALUES
-('Juan', 'Carlos', 'García', 'López', '0801199000123', 1),
-('María', NULL, 'Martínez', 'Hernández', '0801198700456', 2),
-('Pedro', 'Antonio', 'Ramírez', NULL, '0801199500789', 3),
-('José', 'María', 'Flores', 'Castro', '0801199200321', 4),
-('Ana', 'Sofía', 'Pérez', 'González', '0801199300456', 1),
-('Luis', NULL, 'Mejía', NULL, '0801199600678', 2),
-('Carlos', 'Alberto', 'Vásquez', 'Pineda', '0801199400567', NULL),
-('Rosa', 'Isabel', 'Castillo', 'Montenegro', '0801199700789', 3),
-('Mario', 'Enrique', 'Reyes', NULL, '0801199800890', 4),
-('Gabriela', 'Patricia', 'Ordoñez', 'Silva', '0801199900901', 1);
+('Juan', 'Carlos', 'García', 'López', '0801-1990-00123', 1),
+('María', NULL, 'Martínez', 'Hernández', '0801-1987-00456', 2),
+('Pedro', 'Antonio', 'Ramírez', NULL, '0801-1995-00789', 3),
+('José', 'María', 'Flores', 'Castro', '0801-1992-00321', 4),
+('Ana', 'Sofía', 'Pérez', 'González', '0801-1993-00456', 1),
+('Luis', NULL, 'Mejía', NULL, '0801-1996-00678', 2),
+('Carlos', 'Alberto', 'Vásquez', 'Pineda', '0801-1994-00567', 4),
+('Rosa', 'Isabel', 'Castillo', 'Montenegro', '0801-1997-00789', 3),
+('Mario', 'Enrique', 'Reyes', NULL, '0801-1998-00890', 4);
 
 -- Cargos
 INSERT INTO Cargo (descripcion) VALUES
