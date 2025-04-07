@@ -17,7 +17,7 @@ public class PermisoRepo {
     }
 
     public List<Permiso> listarPermisos() {
-        String sql = "SELECT * FROM v_Permiso";
+        String sql = "SELECT * FROM Permiso";
         return jdbcTemplate.query(sql, CustomRowMapper.permisoRowMapper);
     }
 

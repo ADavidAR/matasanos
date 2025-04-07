@@ -17,8 +17,9 @@ window.addEventListener("DOMContentLoaded", async () => {
     const permissionTable = document.querySelector("#permission-table");
     const permissionTBody = document.querySelector("#permission-tbody");
     const roleH5 = document.querySelector("#role");
+    const SelectedRoleH2 = document.querySelector("#role-selected");
 
-
+    
     roleH5.textContent = userData.rol.nombreRol;
     const modifyElems = document.querySelectorAll(".modify");
 
@@ -87,6 +88,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
     })
 
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
+
     modifyElems.forEach( (el) => {
         el.style.display = modifyDisplay;
     })
@@ -96,6 +102,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
         
     let selectedRole = JSON.parse(localStorage.getItem("selectedRole"));
+
+    SelectedRoleH2.textContent = selectedRole.nombreRol;
     
     
     let permissions = await fetch(`/api/permisos/rol/f/${selectedRole.idRol}`, {

@@ -18,12 +18,12 @@ public class RolRepo {
     }
 
     public List<Rol> listarRolesSimples() {
-        String sql = "SELECT * FROM v_Rol";
+        String sql = "SELECT * FROM Rol";
         return jdbcTemplate.query(sql, CustomRowMapper.rolRowMapper);
     }
 
     public boolean existeRol(String nombreRol) {
-        String sql = "SELECT id_rol FROM v_Rol WHERE nombre_rol = ?";
+        String sql = "SELECT id_rol FROM Rol WHERE nombre_rol = ?";
 
         List<Integer> roles = jdbcTemplate.queryForList(sql, Integer.class, nombreRol);
 
@@ -34,14 +34,14 @@ public class RolRepo {
 
         if(existeRol(nombreRol)) return false;
 
-        String sql = "INSERT INTO v_Rol (nombre_rol) VALUES (?)";
+        String sql = "INSERT INTO Rol (nombre_rol) VALUES (?)";
         int afectado = jdbcTemplate.update(sql, nombreRol);
 
         return afectado != 0;
     }
 
     public boolean modificarRol(String nombreRol, int idRol) {
-        String sql = "UPDATE v_Rol SET nombre_rol = ? WHERE id_rol = ?";
+        String sql = "UPDATE Rol SET nombre_rol = ? WHERE id_rol = ?";
         int afectado = jdbcTemplate.update(sql, nombreRol, idRol);
 
         return afectado != 0;
@@ -50,7 +50,7 @@ public class RolRepo {
     public boolean eliminarRol(int idRol) {
         String sqlRolPermiso = "DELETE FROM RolPermiso WHERE id_rol = ?";
         jdbcTemplate.update(sqlRolPermiso,idRol);
-        String sqlRol = "DELETE FROM v_Rol WHERE id_rol = ?";
+        String sqlRol = "DELETE FROM Rol WHERE id_rol = ?";
         int afectado = jdbcTemplate.update(sqlRol, idRol);
 
         return afectado != 0;

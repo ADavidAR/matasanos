@@ -255,6 +255,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         rolesSection.appendChild(spanOption);
     })
 
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
+
     document.querySelector("#confirm-btn").addEventListener("click", async (event) => {
         const btn = event.target;
 

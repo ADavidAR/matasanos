@@ -6,7 +6,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     const editBtn = document.querySelector("#edit-btn");
     const cancelBtn = document.querySelector("#cancel-btn-modify");
     const delBtn = document.querySelector("#del-btn");
-    //const modalAddUser = document.querySelector("#add-user-modal"); 
+    
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
     
     // Edit form
     const username = document.querySelector("#username");

@@ -41,6 +41,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     editBtn.addEventListener("click", setupEditMode);
     cancelBtn.addEventListener("click", setupReadOnlyMode);
 
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
+
 
 
     document.querySelector("#branch-name-edit").addEventListener("input", checkChanges);

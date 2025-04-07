@@ -49,6 +49,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         
         setupReadOnlyMode();
     });
+
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
     
     checkoutSelect.addEventListener("change", setupReadOnlyMode);
     editBtn.addEventListener("click", setupEditMode);
