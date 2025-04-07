@@ -3,6 +3,7 @@ body {
 }
 
 #title-section {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -66,5 +67,22 @@ a[class="btn"] {
 #options > a.btn:active {
     background-color: rgb(0 159 147);
     color: whitesmoke;
-
 }
+
+#logout-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  #logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }

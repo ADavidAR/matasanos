@@ -8,7 +8,9 @@
             form.style.opacity = 1;
             form.style.top = "0px"
         }, 500)
-        
+        document.querySelector("#user").addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\s/g, '');
+        });
     })
     let form = document.querySelector('#login-form');
     const msgPass = document.querySelector("#msg-pass");
@@ -39,6 +41,7 @@
 
 
     }, false)
+
 
     inputs.forEach(input => {
         input.addEventListener("input", (event) => {
@@ -78,8 +81,6 @@ async function validateUser() {
 
 
     if(!response.ok) {
-        debugger;
-        
         msgUser.textContent = "";
         msgPass.textContent = data.msg;
 
@@ -90,15 +91,14 @@ async function validateUser() {
     
     console.log(data.userData)
 
-    debugger;
     localStorage.setItem("userData", JSON.stringify(data.userData));
 
     window.location.href = "/home"
 }
 
 function showPassword() {
-    let passwordInput = document.getElementById("password");
-    let toggleIcon = document.getElementById("toggleIcon");
+    let passwordInput = document.querySelector("#password");
+    let toggleIcon = document.querySelector("#toggleIcon");
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";

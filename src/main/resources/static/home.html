@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="/styles/home.css">
   </head>
   <body>
+    <script src="/scripts/AuthenticationAuthorization.js"></script>
+    <script>
+      if(!AuthenticationAuthorization.checkAuthentication()) window.location.href = "/login";
+    </script>
     <header>
         <section id="title-section">
             <h1 id="title"></h1>
