@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
           <td>${producto.nombreProducto}</td>
           <td>${producto.cantidad}</td>
           <td>${producto.precioVenta.toFixed(2)}</td>
-          <td>${(producto.impuesto*100)}</td>
-          <td class="total">${(producto.cantidad * producto.precioVenta * producto.impuesto).toFixed(2)}</td>
+          <td>${(producto.impuesto*100)}%</td>
+          <td class="total">${((producto.precioVenta + producto.precioVenta *producto.impuesto)*producto.cantidad).toFixed(2)}</td>
 
         </tr>`;
       carritoBody.innerHTML += contenido;
@@ -86,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     let isv = 0;
+
+
     let total = subtotal + isv;
 
     // Formatear a 2 decimales

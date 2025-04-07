@@ -63,32 +63,6 @@ INSERT INTO Proveedor (razon_social, contacto, RTN_contacto, telefono, correo, d
 ('Importadora Internacional', 'Carlos Martinez', '0801199500789', '22338899', 'info@importadorain.com', 'Residencial Los Pinos, San Pedro Sula'),
 ('Suplementos Nutricionales', 'Ana Rodriguez', '0801199200321', '22330011', 'ventas@suplementoshn.com', 'Colonia Las Colinas, Tegucigalpa');
 
-INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, impuesto, id_categoria, id_proveedor, fecha_creacion, id_usuario_creacion) VALUES
-('Paracetamol 500mg', 'Analgesico y antipiretico, caja con 20 tabletas', 50.00, '2025-12-31', 1, 0.15, 1, 1, GETDATE(), 1),
-('Amoxicilina 250mg', 'Antibiotico de amplio espectro, frasco con 12 capsulas', 120.00, '2024-10-15', 0, 0.15, 2, 1, GETDATE(), 1),
-('Jabon Antibacterial', 'Jabon liquido antibacterial 250ml', 35.00, '2026-05-30', 1, 0.15, 3, 2, GETDATE(), 1),
-('Shampoo Anticaspa', 'Shampoo medicado para caspa 400ml', 85.00, '2025-08-20', 1, 0.15, 4, 2, GETDATE(), 1),
-('Vitamina C 1000mg', 'Suplemento de vitamina C, frasco con 30 tabletas', 150.00, '2025-11-30', 1, 0.15, 5, 4, GETDATE(), 1),
-('Termometro Digital', 'Termometro digital con pantalla LCD', 250.00, '2027-01-01', 1, 0.15, 7, 3, GETDATE(), 1);
-
-INSERT INTO TipoMovimiento (nombre, factor) VALUES
-('Compra', 1),       -- Aumenta inventario
-('Venta', -1),       -- Disminuye inventario
-('Ajuste Positivo', 1), -- Ajuste que aumenta
-('Ajuste Negativo', -1), -- Ajuste que disminuye
-('Devolucion', 1);   -- Productos devueltos
-
-INSERT INTO FichaInventario (cantidad, referencia, fecha, id_producto, id_sucursal, id_tipo_movimiento) VALUES
-(100, 'INV-INICIAL', GETDATE(), 1, 1, 1),
-(50, 'INV-INICIAL', GETDATE(), 2, 1, 1),
-(75, 'INV-INICIAL', GETDATE(), 3, 1, 1),
-(30, 'INV-INICIAL', GETDATE(), 4, 1, 1),
-(40, 'INV-INICIAL', GETDATE(), 5, 1, 1),
-(20, 'INV-INICIAL', GETDATE(), 6, 1, 1),
-(80, 'INV-INICIAL', GETDATE(), 1, 2, 1),
-(60, 'INV-INICIAL', GETDATE(), 3, 2, 1),
-(45, 'INV-INICIAL', GETDATE(), 5, 2, 1);
-
 
 -- Primero, insertamos los permisos especificados
 INSERT INTO Permiso (descripcion, endpoint_url, acceso_directo) VALUES
@@ -151,6 +125,37 @@ INSERT INTO RolPermiso (id_rol, id_permiso, acceso, modificacion, eliminacion, c
     (4, 2, 1, 0, 0, 0),  -- Rol 4 (Empleado) puede solo ver Usuarios
     (4, 4, 1, 0, 0, 0);  -- Rol 4 (Empleado) puede solo ver Empleados
 
+	-- Usuarios admin
+INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, activo, id_usuario_creacion) VALUES
+('admin', 'admin123', GETDATE(), 1, 1, 1);          -- Administrador
+
+
+INSERT INTO Producto (nombre_producto, descripcion, precio_venta, fecha_vencimiento, venta_libre, impuesto, id_categoria, id_proveedor, fecha_creacion, id_usuario_creacion) VALUES
+('Paracetamol 500mg', 'Analgesico y antipiretico, caja con 20 tabletas', 50.00, '2025-12-31', 1, 0.15, 1, 1, GETDATE(), 1),
+('Amoxicilina 250mg', 'Antibiotico de amplio espectro, frasco con 12 capsulas', 120.00, '2024-10-15', 0, 0.15, 2, 1, GETDATE(), 1),
+('Jabon Antibacterial', 'Jabon liquido antibacterial 250ml', 35.00, '2026-05-30', 1, 0.15, 3, 2, GETDATE(), 1),
+('Shampoo Anticaspa', 'Shampoo medicado para caspa 400ml', 85.00, '2025-08-20', 1, 0.15, 4, 2, GETDATE(), 1),
+('Vitamina C 1000mg', 'Suplemento de vitamina C, frasco con 30 tabletas', 150.00, '2025-11-30', 1, 0.15, 5, 4, GETDATE(), 1),
+('Termometro Digital', 'Termometro digital con pantalla LCD', 250.00, '2027-01-01', 1, 0.15, 7, 3, GETDATE(), 1);
+
+INSERT INTO TipoMovimiento (nombre, factor) VALUES
+('Compra', 1),       -- Aumenta inventario
+('Venta', -1),       -- Disminuye inventario
+('Ajuste Positivo', 1), -- Ajuste que aumenta
+('Ajuste Negativo', -1), -- Ajuste que disminuye
+('Devolucion', 1);   -- Productos devueltos
+
+INSERT INTO FichaInventario (cantidad, referencia, fecha, id_producto, id_sucursal, id_tipo_movimiento) VALUES
+(100, 'INV-INICIAL', GETDATE(), 1, 1, 1),
+(50, 'INV-INICIAL', GETDATE(), 2, 1, 1),
+(75, 'INV-INICIAL', GETDATE(), 3, 1, 1),
+(30, 'INV-INICIAL', GETDATE(), 4, 1, 1),
+(40, 'INV-INICIAL', GETDATE(), 5, 1, 1),
+(20, 'INV-INICIAL', GETDATE(), 6, 1, 1),
+(80, 'INV-INICIAL', GETDATE(), 1, 2, 1),
+(60, 'INV-INICIAL', GETDATE(), 3, 2, 1),
+(45, 'INV-INICIAL', GETDATE(), 5, 2, 1);
+
 -- Personas
 INSERT INTO Persona (
     primer_nombre, 
@@ -178,11 +183,6 @@ INSERT INTO Cargo (descripcion) VALUES
 ('Farmaceutico'),
 ('Cajero'),
 ('Bodeguero');
-
--- Usuarios admin
-INSERT INTO Usuario (usuario, contrasena, fecha_creacion, id_rol, activo, id_usuario_creacion) VALUES
-('admin', 'admin123', GETDATE(), 1, 1, 1);          -- Administrador
-
 
 DECLARE @idAdmin INT;
 
