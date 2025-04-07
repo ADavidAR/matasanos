@@ -14,7 +14,7 @@
   <body>
     <script src="/scripts/AuthenticationAuthorization.js"></script>
     <script>
-      if(!AuthenticationAuthorization.checkAuthorization()) window.location.href = "/login";
+      if(!AuthenticationAuthorization.checkAuthentication()) window.location.href = "/login";
       const auth = AuthenticationAuthorization.checkAuthorization("/clientes");
       if(!auth.access) window.location.href = "/home";
     </script>
@@ -22,13 +22,14 @@
         <section id="title-section">
             <h5 id="role"></h5>
             <h1 id="title">Clientes</h1>
+            <button id="logout-btn" class="btn btn-outline-danger">Crerrar Sesión</button>
         </section>
         <section id="options">
             <nav id="nav-options"></nav>
         </section>
     </header>
     <section id="main-container">
-        <div class="container mt-5">
+        <div class="container mb-5">
             <button type="button" data-bs-toggle="modal"  class="btn btn-primary mb-3 create" data-bs-target="#customer-modal">
                 <i class="fa-solid fa-user-plus"></i> Nuevo Cliente
             </button>

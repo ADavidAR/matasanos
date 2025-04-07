@@ -335,6 +335,7 @@ CREATE TABLE Telefono(
 	id_persona INT,
 	FOREIGN KEY (id_persona) REFERENCES Persona(id_persona)
 );
+GO
 
 --VISTAS
 CREATE VIEW v_UsuarioConRol AS
@@ -431,4 +432,15 @@ CREATE VIEW v_ClientePersona AS
 	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
 	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
 	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad
+GO
+
+CREATE VIEW v_RecetaCliente AS
+	SELECT r.id_receta, r.fecha, r.nombre_medico, r.descripcion, c.* FROM Receta r
+	LEFT JOIN v_ClientePersona c ON r.id_cliente = c.id_cliente;
+GO
+
+CREATE VIEW v_RecetaProducto AS
+	SELECT rp.*, p.nombre_producto, p.descripcion FROM RecetaProducto rp
+	INNER JOIN Producto p ON p.id_producto = rp.id_producto
+	INNER JOIN Receta r ON r.id_receta = rp.id_receta
 GO

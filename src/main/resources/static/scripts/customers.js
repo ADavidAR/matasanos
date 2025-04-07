@@ -248,6 +248,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelectorAll(".create").forEach(el => {
         if(!auth.create) el.remove();
     });
+
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+        window.localStorage.removeItem("userData");
+        window.location.href = "/login";
+    })
 });
 
 async function loadCustomers() {
@@ -483,7 +488,7 @@ async function searchCustomers() {
             const btnEdit = document.createElement("button");
             btnEdit.setAttribute("class","btn btn-sm btn-warning edit-btn");
             btnEdit.innerHTML = '<i class="fas fa-edit"></i>'
-            btnEdit.addEventListener("click", viewCustomer.bind(null, customer.idCliente));
+            btnEdit.addEventListener("click", editCustomer.bind(null, customer.idCliente));
             tdBtnContainer.appendChild(btnEdit);
         }
 

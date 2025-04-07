@@ -275,6 +275,17 @@ public class CustomRowMapper {
                     0
             );
 
+    public static final RowMapper<Cliente> clienteParaRecetaRowMapper = (rs, numCol) ->
+            new Cliente(
+                    rs.getInt("id_cliente"),
+                    null,
+                    null,
+                    null,
+                    CustomRowMapper.personaSinDireccionRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
+            );
+
     public static final RowMapper<Cliente> clienteConDireccionRowMapper = (rs, numCol) ->
             new Cliente(
                     rs.getInt("id_cliente"),
@@ -332,6 +343,26 @@ public class CustomRowMapper {
                     CustomRowMapper.proveedorRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
+            );
+
+    public static final RowMapper<Producto> productoDeRecetaRowMapper = (rs, numCol) ->
+            new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("descripcion"),
+                    null,
+                    null,
+                    false,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    0,
+                    0
             );
 
 
@@ -407,6 +438,15 @@ public class CustomRowMapper {
                     CustomRowMapper.clienteRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Receta> recetaSimpleRowMapper = (rs, numCol) ->
+            new Receta(
+                    rs.getInt("id_receta"),
+                    rs.getObject("fecha", LocalDate.class),
+                    rs.getString("descripcion"),
+                    rs.getString("nombre_medico"),
+                    CustomRowMapper.clienteParaRecetaRowMapper.mapRow(rs, numCol)
+            );
+
     public static final RowMapper<RecetaProducto> recetaProductoRowMapper = (rs, numCol) ->
             new RecetaProducto(
                     rs.getInt("id_receta_producto"),
@@ -414,6 +454,15 @@ public class CustomRowMapper {
                     rs.getString("indicaciones"),
                     CustomRowMapper.recetaRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.productoRowMapper.mapRow(rs, numCol)
+            );
+
+    public static final RowMapper<RecetaProducto> recetaProductoSimpleRowMapper = (rs, numCol) ->
+            new RecetaProducto(
+                    rs.getInt("id_receta_producto"),
+                    rs.getInt("cantidad"),
+                    rs.getString("indicaciones"),
+                    null,
+                    CustomRowMapper.productoDeRecetaRowMapper.mapRow(rs, numCol)
             );
 
     public static final RowMapper<Compra> compraRowMapper = (rs, numCol) ->
