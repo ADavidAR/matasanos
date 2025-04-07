@@ -2,8 +2,12 @@ document.addEventListener("DOMContentLoaded", function () {
   let productos = []; // Guardar los productos para filtrar después
   let carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Array para almacenar los 
   //tomo el valor de la id sucursal
+  const stored = localStorage.getItem("userData");  
+  const usuario = JSON.parse(stored);
+  const idSucursal = usuario?.empleado?.sucursal?.idSucursal;
+  console.log(idSucursal);
 
-  fetch("api/ventas/2")
+  fetch(`api/ventas/${idSucursal}`)
     .then(response => response.json())
     .then(data => {
       productos = data; // Guardamos los productos obtenidos
@@ -247,3 +251,29 @@ let card = `<div class="col-lg-3 col-md-4 col-sm-6 mb-4 producto-item" data-id="
     });
   }
 });
+
+window.addEventListener("DOMContentLoaded", async () => {
+  const roleH5 = document.querySelector("#role");
+  const optionsNav = document.querySelector("#nav-options");
+  
+  let userData = JSON.parse(localStorage.getItem("userData"));
+
+  roleH5.textContent = userData.rol.nombreRol;
+  
+  userData.rol.permisos.forEach((p) => {
+      if(p.acceso && p.permiso.accesoDirecto) {
+          const option = document.createElement("a");
+          option.classList.add("nav");
+          option.textContent = p.permiso.descripcion;
+          option.dataset.id = p.permiso.idPermiso;
+
+          option.href = p.permiso.endpointUrl;
+          optionsNav.appendChild(option);
+      }
+  })
+
+  document.querySelector("#logout-btn").addEventListener("click", () => {
+      window.localStorage.removeItem("userData");
+      window.location.href = "/login";
+  })
+})
