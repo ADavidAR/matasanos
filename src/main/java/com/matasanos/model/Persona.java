@@ -1,6 +1,7 @@
 package com.matasanos.model;
 
 
+import java.util.List;
 
 public class Persona {
 
@@ -11,6 +12,8 @@ public class Persona {
     private String segundoApellido;// segundo_apellido
     private String dni;// dni
     private Direccion direccion;
+    private List<Correo> correos;
+    private List<Telefono>  telefonos;
 
     public Persona() {}
      
@@ -64,5 +67,21 @@ public class Persona {
 
     public void setDireccion(Direccion direccion ){
         this.direccion = direccion;
+    }
+
+    public List<Correo> getCorreos() {
+        return correos;
+    }
+
+    public void setCorreos(List<Correo> correos) {
+        this.correos = correos;
+    }
+
+    public List<Telefono> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(List<Telefono> telefonos) {
+        this.telefonos = telefonos;
     }
 }

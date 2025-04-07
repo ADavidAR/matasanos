@@ -12,8 +12,6 @@ public class Cliente {
     private Persona persona;
     private Integer idUsuarioCreacion;// id_usuario_creacion
     private Integer idUsuarioModificacion;// id_usuario_modificacion
-    private List<Correo> correos;
-    private List<Telefono>  telefonos;
 
     public Cliente() {}
      
@@ -67,21 +65,5 @@ public class Cliente {
 
     public void setIdUsuarioModificacion(Integer idUsuarioModificacion ){
         this.idUsuarioModificacion = idUsuarioModificacion;
-    }
-
-    public List<Correo> getCorreos() {
-        return correos;
-    }
-
-    public void setCorreos(List<Correo> correos) {
-        this.correos = correos;
-    }
-
-    public List<Telefono> getTelefonos() {
-        return telefonos;
-    }
-
-    public void setTelefonos(List<Telefono> telefonos) {
-        this.telefonos = telefonos;
     }
 }
