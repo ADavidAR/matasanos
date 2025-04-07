@@ -97,7 +97,9 @@ INSERT INTO Permiso (descripcion, endpoint_url, acceso_directo) VALUES
     ('Roles', '/roles', 1),            -- Permiso 3
     ('Empleados', '/empleados', 1),    -- Permiso 4
     ('Sucursales', '/sucursales', 1),  -- Permiso 5
-    ('Cajas', '/cajas', 1);            -- Permiso 6
+    ('Cajas', '/cajas', 1),            -- Permiso 6
+	('Clientes', '/clientes', 1),      -- Permiso 7
+	('Recetas Medicas', '/recetas', 1);-- Permiso 8
 
 -- Luego insertamos los roles básicos
 INSERT INTO Rol (nombre_rol) VALUES
@@ -115,6 +117,8 @@ INSERT INTO RolPermiso (id_rol, id_permiso, acceso, modificacion, eliminacion, c
     (1, 4, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Empleados
     (1, 5, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Sucursales
     (1, 6, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Cajas
+	(1, 7, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Clientes
+	(1, 8, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Recetas Medicas
     
     -- Permisos para Gerente (acceso casi completo excepto para Permisos)
     (2, 2, 1, 1, 0, 1),  -- Rol 2 (Gerente) puede ver, modificar y crear Usuarios (no eliminar)
@@ -208,10 +212,22 @@ INSERT INTO Cliente (rtn, fecha_creacion, id_persona, id_usuario_creacion) VALUE
 ('0801199500789', GETDATE(), 7, 1),
 (NULL, GETDATE(), 8, 1);
 
--- Médicos
-INSERT INTO Medico (num_colegiado, id_persona) VALUES
-('CM12345', 9),  -- Usando la persona del empleado Juan Carlos
-('CM67890', 10);  -- Usando la persona de la empleada Maria Fernanda
+-- Recetas
+INSERT INTO Receta (fecha, descripcion, nombre_medico, id_cliente) VALUES
+('2023-05-10', 'Tratamiento para infección bacteriana', 'Dr. Roberto Mendoza', 1),
+('2023-06-15', 'Control de dolor y fiebre', 'Dra. Laura Sánchez', 2),
+('2023-07-20', 'Tratamiento para infección de vías urinarias', 'Dr. Carlos Jiménez', 3),
+('2023-08-05', 'Suplemento vitamínico para sistema inmunológico', 'Dra. Patricia Gómez', 4),
+('2023-09-12', 'Tratamiento para alergias estacionales', 'Dr. Eduardo Ramírez', 1);
+
+-- Productos asociados a recetas
+INSERT INTO RecetaProducto (cantidad, indicaciones, id_receta, id_producto) VALUES
+(1, 'Tomar 1 tableta cada 8 horas por 7 días', 1, 2),  -- Amoxicilina para receta 1
+(2, 'Tomar 1 tableta cada 6 horas si hay fiebre o dolor', 2, 1),  -- Paracetamol para receta 2
+(1, 'Tomar 1 cápsula cada 12 horas por 10 días', 3, 2),  -- Amoxicilina para receta 3
+(1, 'Tomar 1 tableta diaria con alimentos', 4, 5),  -- Vitamina C para receta 4
+(1, 'Tomar 1 tableta cada 8 horas si hay síntomas', 5, 1),  -- Paracetamol para receta 5
+(1, 'Usar shampoo 3 veces por semana', 5, 4);  -- Shampoo anticaspa para receta 5
 
 INSERT INTO MetodoPago (descripcion) VALUES
 ('Efectivo'),

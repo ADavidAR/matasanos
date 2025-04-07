@@ -8,7 +8,9 @@
             form.style.opacity = 1;
             form.style.top = "0px"
         }, 500)
-        
+        document.querySelector("#user").addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\s/g, '');
+        });
     })
     let form = document.querySelector('#login-form');
     const msgPass = document.querySelector("#msg-pass");
@@ -40,6 +42,7 @@
 
     }, false)
 
+
     inputs.forEach(input => {
         input.addEventListener("input", (event) => {
             document.querySelector("#password").classList.remove("is-invalid");
@@ -61,38 +64,41 @@ async function validateUser() {
     let user = document.querySelector("#user");
     let pass = document.querySelector("#password");
 
-    let data = {
+    let loginData = {
         user: user.value,
         pass: pass.value
     } 
 
-    let userData = await fetch("/api/usuarios/verificar", {
+    const response = await fetch("/api/usuarios/verificar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
-    })
-    .then( response => response.json())
+        body: JSON.stringify(loginData)
+    });
 
-    if(Object.keys(userData).length === 0 || userData.status !== undefined) {
-        
+    const data  = await response.json();
+
+
+    if(!response.ok) {
         msgUser.textContent = "";
-        msgPass.textContent = "Usuario o contraseña incorrecto";
+        msgPass.textContent = data.msg;
 
         pass.classList.add("is-invalid");
         return;
 
     }
+    
+    console.log(data.userData)
 
-    localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("userData", JSON.stringify(data.userData));
 
     window.location.href = "/home"
 }
 
 function showPassword() {
-    let passwordInput = document.getElementById("password");
-    let toggleIcon = document.getElementById("toggleIcon");
+    let passwordInput = document.querySelector("#password");
+    let toggleIcon = document.querySelector("#toggleIcon");
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
