@@ -24,7 +24,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
     })
    
-    
+    document.querySelector("#logout-btn").addEventListener("click", () => {
+      window.localStorage.removeItem("userData");
+      window.location.href = "/login";
+  })
       
       if(permisoCrear){
         const guardar =document.querySelector("#submitBtn")

@@ -25,7 +25,10 @@ window.addEventListener("DOMContentLoaded", async () => {
    
   });
 
-console.log(userData)
+  document.querySelector("#logout-btn").addEventListener("click", () => {
+    window.localStorage.removeItem("userData");
+    window.location.href = "/login";
+})
 
   
  

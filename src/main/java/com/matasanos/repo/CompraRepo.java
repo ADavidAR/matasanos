@@ -39,9 +39,9 @@ public class CompraRepo {
         String sql="SELECT *  from Producto where id_proveedor = ?";
         return jdbcTemplate.query(sql,productoRowMapper,idProveedor);
         }
-        public  int  crearCompra(LocalDate fechaCompra,BigDecimal costoTotal, int idProveedor,  String numFactura){
-        String sql= "insert into Compra(fecha_compra,costo_total,id_proveedor,num_factura_compra) output inserted.id_compra values (?,?,?,?)";
-        return  jdbcTemplate.queryForObject(sql,int.class,fechaCompra,costoTotal,idProveedor,numFactura);
+        public  int  crearCompra(LocalDate fechaCompra,BigDecimal costoTotal, int idProveedor,  String numFactura,int idSUcursal){
+        String sql= "insert into Compra(fecha_compra,costo_total,id_proveedor,num_factura_compra,id_sucursal) output inserted.id_compra values (?,?,?,?,?)";
+        return  jdbcTemplate.queryForObject(sql,int.class,fechaCompra,costoTotal,idProveedor,numFactura,idSUcursal);
 
         }
         public  void creaProdcutoCompra(int cantidad,BigDecimal costo,int idCompra,int idProducto){

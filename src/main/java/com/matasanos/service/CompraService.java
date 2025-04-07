@@ -37,7 +37,7 @@ public class CompraService {
        datos.remove(datos.size() - 1);
         BigDecimal costo_total = calcularCostoTotal(datos);
 
-        int idCompra=compraRepo.crearCompra(LocalDate.parse(datosCompra.get("fechaCompra").toString()),costo_total,idProveedor,(String) datosCompra.get("numFactura"));
+        int idCompra=compraRepo.crearCompra(LocalDate.parse(datosCompra.get("fechaCompra").toString()),costo_total,idProveedor,(String) datosCompra.get("numFactura"),(int) datosCompra.get("idSucursal"));
 
         for (Map<String,Object> d :datos) {
             BigDecimal costo=new BigDecimal(d.get("costo").toString());
