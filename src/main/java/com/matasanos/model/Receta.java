@@ -10,7 +10,7 @@ public class Receta {
     private String descripcion;// descripcion
     private String nombreMedico;// nombre_medico
     private Cliente cliente;
-    List<RecetaProducto> productos;
+    private List<RecetaProducto> productos;
 
     public Receta() {}
      
