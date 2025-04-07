@@ -97,7 +97,9 @@ INSERT INTO Permiso (descripcion, endpoint_url, acceso_directo) VALUES
     ('Roles', '/roles', 1),            -- Permiso 3
     ('Empleados', '/empleados', 1),    -- Permiso 4
     ('Sucursales', '/sucursales', 1),  -- Permiso 5
-    ('Cajas', '/cajas', 1);            -- Permiso 6
+    ('Cajas', '/cajas', 1),            -- Permiso 6
+	('Clientes', '/clientes', 1),      -- Permiso 7
+	('Recetas Medicas', '/recetas', 1);-- Permiso 8
 
 -- Luego insertamos los roles básicos
 INSERT INTO Rol (nombre_rol) VALUES
@@ -115,6 +117,8 @@ INSERT INTO RolPermiso (id_rol, id_permiso, acceso, modificacion, eliminacion, c
     (1, 4, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Empleados
     (1, 5, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Sucursales
     (1, 6, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Cajas
+	(1, 7, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Clientes
+	(1, 8, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Recetas Medicas
     
     -- Permisos para Gerente (acceso casi completo excepto para Permisos)
     (2, 2, 1, 1, 0, 1),  -- Rol 2 (Gerente) puede ver, modificar y crear Usuarios (no eliminar)
