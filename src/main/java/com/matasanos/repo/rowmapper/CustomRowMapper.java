@@ -20,6 +20,13 @@ public class CustomRowMapper {
                     CustomRowMapper.ciudadRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Colonia> coloniaSinCiudadRowMapper = (rs, numCol) ->
+            new Colonia(
+                    rs.getInt("id_colonia"),
+                    rs.getString("nombre_colonia"),
+                    null
+            );
+
     public static final RowMapper<Direccion> direccionRowMapper = (rs, numCol) ->
             new Direccion(
                     rs.getInt("id_direccion"),
@@ -224,6 +231,17 @@ public class CustomRowMapper {
                     CustomRowMapper.direccionRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Persona> personaSinDireccionRowMapper = (rs, numCol) ->
+            new Persona(
+                    rs.getInt("id_persona"),
+                    rs.getString("primer_nombre"),
+                    rs.getString("segundo_nombre"),
+                    rs.getString("primer_apellido"),
+                    rs.getString("segundo_apellido"),
+                    rs.getString("dni"),
+                    null
+            );
+
     public static final RowMapper<Persona> personaSinDireccionDNIRowMapper = (rs, numCol) ->
             new Persona(
                     rs.getInt("id_persona"),
@@ -244,6 +262,39 @@ public class CustomRowMapper {
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
+            );
+
+    public static final RowMapper<Cliente> clienteSinDireccionRowMapper = (rs, numCol) ->
+            new Cliente(
+                    rs.getInt("id_cliente"),
+                    rs.getString("rtn"),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    null,
+                    CustomRowMapper.personaSinDireccionRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
+            );
+
+    public static final RowMapper<Cliente> clienteParaRecetaRowMapper = (rs, numCol) ->
+            new Cliente(
+                    rs.getInt("id_cliente"),
+                    null,
+                    null,
+                    null,
+                    CustomRowMapper.personaSinDireccionRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
+            );
+
+    public static final RowMapper<Cliente> clienteConDireccionRowMapper = (rs, numCol) ->
+            new Cliente(
+                    rs.getInt("id_cliente"),
+                    rs.getString("rtn"),
+                    rs.getObject("fecha_creacion", LocalDate.class),
+                    null,
+                    CustomRowMapper.personaRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
             );
 
     public static final RowMapper<Caja> cajaRowMapper = (rs, numCol) ->
@@ -292,6 +343,26 @@ public class CustomRowMapper {
                     CustomRowMapper.proveedorRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
+            );
+
+    public static final RowMapper<Producto> productoDeRecetaRowMapper = (rs, numCol) ->
+            new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("descripcion"),
+                    null,
+                    null,
+                    false,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    0,
+                    0
             );
 
 
@@ -367,6 +438,15 @@ public class CustomRowMapper {
                     CustomRowMapper.clienteRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Receta> recetaSimpleRowMapper = (rs, numCol) ->
+            new Receta(
+                    rs.getInt("id_receta"),
+                    rs.getObject("fecha", LocalDate.class),
+                    rs.getString("descripcion"),
+                    rs.getString("nombre_medico"),
+                    CustomRowMapper.clienteParaRecetaRowMapper.mapRow(rs, numCol)
+            );
+
     public static final RowMapper<RecetaProducto> recetaProductoRowMapper = (rs, numCol) ->
             new RecetaProducto(
                     rs.getInt("id_receta_producto"),
@@ -374,6 +454,15 @@ public class CustomRowMapper {
                     rs.getString("indicaciones"),
                     CustomRowMapper.recetaRowMapper.mapRow(rs, numCol),
                     CustomRowMapper.productoRowMapper.mapRow(rs, numCol)
+            );
+
+    public static final RowMapper<RecetaProducto> recetaProductoSimpleRowMapper = (rs, numCol) ->
+            new RecetaProducto(
+                    rs.getInt("id_receta_producto"),
+                    rs.getInt("cantidad"),
+                    rs.getString("indicaciones"),
+                    null,
+                    CustomRowMapper.productoDeRecetaRowMapper.mapRow(rs, numCol)
             );
 
     public static final RowMapper<Compra> compraRowMapper = (rs, numCol) ->
@@ -450,10 +539,24 @@ public class CustomRowMapper {
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol)
             );
 
+    public static final RowMapper<Correo> correoSinPersonaRowMapper = (rs, numCol) ->
+            new Correo(
+                    rs.getInt("id_correo"),
+                    rs.getString("correo"),
+                    null
+            );
+
     public static final RowMapper<Telefono> telefonoRowMapper = (rs, numCol) ->
             new Telefono(
                     rs.getInt("id_telefono"),
                     rs.getString("telefono"),
                     CustomRowMapper.personaRowMapper.mapRow(rs, numCol)
+            );
+
+    public static final RowMapper<Telefono> telefonoSinPersonaRowMapper = (rs, numCol) ->
+            new Telefono(
+                    rs.getInt("id_telefono"),
+                    rs.getString("telefono"),
+                    null
             );
 }

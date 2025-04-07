@@ -5,7 +5,7 @@ package com.matasanos.model;
 public class Direccion {
 
     private Integer idDireccion;// id_direccion
-    private String referencia;// referencia
+    private String referencia;//
     private Colonia colonia;
 
     public Direccion() {}
