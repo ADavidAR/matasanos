@@ -5,7 +5,8 @@ import java.time.LocalDate;
 
 public class Compra {
 
-    private Integer idCompra;// id_compra
+    private int idCompra;// id_compra
+    private Sucursal sucursal;
     private String numFacturaCompra;// num_factura_compra
     private LocalDate fechaCompra;// fecha_compra
     private LocalDate fechaEntrega;// fecha_entrega
@@ -14,8 +15,9 @@ public class Compra {
 
     public Compra() {}
      
-    public Compra (Integer idCompra, String numFacturaCompra, LocalDate fechaCompra, LocalDate fechaEntrega, BigDecimal costoTotal, Proveedor proveedor) {
+    public Compra (int idCompra, Sucursal sucursal, String numFacturaCompra, LocalDate fechaCompra, LocalDate fechaEntrega, BigDecimal costoTotal, Proveedor proveedor) {
         this.idCompra = idCompra;
+        this.sucursal = sucursal;
         this.numFacturaCompra = numFacturaCompra;
         this.fechaCompra = fechaCompra;
         this.fechaEntrega = fechaEntrega;
@@ -23,10 +25,16 @@ public class Compra {
         this.proveedor = proveedor;
     }
 
-    public Integer getIdCompra() { return idCompra; }
+    public int getIdCompra() { return idCompra; }
 
-    public void setIdCompra(Integer idCompra ){
+    public void setIdCompra(int idCompra ){
         this.idCompra = idCompra;
+    }
+
+    public Sucursal getSucursal() { return sucursal; }
+
+    public void setSucursal(Sucursal sucursal ){
+        this.sucursal = sucursal;
     }
 
     public String getNumFacturaCompra() { return numFacturaCompra; }
