@@ -1,12 +1,12 @@
 package com.matasanos.repo;
 
-import com.matasanos.model.Producto;
-import com.matasanos.repo.rowmapper.CustomRowMapper;
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.matasanos.model.Producto;
+import com.matasanos.repo.rowmapper.CustomRowMapper;
 
 @Repository
 public class ProductoRepo {

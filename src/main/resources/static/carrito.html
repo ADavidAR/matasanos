@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es-hn">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Productos - Sucursal Central</title>
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/head.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="./styles/carrito.css">
+</head>
+
+<body>
+  <header>
+    <section id="title-section">
+      <h5 id="role"></h5>
+      <h1 id="title">Titulo</h1>
+    </section>
+    <section id="options">
+      <nav id="nav-options"></nav>
+    </section>
+  </header>
+  <section id="main-container">
+    <div class="container mt-5 mb-5">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Carrito de Compras</h4>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped align-middle" id="table-carrito">
+              <thead class="table-light">
+                <tr>
+                  <th width="5%">#</th>
+                  <th width="35%">Producto</th>
+                  <th width="15%">Precio Unitario</th>
+                  <th width="15%">Cantidad</th>
+                  <th width="15%">Subtotal</th>
+                  <th width="15%" class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="carrito-body">
+
+                <!-- Ejemplo de fila de producto -->
+                <tr></tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-primary" onclick="window.location.href='/ventas'">
+              <i class="bi bi-plus-circle"></i> Agregar más productos
+            </button>
+            <div>
+              <button class="btn btn-success confirm-btn px-4 py-2" id="confirmar-compra" onclick="window.location.href='/factura'">
+                <i class="bi bi-check-circle-fill me-2" ></i> Crear Factura
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script para funcionalidades -->
+  <script src="./scripts/carrito.js"></script>
+
+</body>
+
+</html>

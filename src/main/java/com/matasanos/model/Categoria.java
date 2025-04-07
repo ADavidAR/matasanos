@@ -16,6 +16,12 @@ public class Categoria {
         this.departamento = departamento;
     }
 
+    public Categoria (Integer idCategoria, String nombreCategoria) {
+        this.idCategoria = idCategoria;
+        this.nombreCategoria = nombreCategoria;
+        this.departamento = null;
+    }
+
     public Integer getIdCategoria() { return idCategoria; }
 
     public void setIdCategoria(Integer idCategoria ){

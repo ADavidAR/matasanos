@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  padding: 2rem;
+}
+
+.factura-container {
+  background-color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+.header {
+  border-bottom: 2px solid #333;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  max-width: 150px;
+}
+
+.info-empresa h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+/* Sección de información */
+.info-cliente {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.info-factura {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+/* Tabla de productos */
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.tabla-productos th {
+  background-color: #34495e;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+}
+
+.tabla-productos td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-productos tr:hover {
+  background-color: #f5f6fa;
+}
+
+/* Totales */
+.totales {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.total-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.total-label {
+  min-width: 150px;
+  font-weight: bold;
+}
+
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid #333;
+  text-align: center;
+  color: #7f8c8d;
+}
+
+/* Utilidades */
+.text-right {
+  text-align: right;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.color-primario {
+  color: #3498db;
+}
+
+/* Botón Guardar */
+.btn-guardar {
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 2rem auto;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.btn-guardar:hover {
+  background-color: #45a049;
+}
+
+/* Agrega al final del CSS */
+.search-container {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #3498db;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+datalist {
+  position: absolute;
+  background: white;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+datalist option {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+datalist option:hover {
+  background-color: #f5f6fa;
+}
+
+#cliente {
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+#rtn {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
