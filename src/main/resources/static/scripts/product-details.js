@@ -248,7 +248,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       });
 
 
-        const providersTableModal = document.getElementById("proveedoresModal");
+        /*const providersTableModal = document.getElementById("proveedoresModal");
         const tableBodyP = document.getElementById("table-body-proveedores")
 
       //llenado del modal que muestra los proveedores
@@ -277,7 +277,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                   `;
                   tableBodyP.appendChild(tr);
             });
-        });
+        });*/
 
 
         //eliminacion de producto

@@ -54,3 +54,9 @@
  #title {
     cursor: pointer;
  }
+
+ #providers-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }

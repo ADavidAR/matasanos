@@ -5,6 +5,34 @@ let productos = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     resultsContainer.style.display = "none";
+
+    const providersTableModal = document.getElementById("proveedoresModal");
+    const tableBodyP = document.getElementById("table-body-proveedores")
+
+    providersTableModal.addEventListener("show.bs.modal", async function (event) {
+        const res = await fetch("/api/proveedores");
+        const providers = await res.json();
+        console.log(providers);
+
+        tableBodyP.innerHTML = "";
+
+        providers.forEach((p) => {
+            const tr = document.createElement("tr");
+
+              tr.innerHTML = `
+                      <tr>
+                          <th scope="row">${p.idProveedor}</th>
+                          <td>${p.razonSocial}</td>
+                          <td>${p.contacto}</td>
+                          <td>${p.rtnContacto}</td>
+                          <td>${p.telefono}</td>
+                          <td>${p.correo}</td>
+                          <td>${p.direccion}</td>
+                      </tr>
+              `;
+              tableBodyP.appendChild(tr);
+        });
+    });
 });
 
 searchBar.addEventListener('keyup', async (e) => {
@@ -41,3 +69,6 @@ const displayProducts = (productos) => {
         ul.appendChild(li);
     });
 };
+
+//ver proveedores
+

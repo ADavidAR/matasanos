@@ -211,6 +211,42 @@
         </div>
     </section>
 
+    <!--seccion para mostar proveedores-->
+    <section id="providers-section">
+        <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#proveedoresModal" data-mode="reportes">Ver todos los proveedores</button>
+
+        <div class="modal fade modal-xl" id="proveedoresModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Proveedores</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="proveedores-modal" class="modal-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Proveedor ID</th>
+                                <th scope="col">Razón social</th>
+                                <th scope="col">Contacto</th>
+                                <th scope="col">RTN del contacto</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Direccion</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-body-proveedores">
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section>
         <div id="departments">
             <div class="row row-cols-md-2 g-4" id="departments-container"></div>
