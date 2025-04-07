@@ -13,7 +13,7 @@
     height: 180px;
 }
 
-.card-body {
+.card-body, #deptos-title {
     display: flex;
     align-items: center;
     justify-content: center;

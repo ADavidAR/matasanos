@@ -13,7 +13,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         window.history.back();
     }
 
-    document.getElementById("view-title").textContent = `${products[0].categoria.nombreCategoria}`;
+    nameCat = products[0].categoria.nombreCategoria;
+
+    document.getElementById("view-title").textContent = `${nameCat}`;
+    document.getElementById("prods-title-text").textContent = `${nameCat}`;
 
     const section = document.querySelector("#products-container");
     section.innerHTML = "";

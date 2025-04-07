@@ -15,6 +15,7 @@
     <header>
         <section id="title-section">
             <h1 id="title" onclick="window.location.href='/inventory';">Inventario</h1>
+            <button id="logout-btn" class="btn btn-outline-danger">Cerrar Sesión</button>
         </section>
         <section id="options">
             <nav id="nav-options"></nav>
@@ -94,7 +95,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="impuesto" class="form-label">Impuesto (%):</label>
-                                <input type="number" class="form-control" id="impuesto" step="0.01" min="1" required>
+                                <input type="number" class="form-control" id="impuesto" step="0.01" required>
                             </div>
                             <div class="mb-3">
                                 <label for="categoria" class="form-label">Categoría:</label>
@@ -245,6 +246,10 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <section id="deptos-title" class="m-3">
+        <h1>Departamentos</h1>
     </section>
 
     <section>

@@ -6,7 +6,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     const categories = await response.json();
     console.log(categories);
 
-    document.getElementById("view-title").textContent = `${categories[0].departamento.nombreDepartamento}`;
+    nameDepartment = categories[0].departamento.nombreDepartamento;
+
+    document.getElementById("view-title").textContent = `${nameDepartment}`;
+    document.getElementById("cats-title-text").textContent = `${nameDepartment}`;
 
     const section = document.querySelector("#categories-container");
     section.innerHTML = "";

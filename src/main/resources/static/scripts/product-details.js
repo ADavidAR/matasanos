@@ -1,6 +1,9 @@
 window.addEventListener("DOMContentLoaded", async () => {
-    let idSucursal = 1; //que lo obbtenga de localstorage
-    const idUsuario = 1;
+    const user = JSON.parse(localStorage.getItem("userData"));
+
+    const idSucursal = user.empleado.sucursal.idSucursal;
+    const idUsuario = user.idUsuario;
+
     const params = new URLSearchParams(window.location.search);
     const idProduct = params.get("idProducto");
 
@@ -50,6 +53,14 @@ window.addEventListener("DOMContentLoaded", async () => {
           </ul>
       `;
       section.appendChild(column);
+
+    const userRol = user.rol.nombreRol.toLowerCase();
+    console.log(userRol);
+
+    if(userRol !== "administrador") {
+            const sectionAdminUD = document.getElementById("admin-del-upd-buttons");
+            sectionAdminUD.remove();
+    }
 
     let productRest = document.getElementById("productRestriction");
 
@@ -136,6 +147,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const updateForm = document.getElementById("actualizarForm");
     let productoOriginal = null;
 
+    //actualizar producto
     updateForm.addEventListener("submit", async function (e) {
       e.preventDefault();
 
@@ -270,4 +282,3 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
 
 })
-

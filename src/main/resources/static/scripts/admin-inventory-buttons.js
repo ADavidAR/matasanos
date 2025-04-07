@@ -1,3 +1,15 @@
+window.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const userRol = user.rol.nombreRol.toLowerCase();
+    console.log(userRol);
+
+    if(userRol !== "administrador") {
+        const sectionAdmin = document.getElementById("admin-buttons");
+        sectionAdmin.remove();
+    }
+});
+
+
 const modal = document.getElementById("productoModal");
 const modalCategory = document.getElementById("categoriaModal");
 const modalDepartment = document.getElementById("departamentoModal");
@@ -120,7 +132,9 @@ formCategory.addEventListener("submit", function (e) {
     handleFormSubmit("categoria", newCat, "/api/categorias");
 });
 
-const idUsuario = 1; //que lo obtenga del localstorage
+
+const user = JSON.parse(localStorage.getItem("userData"));
+const idUsuario = user.idUsuario;
 
 //producto submit
 form.addEventListener("submit", function (e) {
@@ -186,3 +200,5 @@ formProvider.addEventListener("submit", function (e) {
 
   handleFormSubmit("proveedor", newProv, "/api/proveedores");
 });
+
+
