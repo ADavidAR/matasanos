@@ -4,6 +4,8 @@ import ch.qos.logback.core.testUtil.AbstractMultiThreadedHarness;
 import com.matasanos.model.FichaInventario;
 import com.matasanos.model.Producto;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -11,7 +13,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.matasanos.model.Producto;
+import com.matasanos.repo.rowmapper.CustomRowMapper;
 
 @Repository
 public class ProductoRepo {

@@ -1,0 +1,26 @@
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.total-row {
+  font-weight: bold;
+  background-color: #f8f9fa !important;
+}
+
+.quantity-input {
+  width: 70px;
+  text-align: center;
+}
+
+.action-buttons {
+  white-space: nowrap;
+}
+
+.confirm-btn {
+  transition: all 0.3s;
+}
+
+.confirm-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(25, 135, 84, 0.3);
+}

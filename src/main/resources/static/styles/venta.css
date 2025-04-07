@@ -1,0 +1,52 @@
+/* Estilos personalizados */
+.sucursal-header {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0 0 10px 10px;
+}
+
+.product-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-img {
+  height: 180px;
+  object-fit: contain;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+.badge-disponible {
+  background-color: #28a745;
+}
+
+.badge-agotado {
+  background-color: #dc3545;
+}
+
+.filter-btn {
+  margin: 5px;
+}
+
+.modal-product-img {
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.confirm-btn {
+  transition: all 0.3s;
+}
+
+.confirm-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(25, 135, 84, 0.3);
+}

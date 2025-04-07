@@ -664,4 +664,11 @@ public class CustomRowMapper {
                     CustomRowMapper.tipoMovimientoRowMapper.mapRow(rs, numCol)
             );
 
+
+    //Nuevos ROWMAPPERS
+    public static final RowMapper<Categoria> categoriaSinDepartamentoRowMapper = (rs, numCol) ->
+            new Categoria(
+                    rs.getInt("id_categoria"),
+                    rs.getString("nombre_categoria")
+            );
 }
