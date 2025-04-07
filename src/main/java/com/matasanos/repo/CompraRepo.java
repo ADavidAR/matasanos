@@ -22,14 +22,24 @@ public class CompraRepo {
 
     public Compra compra(int idCompra) {
         String sql = "select * from Compra C " +
-                "INNER JOIN Proveedor P ON P.id_proveedor = C.id_proveedor WHERE C. id_compra=?";
+                "INNER JOIN Proveedor P ON P.id_proveedor = C.id_proveedor " +
+                "INNER JOIN Sucursal S ON S.id_sucursal = C.id_sucursal " +
+                "INNER JOIN Direccion D ON D.id_direccion = S.id_direccion " +
+                " INNER JOIN Colonia co ON co.id_colonia = D.id_colonia " +
+                " INNER JOIN Ciudad ciu ON ciu.id_ciudad = co.id_ciudad " +
+                " WHERE C. id_compra=?";
         return jdbcTemplate.queryForObject(sql, CustomRowMapper.compraRowMapper,idCompra);
     }
 
-        public List<Compra> listarCompras(){
+        public List<Compra> listarComprasSucursal(int idSucursal){
         String sql= "select * from Compra C " +
-                "INNER JOIN Proveedor P ON P.id_proveedor = C.id_proveedor ORDER BY  id_compra DESC";
-        return jdbcTemplate.query(sql, CustomRowMapper.compraRowMapper);
+                "INNER JOIN Proveedor P ON P.id_proveedor = C.id_proveedor " +
+                "INNER JOIN Sucursal S ON S.id_sucursal = C.id_sucursal " +
+                "INNER JOIN Direccion D ON D.id_direccion = S.id_direccion " +
+                " INNER JOIN Colonia co ON co.id_colonia = D.id_colonia " +
+                " INNER JOIN Ciudad ciu ON ciu.id_ciudad = co.id_ciudad " +
+                "WHERE C.id_sucursal=? ORDER BY  id_compra DESC";
+        return jdbcTemplate.query(sql, CustomRowMapper.compraRowMapper,idSucursal);
         }
         public  List<Proveedor> listarProveedores() {
         String sql= "select * from Proveedor";

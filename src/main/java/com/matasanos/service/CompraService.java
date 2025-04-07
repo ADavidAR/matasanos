@@ -22,8 +22,8 @@ public class CompraService {
     public CompraService(CompraRepo compraRepo) {
         this.compraRepo = compraRepo;
     }
-    public  List<Compra> listarCompras(){
-        return compraRepo.listarCompras();
+    public  List<Compra> listarComprasSucursal(int idSucursal){
+        return compraRepo.listarComprasSucursal(idSucursal);
     }
 
     public List<Proveedor> listaProveedor(){

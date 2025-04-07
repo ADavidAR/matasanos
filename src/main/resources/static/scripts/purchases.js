@@ -1,5 +1,6 @@
 //parte del tamplate
 let userData
+let permisoCrear=true
 window.addEventListener("DOMContentLoaded", async () => {
   const roleH1 = document.querySelector("#title");
   const optionsNav = document.querySelector("#nav-options");
@@ -7,7 +8,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   userData = JSON.parse(localStorage.getItem("userData"));
 
   roleH1.textContent = userData.rol.nombreRol;
-  let permisoCrear=true
 
   userData.rol.permisos.forEach((p) => {
     if (p.acceso && p.permiso.accesoDirecto) {
@@ -41,9 +41,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
    
    
-  
+  document.getElementById('totalCost').value = "0.00";
   await cargarProveedores()
-  await cargarCompras();
+  await cargarCompras(userData.empleado.sucursal.idSucursal);
  
 
 });
@@ -247,7 +247,7 @@ async function cargarProductos() {
     mostrarPagina(currentPage);
     actualizarInfoPagina();
     seleccionar();
-    document.getElementById('totalCost').value = "0.00";
+    
   } catch (error) {
     console.error("Error al obtener proveedors:", error);
   }
@@ -363,11 +363,11 @@ function calcularTotal() {
 
 
 // Funciones para recepción de compras
-async function cargarCompras() {
+async function cargarCompras(idSucursal) {
   try {
-    const response = await fetch('/api/comprar/cargarCompras');
+    const response = await fetch(`/api/comprar/cargarCompras/${idSucursal}`);
     const Compras = await response.json();
-    console.log(Compras)
+   
     
     const select = document.getElementById('comprasList');
     select.innerHTML = '<option value="">Seleccione una compra...</option>';
@@ -493,41 +493,13 @@ async function cargarDetalleCompra() {
             newCell.appendChild(i);
             row.appendChild(newCell);
           });
-    
-      
-      
-      
-      
-      
-      
-      
+
       tabla.appendChild(row);
+      
       calcularTotal();
     });
 
 
-    
-      
-      
-      
-          
-          
-       
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-    
     
   } catch (error) {
     console.error('Error al cargar detalle de solicitud:', error);

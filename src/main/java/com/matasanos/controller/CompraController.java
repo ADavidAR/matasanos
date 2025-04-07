@@ -39,10 +39,10 @@ public class CompraController {
         return compraService.listaProductos( idProveedor);
 
     }
-    @GetMapping("/cargarCompras")
+    @GetMapping("/cargarCompras/{idSucursal}")
     @ResponseBody
-    public  List<Compra> comprasPendientes(){
-        return  compraService.listarCompras();
+    public  List<Compra> comprasPendientes(@PathVariable int idSucursal){
+        return  compraService.listarComprasSucursal(idSucursal);
     }
 
     @GetMapping("/productosCompra/{idCompra}")
