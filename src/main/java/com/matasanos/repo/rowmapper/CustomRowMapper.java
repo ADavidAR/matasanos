@@ -379,6 +379,7 @@ public class CustomRowMapper {
     public static final RowMapper<Compra> compraRowMapper = (rs, numCol) ->
             new Compra(
                     rs.getInt("id_compra"),
+                    CustomRowMapper.sucursalRowMapper.mapRow(rs, numCol),
                     rs.getString("num_factura_compra"),
                     rs.getObject("fecha_compra", LocalDate.class),
                     rs.getObject("fecha_entrega", LocalDate.class),
