@@ -19,12 +19,12 @@
     />
   </head>
   <body>
-    
-    <!--<script src="/scripts/AuthenticationAuthorization.js">
+
+    <script src="/scripts/AuthenticationAuthorization.js">
       if(!AuthenticationAuthorization.checkAuthorization()) window.location.href = "/login";
       const auth = AuthenticationAuthorization.checkAuthorization("/permisos");
       if(!auth.access) window.location.href = "/home";
-    </script>-->
+    </script>
     <header>
       <section id="title-section">
         <h1 id="title">Empleados</h1>
@@ -59,16 +59,16 @@
                       <th scope="col">Nombre Completo</th>
                       <th scope="col" class="text-center">Cargo</th>
                       <th scope="col" class="text-center">VerDatos</th>
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <!-- Ejemplo de datos -->
-                   
+
                   </tbody>
                 </table>
               </div>
-             
+
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
                     <button disabled="true" id="update" type="button" class="btn btn-warning btn-sm text-white" data-accion="">
                       <i class="bi bi-pencil"></i> Editar
                     </button>
-                    
+
                     <!-- Botón Eliminar - Rojo -->
                     <button disabled="true" id="openDelete" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarEliminacionModal">
                       <i class="bi  bi-trash"></i> Eliminar
@@ -98,9 +98,9 @@
                 <fieldset class="mb-4 personData">
                   <legend class="fw-bold text-primary">
                     <i class="fas fa-id-card me-2"></i>Información Personal
-                    
+
                   </legend>
-                  
+
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="idNumber" class="form-label">DNI *</label>
@@ -155,7 +155,7 @@
                         id="secondLastName"
                       />
                     </div>
-                    
+
                   </div>
                 </fieldset>
 

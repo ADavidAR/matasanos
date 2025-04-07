@@ -1,9 +1,8 @@
 package com.matasanos.controller;
 import com.matasanos.model.*;
 
-import com.matasanos.service.CompraService;
 import com.matasanos.service.EmpleadoService;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,5 +65,10 @@ public class EmpleadoController {
     @PostMapping("/eliminarEmpleado/{idEmpleado}")
     public  void  eliminarEmpleado(@PathVariable int idEmpleado){
         empleadoService.eliminarEmpleado(idEmpleado);
+    }
+
+    @GetMapping("/sinusuario")
+    public ResponseEntity<?> listarEmpleadosSinUsuario() {
+        return ResponseEntity.ok(empleadoService.listarEmpleadosSinUsuario());
     }
 }

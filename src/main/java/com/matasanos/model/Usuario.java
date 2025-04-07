@@ -30,7 +30,7 @@ public class Usuario {
         this.idUsuarioModificacion = idUsuarioModificacion;
     }
 
-    public Integer getIdUsuario() { return idUsuario; }
+    public int getIdUsuario() { return idUsuario; }
 
     public void setIdUsuario(Integer idUsuario ){
         this.idUsuario = idUsuario;

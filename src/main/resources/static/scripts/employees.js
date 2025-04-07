@@ -1,5 +1,4 @@
 //cargar las cosas al entrar a la pagina
-let userData
 let permisoCrear=false;
 window.addEventListener("DOMContentLoaded", async () => {
     const roleH5 = document.querySelector("#title");

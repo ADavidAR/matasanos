@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class LoginController {
+@RequestMapping("/cajas")
+public class CajaViewController {
 
-    @RequestMapping( path = {"/login", "/"})
-    public String login() { return "login.html"; }
+    @GetMapping
+    public String roles() { return "checkouts.html"; }
+
 }

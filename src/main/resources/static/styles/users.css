@@ -1,0 +1,19 @@
+#main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 4rem;
+}
+#btn-edit-container {
+    margin: 0;
+}
+
+@media only screen and (max-width: 900px) {
+    #main-container {
+        flex-direction: column;
+    }
+
+    #btn-edit-container {
+        margin-left: 4%;
+    }
+}

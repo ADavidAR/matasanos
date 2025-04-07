@@ -436,13 +436,29 @@ CREATE VIEW v_ClientePersona AS
 	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad
 GO
 
-CREATE VIEW v_RecetaCliente AS
-	SELECT r.id_receta, r.fecha, r.nombre_medico, r.descripcion, c.* FROM Receta r
-	LEFT JOIN v_ClientePersona c ON r.id_cliente = c.id_cliente;
-GO
+CREATE VIEW v_Empleado AS
+	SELECT e.*, p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido, p.dni, col.*, ciu.ciudad, d.id_direccion, d.referencia, c.descripcion, s.nombre_sucursal FROM Empleado e
+	INNER JOIN Persona p ON e.id_persona = p.id_persona
+	INNER JOIN Cargo c ON e.id_cargo = c.id_cargo
+	INNER JOIN Sucursal s ON s.id_sucursal = e.id_sucursal
+	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
+	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
+	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad;
 
-CREATE VIEW v_RecetaProducto AS
-	SELECT rp.*, p.nombre_producto, p.descripcion FROM RecetaProducto rp
-	INNER JOIN Producto p ON p.id_producto = rp.id_producto
-	INNER JOIN Receta r ON r.id_receta = rp.id_receta
-GO
+    CREATE VIEW v_SucursalDireccion AS
+    	SELECT s.*, d.referencia, c.*, ciu.ciudad FROM Sucursal s
+    	INNER JOIN Direccion d ON  d.id_direccion = s.id_direccion
+    	INNER JOIN Colonia c ON c.id_colonia = d.id_colonia
+    	INNER JOIN Ciudad ciu ON ciu.id_ciudad = c.id_ciudad;
+    GO
+
+    CREATE VIEW v_RecetaCliente AS
+        SELECT r.id_receta, r.fecha, r.nombre_medico, r.descripcion, c.* FROM Receta r
+        LEFT JOIN v_ClientePersona c ON r.id_cliente = c.id_cliente;
+    GO
+
+    CREATE VIEW v_RecetaProducto AS
+        SELECT rp.*, p.nombre_producto, p.descripcion FROM RecetaProducto rp
+        INNER JOIN Producto p ON p.id_producto = rp.id_producto
+        INNER JOIN Receta r ON r.id_receta = rp.id_receta
+    GO

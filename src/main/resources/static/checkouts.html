@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es-hn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cajas</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/styles/checkouts.css">
+    <link rel="stylesheet" href="/styles/head.css">
+  </head>
+  <body>
+    <script src="/scripts/AuthenticationAuthorization.js"></script>
+    <script>
+      if(!AuthenticationAuthorization.checkAuthentication()) window.location.href = "/login";
+      const auth = AuthenticationAuthorization.checkAuthorization("/cajas");
+      if(!auth.access) window.location.href = "/home";
+    </script>
+    <header>
+        <section id="title-section">
+            <h5 id="role"></h5>
+            <h1 id="title">Cajas</h1>
+            <button id="logout-btn" class="btn btn-outline-danger">Crerrar Sesión</button>
+        </section>
+        <section id="options">
+            <nav id="nav-options"></nav>
+        </section>
+    </header>
+    <section id="main-container">
+        <div class="container mt-5">
+            <button type="button" data-bs-toggle="modal" class="btn btn-primary mb-3 create" data-bs-target="#add-checkout-modal">
+                <i class="fa-solid fa-cash-register"></i> Añadir Caja
+            </button>
+            <select name="select-branch" id="select-branch" class="form-select form-select-lg mb-3">
+                <option selected disabled value="">Seleccione una sucursal</option>
+            </select>
+            <select name="select-checkout" id="select-checkout" class="form-select form-select-lg" disabled>
+                <option selected disabled value="">Seleccione una caja</option>
+            </select>
+        </div>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary d-flex justify-content-center align-items-center flex-wrap text-white d-blockposition-relative">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <h3 class="card-title text-center"><i class="fas fa-cash-register me-2"></i>Datos de la Caja</h3>
+                            </div>
+                            <div id="btn-edit-container" class="d-flex flex-row justify-content-center align-items-center">
+                                <button type="button" class="btn btn-warning m-2 d-none modify" id="edit-btn">
+                                    <i class="fas fa-edit me-1"></i> Editar
+                                </button>
+                                <button type="button" class="btn btn-danger m-2 d-none del" id="del-btn">
+                                    <i class="fas fa-trash-can me-1"></i> Eliminar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form id="checkout-form">   
+                                <fieldset id="checkout-data" class="mb-4">
+                                    <legend class="fw-bold text-primary"><i class="fas fa-cash-register me-2"></i>Información Básica</legend>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="checkout-number-edit" class="form-label">Número de Caja</label>
+                                            <input type="number" class="form-control" min="|" id="checkout-number-edit" disabled required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="branch-name-edit" class="form-label">Sucursal</label>
+                                            <input type="text" class="form-control" id="branch-name-edit" disabled>
+                                            <select class="form-select d-none" id="branch-select-edit" required>
+                                                <option selected disabled value="">Seleccione una sucursal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="d-grid gap-2 d-none justify-content-md-end">
+                                    <button type="button" class="btn btn-secondary me-md-2" id="cancel-btn-modify">
+                                        <i class="fa-solid fa-xmark"></i> Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" id="submit-btn-modify">
+                                        <i class="fas fa-save me-1"></i> Guardar Cambios
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Agregar Caja -->
+        <div class="modal fade" id="add-checkout-modal" tabindex="-1" aria-labelledby="add-checkout-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Añadir Caja</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <form id="checkout-form-add">
+                                <fieldset class="mb-4">
+                                    <legend class="fw-bold text-primary"><i class="fas fa-cash-register me-2"></i>Información Básica</legend>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="checkout-number-add" class="form-label">Número de Caja</label>
+                                            <input type="number" class="form-control" min="1" id="checkout-number-add" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="branch-select-add" class="form-label">Sucursal</label>
+                                            <select class="form-select" id="branch-select-add" required>
+                                                <option selected disabled value="">Seleccione una sucursal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="btn btn-secondary me-md-2" id="reset-btn">
+                                        <i class="fas fa-broom me-1"></i> Limpiar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" id="submit-btn-add">
+                                        <i class="fas fa-save me-1"></i> Guardar Caja
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/scripts/checkouts.js"></script>
+  </body>
+</html>

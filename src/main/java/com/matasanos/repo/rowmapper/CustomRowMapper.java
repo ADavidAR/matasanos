@@ -192,7 +192,7 @@ public class CustomRowMapper {
                     0
             );
 
-    public static final RowMapper<Usuario> usuarioEmpleadoRolRowMapper = (rs, numCol) ->
+    public static final RowMapper<Usuario> usuarioRolEmpleadoRowMapper = (rs, numCol) ->
             new Usuario(
                     rs.getInt("id_usuario"),
                     rs.getString("usuario"),
@@ -206,11 +206,40 @@ public class CustomRowMapper {
                     0
             );
 
+    public static final RowMapper<Usuario> usuarioRolEmpleadoSinSucursalRowMapper = (rs, numCol) ->
+            new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("usuario"),
+                    null,
+                    rs.getBoolean("usuario_activo"),
+                    null,
+                    null,
+                    CustomRowMapper.rolRowMapper.mapRow(rs, numCol),
+                    CustomRowMapper.empleadoSimpleRowMapper.mapRow(rs, numCol),
+                    0,
+                    0
+            );
+
     public static final RowMapper<Usuario> usuarioSimpleRowMapper = (rs, numCol) ->
             new Usuario(
                     rs.getInt("id_usuario"),
                     rs.getString("usuario"),
                     rs.getString("contrasena"),
+                    false,
+                    null,
+                    null,
+                    null,
+                    null,
+                    0,
+                    0
+
+            );
+
+    public static final RowMapper<Usuario> usuarioSimpleSinContrasenaRowMapper = (rs, numCol) ->
+            new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("usuario"),
+                    null,
                     false,
                     null,
                     null,
@@ -302,6 +331,13 @@ public class CustomRowMapper {
                     rs.getInt("id_caja"),
                     rs.getInt("num_caja"),
                     CustomRowMapper.sucursalRowMapper.mapRow(rs, numCol)
+            );
+
+    public static final RowMapper<Caja> cajaSinSucursalRowMapper = (rs, numCol) ->
+            new Caja(
+                    rs.getInt("id_caja"),
+                    rs.getInt("num_caja"),
+                    null
             );
 
     public static final RowMapper<Factura> facturaRowMapper = (rs, numCol) ->
@@ -499,6 +535,22 @@ public class CustomRowMapper {
                     CustomRowMapper.sucursalRowMapper.mapRow(rs, numCol),
                     rs.getInt("id_usuario_creacion"),
                     rs.getInt("id_usuario_modificacion")
+            );
+
+    public static final RowMapper<Empleado> empleadoSimpleRowMapper = (rs, numCol) ->
+            new Empleado(
+                    rs.getInt("id_empleado"),
+                    null,
+                    null,
+                    null,
+                    false,
+                    null,
+                    null,
+                    CustomRowMapper.personaSinDireccionRowMapper.mapRow(rs, numCol),
+                    null,
+                    null,
+                    0,
+                    0
             );
 
     public static final RowMapper<Empleado> empleadoSimpleConSucursalRowMapper = (rs, numCol) ->

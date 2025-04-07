@@ -92,5 +92,8 @@ public class EmpleadoService {
     public  void  eliminarEmpleado(int idEmpleado){
         empleadoRepo.BorrarEmpleado(idEmpleado);
     }
-}
 
+    public List<Empleado> listarEmpleadosSinUsuario() {
+        return empleadoRepo.listarEmpleadosSinUsuario();
+    }
+}

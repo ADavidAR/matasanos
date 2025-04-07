@@ -1,6 +1,5 @@
 //parte del tamplate
-let userData
-let permisoCrear=true
+let permisoCrear=false
 window.addEventListener("DOMContentLoaded", async () => {
   const roleH1 = document.querySelector("#title");
   const optionsNav = document.querySelector("#nav-options");

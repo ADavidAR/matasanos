@@ -1,0 +1,36 @@
+#btn-save-changes {
+   margin-left: 70%;
+}
+
+#permission-table {
+    table-layout: fixed;
+    width: 80%;
+    margin: 1rem auto;
+}
+
+td, th {
+    display: table-cell;
+    width: 112px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+[class|="desc"] {
+    width: auto;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.disable {
+    pointer-events: none;
+    opacity: .7;
+}
+
+.enable {
+    pointer-events: auto;
+    opacity: 1;
+}

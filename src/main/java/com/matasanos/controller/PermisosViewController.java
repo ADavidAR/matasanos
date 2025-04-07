@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class LoginController {
+@RequestMapping("/permisos")
+public class PermisosViewController {
 
-    @RequestMapping( path = {"/login", "/"})
-    public String login() { return "login.html"; }
+    @GetMapping
+    public String permisos() { return "permissions.html"; }
 }
