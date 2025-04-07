@@ -1,0 +1,57 @@
+#inventory-title {
+    color: whitesmoke;
+}
+
+.card-details {
+    width: 50rem;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    margin: 2px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#detail-container {
+    margin-top: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    min-height: 0vh;
+    width: 100%;
+}
+
+#details-title {
+    margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+ }
+
+ .list-group-item {
+     opacity: 1 !important;
+ }
+
+ .list-group-item:hover {
+     cursor: default !important;
+ }
+
+ #admin-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+ #reports-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }

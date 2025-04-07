@@ -418,6 +418,12 @@ CREATE VIEW v_UsuarioEmpleadoRol AS
 	FULL OUTER JOIN v_Empleado e ON u.id_empleado = e.id_empleado;
 GO
 
+CREATE VIEW v_ProductoSucursalSimplificada AS
+SELECT p.id_producto, p.nombre_producto, s.id_sucursal FROM Producto p
+INNER JOIN FichaInventario fi ON fi.id_producto = p.id_producto
+INNER JOIN Sucursal s ON s.id_sucursal = fi.id_sucursal;
+GO
+
 CREATE VIEW v_ClientePersona AS
 	SELECT
 	c.*,
@@ -444,6 +450,14 @@ CREATE VIEW v_Empleado AS
 	INNER JOIN Direccion d ON d.id_direccion = p.id_direccion
 	INNER JOIN Colonia col ON col.id_colonia = d.id_colonia
 	INNER JOIN Ciudad ciu ON ciu.id_ciudad = col.id_ciudad;
+
+    CREATE VIEW v_ReportesProductoSucursal AS
+    SELECT p.id_producto, p.nombre_producto, fi.cantidad, fi.id_ficha, fi.referencia, fi.fecha, tm.id_tipo_movimiento, tm.nombre, tm.factor, s.id_sucursal, s.nombre_sucursal, pv.* FROM Producto p
+    LEFT JOIN Proveedor pv ON pv.id_proveedor = p.id_proveedor
+    LEFT JOIN FichaInventario fi ON p.id_producto = fi.id_producto
+    LEFT JOIN Sucursal s ON s.id_sucursal = fi.id_sucursal
+    LEFT JOIN TipoMovimiento tm ON fi.id_tipo_movimiento = tm.id_tipo_movimiento;
+    GO
 
     CREATE VIEW v_SucursalDireccion AS
     	SELECT s.*, d.referencia, c.*, ciu.ciudad FROM Sucursal s

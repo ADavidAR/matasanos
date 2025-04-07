@@ -611,4 +611,57 @@ public class CustomRowMapper {
                     rs.getString("telefono"),
                     null
             );
+
+    public static final RowMapper<Producto> productoSucursalSimplificadoRowMapper = (rs, numCol) ->
+            new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+
+            );
+
+    public static final RowMapper<Producto> productoSucursalReportesRowMapper = (rs, numCol) ->
+            new Producto(
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    CustomRowMapper.proveedorRowMapper.mapRow(rs, numCol),
+                    null,
+                    null
+            );
+
+    public static final RowMapper<FichaInventario> productoSucursalFichaReportesRowMapper = (rs, numCol) ->
+            new FichaInventario(
+                    rs.getInt("id_ficha"),
+                    rs.getInt("cantidad"),
+                    rs.getString("referencia"),
+                    rs.getObject("fecha", LocalDate.class),
+                    CustomRowMapper.productoSucursalReportesRowMapper.mapRow(rs, numCol),
+                    CustomRowMapper.sucursalSinDireccionRowMapper.mapRow(rs, numCol),
+                    CustomRowMapper.tipoMovimientoRowMapper.mapRow(rs, numCol)
+            );
+
 }
