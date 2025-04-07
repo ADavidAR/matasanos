@@ -13,7 +13,7 @@
   <body>
     <script src="/scripts/AuthenticationAuthorization.js"></script>
     <script>
-      if(!AuthenticationAuthorization.checkAuthorization()) window.location.href = "/login";
+      if(!AuthenticationAuthorization.checkAuthentication()) window.location.href = "/login";
       const auth = AuthenticationAuthorization.checkAuthorization("/permisos");
       if(!auth.access) window.location.href = "/home";
     </script>
