@@ -1,5 +1,5 @@
 class AuthenticationAuthorization {
-    static checkAuthorization () {
+    static checkAuthentication () {
         return (localStorage.getItem("userData") !== null)
     }
     static checkAuthorization(endpointUrl) {
