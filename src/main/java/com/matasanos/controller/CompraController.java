@@ -21,9 +21,9 @@ public class CompraController {
         this.compraService = compraService;
     }
 
-    @PostMapping("/crearSolicitudCompra/{idProveedor}")
+    @PostMapping("/crearCompra/{idProveedor}")
     public  void crearSolicitudCompra(@PathVariable int idProveedor,@RequestBody List<Map<String,Object>> datos){
-       compraService.crearSolicitudCompra(idProveedor,datos);
+       compraService.crearCompra(idProveedor,datos);
     }
 
     @GetMapping("/proveedores")
@@ -39,10 +39,10 @@ public class CompraController {
         return compraService.listaProductos( idProveedor);
 
     }
-    @GetMapping("/comprasPendientes")
+    @GetMapping("/cargarCompras")
     @ResponseBody
     public  List<Compra> comprasPendientes(){
-        return  compraService.comprasPendientes();
+        return  compraService.listarCompras();
     }
 
     @GetMapping("/productosCompra/{idCompra}")
@@ -50,6 +50,10 @@ public class CompraController {
     public  List<ProductoCompra> lisarProductosCompra( @PathVariable int idCompra){
         return compraService.lisarProductosCompra(idCompra);
     }
-
+    @GetMapping("/datosCompra/{idCompra}")
+    @ResponseBody
+    public  Compra compra( @PathVariable int idCompra){
+        return compraService.compra(idCompra);
+    }
 
 }

@@ -1,18 +1,18 @@
 package com.matasanos.repo;
 import com.matasanos.repo.rowmapper.CustomRowMapper;
-import org.springframework.dao.DataAccessException;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import  com.matasanos.model.*;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.SQLExceptionTranslator;
+
 import org.springframework.stereotype.Repository;
 
-import java.awt.*;
+
 import java.math.BigDecimal;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
-import java.util.Date;
+
 import java.util.List;
 @Repository
 public class EmpleadoRepo {
@@ -68,24 +68,30 @@ public class EmpleadoRepo {
         jdbcTemplate.update(sql, salario, fecha_contratacion,idSucursal, idPersona, idCargo, idUsuarioCreacion);
     }
 
-    public int actualizarPersona(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String dni, int idDireccion){
+    public int actualizarPersona(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String dni,int idPersona){
     String sql = "UPDATE Persona\n " +
-            "SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,dni=?,id_direccion=?\n " +
-            "OUTPUT INSERTED.id_persona WHERE dni = ?";
-    return jdbcTemplate.queryForObject(sql,int.class,primerNombre,segundoNombre,primerApellido,segundoApellido,dni,idDireccion,dni);
+            "SET primer_nombre=?,segundo_nombre=?,primer_apellido=?,segundo_apellido=?,dni=?\n " +
+            "OUTPUT INSERTED.id_persona WHERE id_persona = ?";
+    return jdbcTemplate.queryForObject(sql,int.class,primerNombre,segundoNombre,primerApellido,segundoApellido,dni,idPersona);
+    }
+    public void actualizarPersonaDireccion( String dni, int idDireccion){
+        String sql = "UPDATE Persona\n " +
+                "SET id_direccion=?\n " +
+                "WHERE dni = ?";
+         jdbcTemplate.queryForObject(sql,int.class,idDireccion,dni);
     }
 
     public void actualizarDireccion(int idDireccion,int idColonia, String referencia) {
-        String sql = "UPDATE Telefono\n " +
-                "SET id_colonia=?,telefono =?\n " +
+        String sql = "UPDATE Direccion\n " +
+                "SET id_colonia=?,referencia =?\n " +
                 "WHERE id_direccion = ?";
         jdbcTemplate.update(sql, idColonia, referencia,idDireccion);
     }
-    public int actualizarEmpleado(BigDecimal salario, Date fecha_modificacion, int idPersona, int idCargo, int idUsuarioModificacion){
+    public void actualizarEmpleado(BigDecimal salario, LocalDate fechaContratacion, int idCargo, int idUsuarioModificacion,int idSucursal, int idEmpleado){
         String sql = "UPDATE Empleado \n " +
-                "SET salario=?,fecha_contratacion=?,fecha_modificacion=?,id_cargo=?,id_usuario_modificacion=?\n " +
-                "WHERE id_persona = ?";
-        return jdbcTemplate.queryForObject(sql,int.class,salario,fecha_modificacion,idCargo,idUsuarioModificacion,idPersona);
+                "SET salario=?,fecha_contratacion=?,fecha_modificacion=GETDATE(),id_cargo=?,id_usuario_modificacion=?,id_sucursal=?\n " +
+                "WHERE id_empleado = ?";
+         jdbcTemplate.update(sql,salario,fechaContratacion,idCargo,idUsuarioModificacion,idSucursal,idEmpleado);
     }
     public void actualizarTelefono(int idPersona, String telefono){
         String sql = "UPDATE Telefono\n " +
@@ -100,17 +106,17 @@ public class EmpleadoRepo {
 
         jdbcTemplate.update(sql,correo,idPersona);
     }
-    public void BorrarEmpleado( String dni){
-        int idEMpleado= obtenerIdEmpleado(dni);
+    public void BorrarEmpleado( int idEmpleado ){
+
         String sql1 = "UPDATE Usuario " +
                 "SET id_empleado = NULL " +
                 "WHERE id_empleado=?";
 
         String sql2 = "DELETE Empleado \n " +
-                "WHERE dni = ?";
+                "WHERE id_empleado = ?";
 
-        jdbcTemplate.update(sql1,idEMpleado);
-        jdbcTemplate.update(sql2,dni);
+        jdbcTemplate.update(sql1,idEmpleado);
+        jdbcTemplate.update(sql2,idEmpleado);
     }
 
 
@@ -129,6 +135,16 @@ public class EmpleadoRepo {
                 "WHERE dni = ?";
         try {
             return jdbcTemplate.queryForObject(sql, Integer.class, dni);
+        } catch (EmptyResultDataAccessException e) {
+            return 0;
+        }
+    }
+    public int obtenerIdPersona(int idEmpleado){
+        String sql = "select P.id_Persona from Empleado E\n " +
+                "INNER JOIN Persona P ON P.id_persona=E.id_persona " +
+                "WHERE E.id_empleado = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, Integer.class, idEmpleado);
         } catch (EmptyResultDataAccessException e) {
             return 0;
         }
@@ -164,15 +180,15 @@ public class EmpleadoRepo {
         return jdbcTemplate.queryForObject(sql,int.class,idPersona)==1;
     }
 
-    public Empleado optenerEMpleado(String dni){
+    public Empleado obtenerEmpleado(int idEmpleado){
         String sql = "SELECT * FROM Empleado E \n " +
                 "INNER JOIN Persona P ON p.id_persona=E.id_persona \n " +
                 "INNER JOIN Sucursal S ON s.id_sucursal= E.id_sucursal \n " +
                 "INNER JOIN Cargo C ON C.id_cargo= E.id_cargo\n" +
                 "INNER JOIN Direccion D ON D.id_direccion=P.id_direccion\n " +
                 "INNER JOIN Colonia Co ON Co.id_colonia=D.id_colonia\n " +
-                "INNER JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad WHERE E.dni = ?";
-        return jdbcTemplate.queryForObject(sql,empleadoRowMapper,dni);
+                "INNER JOIN Ciudad Ci ON Ci.id_ciudad = Co.id_ciudad WHERE E.id_empleado = ?";
+        return jdbcTemplate.queryForObject(sql,empleadoRowMapper,idEmpleado);
     }
     public Persona obtenerPersona(String dni){
         String sql = "SELECT * FROM Persona P\n " +

@@ -1,36 +1,47 @@
 //parte del tamplate
+let userData
 window.addEventListener("DOMContentLoaded", async () => {
   const roleH1 = document.querySelector("#title");
   const optionsNav = document.querySelector("#nav-options");
 
-  let userData = JSON.parse(localStorage.getItem("userData"));
+  userData = JSON.parse(localStorage.getItem("userData"));
 
   roleH1.textContent = userData.rol.nombreRol;
+  let permisoCrear=true
 
   userData.rol.permisos.forEach((p) => {
     if (p.acceso && p.permiso.accesoDirecto) {
       const option = document.createElement("a");
-      option.classList.add("btn");
+      option.classList.add("nav");
       option.textContent = p.permiso.descripcion;
       option.dataset.id = p.permiso.idPermiso;
 
       option.href = p.permiso.endpointUrl;
       optionsNav.appendChild(option);
     }
-
-    
+    if(p.permiso.descripcion == "Compras" && p.creacion==true){
+      permisoCrear=true
+    }
+   
   });
 
 
-  // Inicializar pestañas
-  const tabEl = document.querySelector('#recepcion-tab');
-  if (tabEl) {
-    tabEl.addEventListener('shown.bs.tab', function (event) {
-      if (event.target.id === 'recepcion-tab') {
-        cargarComprasPendientes();
-      }
-    });
+  
+ 
+    if(permisoCrear){
+      const guardar =document.querySelector("#createPurchase")
+      guardar.disabled=false
+      const buttonagregar=document.querySelector("#addProducts")
+ buttonagregar.disabled=false
+    guardar.addEventListener("click",crearCompra);
   }
+   
+   
+  
+  await cargarProveedores()
+  await cargarCompras();
+ 
+
 });
 
 const combobox = document.querySelector("#suppliers");
@@ -42,7 +53,7 @@ let allProducts = [];
 //hace que se puedan selecionar los datos de la tabla
 function seleccionar() {
   // Selecciona todas las filas de la tabla
-  const rows = document.querySelectorAll("#myTable tbody tr");
+  const rows = document.querySelectorAll("#productos tbody tr");
 
   // Recorre las filas y añade un evento de clic para seleccionarlas
   rows.forEach((row) => {
@@ -104,13 +115,13 @@ function soloNumerosYDecimales(e) {
 
 // Función para enviar los datos seleccionados a la tabla de destino
 document.getElementById("sendDataBtn").addEventListener("click", function () {
-  const rowstable2 = document.querySelectorAll("#table2 tbody tr");
+  const rowsProductosCompra = document.querySelectorAll("#productosCompra tbody tr");
   if (selectedRow) {
     // Obtén los datos de la fila seleccionada
     const cells = selectedRow.querySelectorAll("td");
     const ids = [];
-    if (rowstable2 != null) {
-      rowstable2.forEach((r) => {
+    if (rowsProductosCompra != null) {
+      rowsProductosCompra.forEach((r) => {
         const cell = r.querySelectorAll("td");
         ids.push(cell[0].innerHTML);
       });
@@ -166,7 +177,7 @@ document.getElementById("sendDataBtn").addEventListener("click", function () {
       });
 
       // Añade la nueva fila a la tabla de destino
-      document.querySelector("#table2 tbody").appendChild(newRow);
+      document.querySelector("#productosCompra tbody").appendChild(newRow);
 
       //bloquear combobox de provedores si hay un producto selecionado
       combobox.setAttribute("disabled", true);
@@ -179,7 +190,7 @@ document.getElementById("sendDataBtn").addEventListener("click", function () {
 });
 
 function verificarTabla() {
-  let tabla = document.getElementById("table2");
+  let tabla = document.getElementById("productosCompra");
   let filas = tabla.getElementsByTagName("tr");
 
   let comboBox = document.getElementById("suppliers");
@@ -200,6 +211,7 @@ async function cargarProveedores() {
     const comboBox = document.querySelector("#suppliers");
     data.forEach((d) => {
       const newOPtion = document.createElement("option");
+      newOPtion.value=d["idProveedor"]
       newOPtion.setAttribute("data-supplier-id", d["idProveedor"]);
       newOPtion.innerHTML = d["razonSocial"];
       comboBox.appendChild(newOPtion);
@@ -213,9 +225,9 @@ function obtenerSelecion(){
   return combobox.options[combobox.selectedIndex]
 }
 
-//agregar productos a la myTable
+//agregar productos a la productos
 async function cargarProductos() {
-  const tabla = document.querySelector("#myTable tbody");
+  const tabla = document.querySelector("#productos tbody");
   tabla.innerHTML = "";
   try {
     let response = await fetch(
@@ -243,7 +255,7 @@ function mostrarPagina(page) {
   const endIndex = startIndex + itemsPerPage;
   const paginatedProducts = allProducts.slice(startIndex, endIndex);
   
-  const tabla = document.querySelector("#myTable tbody");
+  const tabla = document.querySelector("#productos tbody");
   tabla.innerHTML = "";
   
   paginatedProducts.forEach((d) => {
@@ -270,9 +282,9 @@ function actualizarInfoPagina() {
 }
 
 // convierte las filas a de una tabla a JSON
-function convertirATablaAJson() {
+function convertirDatosAJson() {
   // Obtener la tabla y sus filas
-  const tabla = document.getElementById('table2');
+  const tabla = document.getElementById('productosCompra');
   const filas = tabla.getElementsByTagName('tr');
   const datosJson = [];
 
@@ -280,12 +292,19 @@ function convertirATablaAJson() {
   for (let i = 1; i < filas.length; i++) {
       const celdas = filas[i].getElementsByTagName('td');
       const filaData = {
-          id: celdas[0].innerText,
+          id: parseInt(celdas[0].innerText),
           costo: parseFloat(celdas[2].firstElementChild.value),
           cantidad: parseInt(celdas[3].firstElementChild.value)
       };
+
        datosJson.push(filaData);
   }
+  const numFactura = document.querySelector("#invoice")
+  const fechaCompra= document.querySelector("#datePurchase")
+  datosJson.push({
+    numFactura:numFactura.value,
+    fechaCompra:fechaCompra.value
+  })
   return datosJson;
 }
 
@@ -295,15 +314,15 @@ async function crearCompra() {
         alert("El costo total debe ser mayor que cero");
         return;
     }
-console.log(convertirATablaAJson())
+console.log(convertirDatosAJson())
 
   try {
-    let response = await fetch(`/api/comprar/crearSolicitudCompra/${obtenerSelecion().dataset.supplierId}`, {
+    let response = await fetch(`/api/comprar/crearCompra/${obtenerSelecion().dataset.supplierId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(convertirATablaAJson())
+      body: JSON.stringify(convertirDatosAJson())
     });
     if (response.ok) {
       alert("Solicitud creada correctamente");
@@ -320,7 +339,7 @@ console.log(convertirATablaAJson())
 }
 
 function calcularTotal() {
-  const tabla = document.getElementById('table2');
+  const tabla = document.getElementById('productosCompra');
   const filas = tabla.getElementsByTagName('tr');
   let total = 0;
 
@@ -336,43 +355,80 @@ function calcularTotal() {
   document.getElementById('totalCost').value = total.toFixed(2);
 }
 
+
+
 // Funciones para recepción de compras
-async function cargarComprasPendientes() {
+async function cargarCompras() {
   try {
-    const response = await fetch('/api/comprar/comprasPendientes');
+    const response = await fetch('/api/comprar/cargarCompras');
     const Compras = await response.json();
     console.log(Compras)
     
-    const select = document.getElementById('solicitudes');
-    select.innerHTML = '<option value="">Seleccione una solicitud...</option>';
+    const select = document.getElementById('comprasList');
+    select.innerHTML = '<option value="">Seleccione una compra...</option>';
     
     Compras.forEach(solicitud => {
       const option = document.createElement('option');
       option.value = solicitud.idCompra;
-      option.textContent = `Solicitud #${solicitud.idCompra} - ${solicitud.proveedor.razonSocial} - ${new Date(solicitud.fechaCompra).toLocaleDateString()}`;
+      option.textContent = `Compra #${solicitud.idCompra} - ${solicitud.proveedor.razonSocial} - ${new Date(solicitud.fechaCompra).toLocaleDateString()}`;
+      option.value=solicitud.idCompra
       select.appendChild(option);
     });
     
     // Event listener para cargar detalles cuando se selecciona una solicitud
     select.addEventListener('change', cargarDetalleCompra);
   } catch (error) {
-    console.error('Error al cargar solicitudes pendientes:', error);
+    console.error('Error al cargar compras', error);
+  }
+
+}
+
+
+
+async function cargarDatosCompra(idCompra) {
+  try {
+    let response = await fetch( `/api/comprar/datosCompra/${idCompra}`);
+    let data = await response.json();
+    console.log(data);
+    
+   const buttonCompra=document.querySelector("#createPurchase")
+   buttonCompra.disabled=true
+   const buttonagregar=document.querySelector("#addProducts")
+   buttonagregar.disabled=true
+   const fechaCompra=data.fechaCompra
+   const idProveedor=data.idProveedor
+   const factura=document.querySelector("#invoice")
+   factura.value=data.numFacturaCompra
+   factura.disabled=true
+   const fecha= document.querySelector("#datePurchase")
+   fecha.value=data.fechaCompra
+   fecha.disabled=true
+   const proveedor= document.querySelector("#suppliers")
+   console.log(data.proveedor.idProveedor)
+   proveedor.value=data.proveedor.idProveedor
+   proveedor.disabled= true
+   cargarProductos()
+   
+  } catch (error) {
+    console.error("Error al obtener la compra", error);
   }
 }
 
+
 async function cargarDetalleCompra() {
-  const compraId = document.getElementById('solicitudes').value;
+  const compraId = document.getElementById('comprasList').value;
   if (!compraId) return;
- 
+ cargarDatosCompra(compraId)
   
   try {
     const response = await fetch(`/api/comprar/productosCompra/${compraId}`);
     const detalles = await response.json();
     console.log(detalles)
     
-    const tabla = document.querySelector('#recepcionTable tbody');
+    const tabla = document.querySelector('#productosCompra tbody');
     tabla.innerHTML = '';
     
+
     detalles.forEach(detalle => {
       const row = document.createElement('tr');
       
@@ -386,29 +442,96 @@ async function cargarDetalleCompra() {
       nombreCell.textContent = detalle.producto.nombreProducto;
       row.appendChild(nombreCell);
       
-      // Costo Unitario
-      const costoCell = document.createElement('td');
-      costoCell.textContent = detalle.costo.toFixed(2);
-      row.appendChild(costoCell);
-      
-      // Cantidad Solicitada
-      const cantidadCell = document.createElement('td');
-      cantidadCell.textContent = detalle.cantidad;
-      row.appendChild(cantidadCell);
+     
 
       
     
       
+      const inputs = [];
+    
+          let costo = document.createElement("input");
+          costo.type = "text";
+          costo.classList.add = "cost form-control";
+          costo.addEventListener('input', calcularTotal);
+          costo.type = "number";  // Cambiado de "text" a "number"
+          costo.step = "0.01";    // Para permitir decimales
+          costo.min = "0";        // Valor mínimo 0
+          costo.value=detalle.costo
+          costo.disabled=true
+          
+          costo.addEventListener("keydown", soloNumerosYDecimales);
+    
+          let cantidad = document.createElement("input");
+          cantidad.type = "number";
+          cantidad.value = "1";
+          cantidad.min = "1";
+          cantidad.addEventListener('input', calcularTotal);
+          cantidad.classList.add="quantity form-control input-number form-control input-number";
+          cantidad.addEventListener("keydown", soloNumeros);
+          cantidad.disabled=true
+          cantidad.value=detalle.cantidad
+          let sacar = document.createElement("button");
+          sacar.textContent = "Eliminar";
+          sacar.className = "btn btn-danger";
+          sacar.disabled=true
+          
+          sacar.onclick = function () {
+            this.parentNode.parentNode.remove();
+            verificarTabla();
+          };
+          inputs.push(costo)
+          inputs.push(cantidad);
+          inputs.push(sacar);
+    
+          inputs.forEach((i) => {
+            const newCell = document.createElement("td");
+            newCell.appendChild(i);
+            row.appendChild(newCell);
+          });
+    
+      
+      
+      
+      
+      
+      
+      
       tabla.appendChild(row);
+      calcularTotal();
     });
+
+
+    
+      
+      
+      
+          
+          
+       
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+    
+    
   } catch (error) {
     console.error('Error al cargar detalle de solicitud:', error);
   }
 }
 
 // Confirmar recepción de compra
-document.getElementById('confirmRecepcion').addEventListener('click', async function() {
-  const compraId = document.getElementById('solicitudes').value;
+/*document.getElementById('confirmRecepcion').addEventListener('click', async function() {
+  const compraId = document.getElementById('comprasList').value;
   const facturaNumber = document.getElementById('facturaNumber').value;
   
   if (!compraId) {
@@ -447,7 +570,7 @@ document.getElementById('confirmRecepcion').addEventListener('click', async func
     console.error('Error al confirmar recepción:', error);
     alert('Error al confirmar la recepción');
   }
-});
+});*/
 
 // Event listeners para paginación
 document.getElementById('prevPage').addEventListener('click', () => {
@@ -484,7 +607,7 @@ function buscarProductos() {
     product.idProducto.toString().includes(searchTerm)
   );
   
-  const tabla = document.querySelector("#myTable tbody");
+  const tabla = document.querySelector("#productos tbody");
   tabla.innerHTML = "";
   
   filteredProducts.forEach((d) => {
@@ -502,6 +625,6 @@ function buscarProductos() {
 }
 
 // Inicialización
-document.addEventListener("DOMContentLoaded", cargarProveedores);
+
 combobox.addEventListener("change", cargarProductos);
-document.querySelector("#createPurchase").addEventListener("click",crearCompra);
+

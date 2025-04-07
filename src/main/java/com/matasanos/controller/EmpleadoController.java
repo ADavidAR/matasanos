@@ -49,4 +49,22 @@ public class EmpleadoController {
     public  List<Object> datosPersona(@PathVariable String dni){
      return empleadoService.datosPersona(dni);
     }
+    @GetMapping("/cargarEmpleados")
+    @ResponseBody
+    public  List<Empleado> listarEmpleados(){
+        return empleadoService.listarEmpleados();
+    }
+    @GetMapping("/cargarDatosEmpleado/{idEmpleado}")
+    @ResponseBody
+    public  Empleado ObtenerEmpleado(@PathVariable int idEmpleado){
+        return empleadoService.ObtenerEmpleado(idEmpleado);
+    }
+    @PostMapping("/modificarEmpleado/{idEmpleado}")
+    public  void  crearEmpleado(@PathVariable int idEmpleado,@RequestBody Map<String,Object> empleado){
+        empleadoService.actualizarEmpleado(idEmpleado,empleado);
+    }
+    @PostMapping("/eliminarEmpleado/{idEmpleado}")
+    public  void  eliminarEmpleado(@PathVariable int idEmpleado){
+        empleadoService.eliminarEmpleado(idEmpleado);
+    }
 }

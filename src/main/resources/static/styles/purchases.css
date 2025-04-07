@@ -1,0 +1,74 @@
+body {
+    background-color: #DCFFFD;
+}
+
+#role-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #037171;
+    height: 6rem;
+}
+
+#role {
+    color: whitesmoke;
+}
+
+#options {
+    background-color: #003F91;
+    height: 3rem; 
+    width: 100%; 
+}
+
+a.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: auto;
+    font-size: 2rem;
+    cursor: pointer;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#nav-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+a.nav:hover {
+    background-color: #2061b5;
+}
+
+
+#main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el combobox de proveedores */
+#suppliers {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+#suppliers:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+

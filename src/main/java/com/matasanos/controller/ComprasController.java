@@ -1,16 +1,15 @@
 package com.matasanos.controller;
 
-import com.matasanos.service.CompraService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/solicitudCompra")
-public class SolicitudCompraController {
+@RequestMapping("/compras")
+public class ComprasController {
 
     
     @GetMapping
-    public String compra(){return "PruebaCompra.html";}
+    public String compra(){return "purchases.html";}
 
 }

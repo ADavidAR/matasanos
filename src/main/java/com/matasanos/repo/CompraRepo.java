@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.awt.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,11 +20,15 @@ public class CompraRepo {
 
 
 
-
-
+    public Compra compra(int idCompra) {
+        String sql = "select * from Compra C " +
+                "INNER JOIN Proveedor P ON P.id_proveedor = C.id_proveedor WHERE C. id_compra=?";
+        return jdbcTemplate.queryForObject(sql, CustomRowMapper.compraRowMapper,idCompra);
+    }
 
         public List<Compra> listarCompras(){
-        String sql= "select * from Compra";
+        String sql= "select * from Compra C " +
+                "INNER JOIN Proveedor P ON P.id_proveedor = C.id_proveedor ORDER BY  id_compra DESC";
         return jdbcTemplate.query(sql, CustomRowMapper.compraRowMapper);
         }
         public  List<Proveedor> listarProveedores() {
@@ -34,9 +39,9 @@ public class CompraRepo {
         String sql="SELECT *  from Producto where id_proveedor = ?";
         return jdbcTemplate.query(sql,productoRowMapper,idProveedor);
         }
-        public  int  crearCompra(BigDecimal costoTotal,int idProveedor){
-        String sql= "insert into Compra(fecha_compra,costo_total,id_proveedor) output inserted.id_compra values (GETDATE(),?,?)";
-        return  jdbcTemplate.queryForObject(sql,int.class,costoTotal,idProveedor);
+        public  int  crearCompra(LocalDate fechaCompra,BigDecimal costoTotal, int idProveedor,  String numFactura){
+        String sql= "insert into Compra(fecha_compra,costo_total,id_proveedor,num_factura_compra) output inserted.id_compra values (?,?,?,?)";
+        return  jdbcTemplate.queryForObject(sql,int.class,fechaCompra,costoTotal,idProveedor,numFactura);
 
         }
         public  void creaProdcutoCompra(int cantidad,BigDecimal costo,int idCompra,int idProducto){
@@ -44,10 +49,7 @@ public class CompraRepo {
         jdbcTemplate.update(sql,cantidad,costo,idCompra,idProducto);
 
         }
-        public  List<Compra> comprasPendientes(){
-        String sql = "SELECT C.*,P.* FROM Compra C INNER JOIN Proveedor P ON P.id_proveedor=C.id_proveedor WHERE num_factura_compra IS NULL";
-        return jdbcTemplate.query(sql,CustomRowMapper.compraRowMapper);
-        }
+
         public  List<ProductoCompra> productosCompra(int idCompra){
         String sql = "SELECT PC.*,P.* FROM ProductoCompra PC INNER JOIN Producto P ON P.id_producto=PC.id_producto WHERE id_compra = ?";
         return  jdbcTemplate.query(sql,productoCompraRowMapper,idCompra);

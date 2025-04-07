@@ -5,6 +5,7 @@ import com.matasanos.model.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +16,14 @@ import static com.fasterxml.jackson.datatype.jsr310.DecimalUtils.toBigDecimal;
 public class CompraService {
     private final CompraRepo compraRepo;
 
-
+    public Compra compra(int idCompra) {
+        return compraRepo.compra(idCompra);
+    }
     public CompraService(CompraRepo compraRepo) {
         this.compraRepo = compraRepo;
     }
-    public  List<Compra> comprasPendientes(){
-        return compraRepo.comprasPendientes();
+    public  List<Compra> listarCompras(){
+        return compraRepo.listarCompras();
     }
 
     public List<Proveedor> listaProveedor(){
@@ -29,14 +32,17 @@ public class CompraService {
     public List<Producto> listaProductos(int idProveedor){
         return compraRepo.listarProductoProveedor(idProveedor);
     }
-    public void crearSolicitudCompra(int idProveedor,List<Map<String,Object>> datos){
-       BigDecimal costo_total = calcularCostoTotal(datos);
-        int idCompra=compraRepo.crearCompra(costo_total,idProveedor);
+    public void crearCompra(int idProveedor,List<Map<String,Object>> datos){
+       Map<String,Object> datosCompra =datos.get(datos.size() - 1);
+       datos.remove(datos.size() - 1);
+        BigDecimal costo_total = calcularCostoTotal(datos);
+
+        int idCompra=compraRepo.crearCompra(LocalDate.parse(datosCompra.get("fechaCompra").toString()),costo_total,idProveedor,(String) datosCompra.get("numFactura"));
 
         for (Map<String,Object> d :datos) {
-            BigDecimal costo=toBigDecimal(d.get("costo"));
-            int idPro=  toBigDecimal(d.get("id")).intValue();
-            int cant=  toBigDecimal(d.get("cantidad")).intValue() ;
+            BigDecimal costo=new BigDecimal(d.get("costo").toString());
+            int idPro=  (int)d.get("id");
+            int cant=  (int) d.get("cantidad") ;
 
             compraRepo.creaProdcutoCompra(cant,costo,idCompra,idPro);
         }
@@ -51,23 +57,11 @@ public class CompraService {
         BigDecimal total = BigDecimal.ZERO;
 
         for (Map<String,Object> d :datos){
-            BigDecimal costo = toBigDecimal(d.get("costo"));
-            BigDecimal cantidad = toBigDecimal(d.get("cantidad"));
+            BigDecimal costo = new BigDecimal(d.get("costo").toString());
+            BigDecimal cantidad = new BigDecimal(d.get("cantidad").toString());
             total = total.add(costo.multiply(cantidad));
     }
     return  total;
     }
-    private BigDecimal toBigDecimal(Object value) {
-        if (value == null) {
-            return BigDecimal.ZERO;
-        }
-        if (value instanceof BigDecimal) {
-            return (BigDecimal) value;
-        }
-        try {
-            return new BigDecimal(value.toString());
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Valor no convertible a BigDecimal: " + value);
-        }
-    }
+
 }
