@@ -36,4 +36,10 @@ public class ProveedorRepo {
         System.out.println(rows + " lineas afectadas");
     }
 
+    public void eliminarProveedorPorId(int idProveedor) {
+        String sql = "DELETE FROM Proveedor WHERE id_proveedor = ?";
+        jdbcTemplate.update(sql, idProveedor);
+
+    }
+
 }
