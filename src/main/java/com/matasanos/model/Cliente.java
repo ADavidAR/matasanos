@@ -1,6 +1,7 @@
 package com.matasanos.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Cliente {
 
