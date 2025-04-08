@@ -6,3 +6,5 @@ ___
 - Karina Alexandra Romero Colindres ``` 20201003758 ```
 - Alex Wilfredo Carias Orellana ``` 20231003291 ```
 - Luis Jared Vindel Andino ``` 20211023878 ```
+
+  ![Modelo de datos](./ModeloRelacional-Matasanos.png)
