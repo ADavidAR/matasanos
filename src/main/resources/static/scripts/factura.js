@@ -5,17 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   mostrarProductosCarrito(carrito);
   calcularTotal();
 
-  // Variables de búsqueda DEBEN estar dentro de este scope
-  const searchInput = document.getElementById('searchInput');
-  const suggestionsList = document.getElementById('suggestionsList');
-  
-  // Datos de clientes
-  const clientes = [
-    { id: 1, nombre: "Cliente 1", rtn: "0801199901234" },
-    { id: 2, nombre: "Cliente 2", rtn: "0801198805678" },
-    { id: 3, nombre: "Cliente 3", rtn: "0801197709123" }
-  ];
-
   function mostrarClienteSeleccionado(nombreCliente, rtnCliente) {
     document.getElementById("cliente").textContent = nombreCliente;
     document.getElementById("rtn").textContent = rtnCliente;
@@ -69,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <td>${producto.nombreProducto}</td>
           <td>${producto.cantidad}</td>
           <td>${producto.precioVenta.toFixed(2)}</td>
-          <td>${(producto.impuesto*100)}%</td>
+          <td class="impuesto">${(producto.impuesto*100)}%</td>
           <td class="total">${((producto.precioVenta + producto.precioVenta *producto.impuesto)*producto.cantidad).toFixed(2)}</td>
 
         </tr>`;
@@ -82,40 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let subtotal = 0;
     
     subtotales.forEach(s => {
-      subtotal += parseFloat(s.textContent); // Cambiado a parseFloat
+      subtotal += parseFloat(s.textContent); 
     });
-
-    let isv = 0;
-
-
-    let total = subtotal + isv;
-
-    // Formatear a 2 decimales
-    document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-    document.getElementById('isv').textContent = isv.toFixed(2);
     document.getElementById('total-total').textContent = subtotal.toFixed(2);
   }
 
   let guardarFactura = document.querySelector('.btn-guardar');
   guardarFactura.addEventListener("click", function(){
-    let clienteSpan = document.getElementById("cliente");
-    if(seleccionado == -1){
-      alert("jJ");
-    } else{
-      alert('naha');
-      let ficha = {
-        cantidad: carrito.cantidad,
-        Producto: {
-          
-        },
-        Sucursal: {
-          idSucursal: 2
-        },
-        TipoMovimiento: {
-          idTipoMovimiento: 2
-        }
-      }
-    }
+    localStorage.removeItem('carrito');
+    window.location.href = '/ventas';
   })
 
 });

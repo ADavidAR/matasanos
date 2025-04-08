@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     deshabilitarBoton()
     }
 
-    //FUNCIONALIDAD #######Explicación#####
     function agregarEventosCantidad() {
       const inputsCantidad = document.querySelectorAll(".quantity-input");
     
@@ -45,15 +44,14 @@ document.addEventListener("DOMContentLoaded", function () {
           const id = parseInt(e.target.dataset.id);
           const nuevaCantidad = parseInt(e.target.value);
     
-          // Buscás el producto correspondiente
           const producto = carrito.find(p => p.idProducto === id);
           if (!producto || isNaN(nuevaCantidad) || nuevaCantidad < 1) return;
     
-          producto.cantidad = nuevaCantidad; // Actualizás el dato en memoria
+          producto.cantidad = nuevaCantidad; // se actualiza el dato en memoria
           carrito = [...carrito];
           localStorage.setItem('carrito', JSON.stringify(carrito));
     
-          // Calculás el nuevo subtotal
+          // Se calcula el nuevo subtotal
           const fila = e.target.closest("tr");
           const celdaSubtotal = fila.querySelector(".subtotal");
           celdaSubtotal.textContent = (producto.precioVenta * nuevaCantidad).toFixed(2);

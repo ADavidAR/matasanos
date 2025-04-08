@@ -2,13 +2,18 @@ package com.matasanos.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.matasanos.dto.ProductoCantidadDto;
 import com.matasanos.model.Categoria;
 import com.matasanos.model.Departamento;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.matasanos.model.Producto;
 import com.matasanos.service.VentaService;
 
@@ -33,7 +38,7 @@ public class VentaController {
         return this.ventaService.listarDepartamentos();
     }
 
-    @GetMapping("/categorias")
+    @GetMapping("/categorias")  
     public List<Categoria> listarCategorias(){
         return this.ventaService.listarCategorias();
     }

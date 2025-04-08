@@ -112,7 +112,7 @@ let card = `<div class="col-lg-3 col-md-4 col-sm-6 mb-4 producto-item" data-id="
             carrito.push({
               ...producto,
               cantidad: cantidad,
-              idSucursal: 2
+              idSucursal: idSucursal
             });
           }
 

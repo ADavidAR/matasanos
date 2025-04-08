@@ -9,14 +9,7 @@
 
 <body>
 
-    <!-- Agrega esto después del <body> y antes del factura-container -->
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar productos..." class="search-bar" list="suggestionsList">
-        <datalist id="suggestionsList"></datalist>
-    </div>
-
     <div class="factura-container">
-        <!-- ... resto del contenido de la factura ... -->
     </div>
 
     <div class="factura-container">
@@ -24,7 +17,7 @@
             <div class="info-empresa">
                 <h2>Matasanos</h2>
                 <p class="info-empresa">Av. Principal 1234<br>
-                    Tel: <span>hols</span> <br></p>
+                    Tel: <span>2293-1230</span> <br></p>
             </div>
             <img src="./img/logo.png" alt="Logo" class="logo">
         </header>
@@ -33,15 +26,15 @@
             <div>
                 <h3 class="color-primario">Datos del cliente</h3>
                 <p class="info-cliente">
-                    Nombre: <span id="cliente" class="text-bold"></span><br>
+                    Nombre: <span id="cliente" class="text-bold">Juan Perez</span><br>
                     RTN: <span id="rtn"></span>
                 </p>    
             </div>
 
             <div class="info-factura">
                 <h3 class="color-primario">Datos de factura</h3>
-                <p>Folio: <span></span><br>
-                    Fecha: <span></span><br></p>
+                <p>Facturación: <span></span><br>
+                    Fecha: 7-04-25 <span></span><br></p>
             </div>
         </section>
 
@@ -61,14 +54,6 @@
         </table>
 
         <div class="totales">
-            <div class="total-row">
-                <span class="total-label">Subtotal:</span>
-                <span id="subtotal"></span>
-            </div>
-            <div class="total-row">
-                <span class="total-label">ISV:</span>
-                <span id="isv"></span>
-            </div>
             <div class="total-row text-bold">
                 <span class="total-label">Total:</span>
                 <span class="color-primario" id="total-total"></span>
@@ -80,7 +65,7 @@
         </footer>
     </div>
 
-    <button class="btn-guardar">Guardar factura</button>
+    <button class="btn-guardar" onclick="location.href = '/ventas'">Guardar factura</button>
 
     <script src="./scripts/factura.js"></script>
 </body>
