@@ -24,4 +24,8 @@ public class ProveedorService {
     public void guardarNuevoProveedor(Proveedor proveedor) {
         proveedorRepo.guardarNuevoProveedor(proveedor);
     }
+
+    public void eliminarProveedorPorId(int idProveedor) {
+        proveedorRepo.eliminarProveedorPorId(idProveedor);
+    }
 }

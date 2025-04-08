@@ -39,4 +39,10 @@ public class ProveedorController {
         proveedorService.guardarNuevoProveedor(proveedor);
         return ResponseEntity.ok("Proveedor guardado correctamente");
     }
+
+    @DeleteMapping("/{idProveedor}")
+    public ResponseEntity<String> eliminarProductoPorId(@PathVariable int idProveedor) {
+        proveedorService.eliminarProveedorPorId(idProveedor);
+        return ResponseEntity.ok("Proveedor eliminado correctamente");
+    }
 }
