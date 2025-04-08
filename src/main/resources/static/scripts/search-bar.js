@@ -1,5 +1,8 @@
 const searchBar = document.getElementById('search-bar');
-const idSucursal = 1 //que se cargue del localstorage
+
+const user = JSON.parse(localStorage.getItem("userData"));
+const idSucursal = user.empleado.sucursal.idSucursal;
+
 const resultsContainer = document.getElementById('results');
 let productos = [];
 

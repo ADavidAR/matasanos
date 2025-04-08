@@ -1,5 +1,8 @@
 window.addEventListener("DOMContentLoaded", async () => {
-    let idSucursal = 1; //que lo obbtenga de localstorage
+
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const idSucursal = user.empleado.sucursal.idSucursal;
+
     const params = new URLSearchParams(window.location.search);
     const idDepartment = params.get("idDepartamento");
     const idCategory = params.get("idCategoria");
