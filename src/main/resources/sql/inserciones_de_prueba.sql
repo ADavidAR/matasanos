@@ -74,13 +74,11 @@ INSERT INTO Permiso (descripcion, endpoint_url, acceso_directo) VALUES
     ('Cajas', '/cajas', 1),            -- Permiso 6
 	('Clientes', '/clientes', 1),      -- Permiso 7
 	('Recetas Medicas', '/recetas', 1),-- Permiso 8
-
-	('Categorias de Producto', '/categorias', 1),-- Permiso 9
-	('Compras', '/compras', 1),-- Permiso 10
-	('Inventario', '/inventory', 1),-- Permiso 11
-	('Ventas', '/ventas', 1),-- Permiso 12
-	('Carrito', '/carrito', 0),-- Permiso 13
-	('Factura', '/factura', 0);-- Permiso 14
+	('Compras', '/compras', 1),-- Permiso 9
+	('Inventario', '/inventory', 1),-- Permiso 10
+	('Ventas', '/ventas', 1),-- Permiso 11
+	('Carrito', '/carrito', 0),-- Permiso 12
+	('Factura', '/factura', 0);-- Permiso 13
 
 
 -- Luego insertamos los roles básicos
@@ -101,12 +99,11 @@ INSERT INTO RolPermiso (id_rol, id_permiso, acceso, modificacion, eliminacion, c
     (1, 6, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Cajas
 	(1, 7, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Clientes
 	(1, 8, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Recetas Medicas
-	(1, 9, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Categorias de Producto
-	(1, 10, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Compras
-	(1, 11, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Inventario
-	(1, 12, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Ventas
-	(1, 13, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Carrito
-	(1, 14, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Factura
+	(1, 9, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Compras
+	(1, 10, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Inventario
+	(1, 11, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Ventas
+	(1, 12, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Carrito
+	(1, 13, 1, 1, 1, 1),  -- Rol 1 (Administrador) puede gestionar completamente Factura
     
     -- Permisos para Gerente (acceso casi completo excepto para Permisos)
     (2, 2, 1, 1, 0, 1),  -- Rol 2 (Gerente) puede ver, modificar y crear Usuarios (no eliminar)

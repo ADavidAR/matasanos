@@ -19,10 +19,10 @@
     />
   </head>
   <body>
-
-    <script src="/scripts/AuthenticationAuthorization.js">
+    <script src="/scripts/AuthenticationAuthorization.js"></script>
+    <script>
       if(!AuthenticationAuthorization.checkAuthorization()) window.location.href = "/login";
-      const auth = AuthenticationAuthorization.checkAuthorization("/permisos");
+      const auth = AuthenticationAuthorization.checkAuthorization("/empleados");
       if(!auth.access) window.location.href = "/home";
     </script>
     <header>
